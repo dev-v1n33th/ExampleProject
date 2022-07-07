@@ -117,9 +117,12 @@ public class GuestService implements GuestInterface {
 //            System.out.println(getUniqueBed.getBedId());
 //            guest.setDueAmount(getUniqueBed.getDefaultRent() - guest.getAmountPaid());
 //        }
-       // SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        //System.out.println(formatter.format(tSqlDate));
+        System.out.println("cccc"+guest.getCheckInDate());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        System.out.println("ccff"+formatter.format(guest.getCheckInDate()));
        
+        
+//        java.util.Date  utilDate = new java.util.Date(guest.getCheckInDate());
         java.sql.Date tSqlDate = new java.sql.Date(guest.getTransactionDate().getTime());
         
         guest.setTransactionDate(tSqlDate);
@@ -130,7 +133,7 @@ public class GuestService implements GuestInterface {
        
         repository.save(guest);
         
-        if(guest.getOccupancyType().equalsIgnoreCase("daily"))
+        if(guest.getOccupancyType().equalsIgnoreCase("Daily"))
         {
         	java.util.Date m = guest.getCheckInDate();
             Calendar cal = Calendar.getInstance();  
@@ -142,7 +145,7 @@ public class GuestService implements GuestInterface {
             guest.setGuestStatus("Active");            
             repository.save(guest);
         }
-        else if(guest.getOccupancyType().equalsIgnoreCase("monthly"))
+        else if(guest.getOccupancyType().equalsIgnoreCase("OneMonth"))
         {
         	java.util.Date m = guest.getCheckInDate();
             Calendar cal = Calendar.getInstance();  
@@ -366,7 +369,7 @@ public class GuestService implements GuestInterface {
 			g.setPlannedCheckOutDate(m);
 			g.setGuestStatus("active");
 			repository.save(g);
-		} else if (guest.getOccupancyType().equalsIgnoreCase("monthly")) {
+		} else if (guest.getOccupancyType().equalsIgnoreCase("OneMonth")) {
 			java.util.Date m = guest.getCheckInDate();
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(m);
@@ -710,6 +713,12 @@ public ResponseEntity paymentRemainder(int buildingId)
 	public List<RatesConfig> findByBuildingIdAndOccupancyType(int buildingId, String occupancyType) {
 		// TODO Auto-generated method stub
 		return rconfig.findByBuildingIdAndOccupancyType(buildingId, occupancyType);
+	}
+
+	@Override
+	public List<RatesConfig> findByOccupancyType(String occupancyType) {
+		// TODO Auto-generated method stub
+		return rconfig.findByOccupancyType(occupancyType);
 	}
 
 }

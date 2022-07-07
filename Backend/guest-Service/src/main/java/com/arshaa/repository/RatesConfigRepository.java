@@ -13,5 +13,6 @@ public interface RatesConfigRepository extends JpaRepository<RatesConfig, Intege
 	
 	
 	public List<RatesConfig> findByBuildingIdAndOccupancyType(int buildingId , String occupancyType);
+	public List<RatesConfig> findByOccupancyType(String occupancyType);
 
 }

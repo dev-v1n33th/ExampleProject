@@ -575,7 +575,7 @@ Rooms room = roomRepo.save(newRoom);
 												newBed.setAc(bed.isAc());
 												newBed.setBedName(bed.getBedName());
 												newBed.setBedNum(bed.getId());
-												newBed.setSharing(bed.getSharing());
+//												newBed.setSharing(count);
 												newBed.setBuildingName(getBuilding.get().getBuildingName());
 //												if(bed.isBedStatus()==false)
 //												{
@@ -792,13 +792,14 @@ Rooms room = roomRepo.save(newRoom);
 							newBed.setBedId(bed.getBedId());
 							newBed.setBedName(bed.getBedName());
 							newBed.setBedStatus(bed.isBedStatus());
+							int count=bedrepo.getBedsByRoomId(bed.getRoomId()).size();
 							newBed.setRoomId(bed.getRoomId());
 							newBed.setBedNum(bed.getId());
 							newBed.setBuildingId(bed.getBuildingId());
 							newBed.setAc(bed.isAc());
 							newBed.setDefaultRent(bed.getDefaultRent());
 							newBed.setBuildingName(getBuilding.get().getBuildingName());
-							newBed.setSharing(bed.getSharing());
+							newBed.setSharing(count);
 							bedsList.add(newBed);
 						});
 					}
