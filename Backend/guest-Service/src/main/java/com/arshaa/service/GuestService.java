@@ -43,6 +43,7 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -147,6 +148,8 @@ public class GuestService implements GuestInterface {
         }
         else if(guest.getOccupancyType().equalsIgnoreCase("OneMonth"))
         {
+        	guest.setDuration(1);
+        	repository.save(guest);
         	java.util.Date m = guest.getCheckInDate();
             Calendar cal = Calendar.getInstance();  
             cal.setTime(m);  
@@ -525,21 +528,23 @@ public ResponseEntity paymentRemainder(int buildingId)
 			LocalDate now=LocalDate.now();
 			System.out.println("current"+now);
 
-			//convert checkin date type to util date to compare dates
-			java.sql.Date s=getGuest.getCheckInDate();
+			//convert checkin date type to util date to compare dates=>converted sql date to local date 
+			Date  s=getGuest.getCheckInDate();
+			LocalDate localDate1 = s.toLocalDate();
 			System.out.println("date"+s);
 
-			LocalDate local = s.toInstant()
-	                  .atZone(ZoneId.systemDefault())
-	                  .toLocalDate();
-			
+//			LocalDate local = s.toInstant()
+//	                  .atZone(ZoneId.systemDefault())
+//	                  .toLocalDate();
+//			System.out.println("Local"+local);
 			//compare 2 dates
 //			Period p=Period.between(now, local);
 //			System.out.println("period"+p);
 //			int diff=p.getDays();
 //			System.out.println("diff"+diff);
+//			LocalDate date = LocalDate.ofInstant(getGuest.getCheckInDate().toInstant(), ZoneId.systemDefault());
 			
-			double  c=(int) ChronoUnit.DAYS.between(local, now)+1;
+			double  c=(int) ChronoUnit.DAYS.between(localDate1, now)+1;
 			System.out.println("c"+c);
 
 			if(c>30)

@@ -90,6 +90,7 @@ export default function CustomizedButtons(props) {
   const [occupancyType, setOccupancyType] = useState("");
   const [securityDeposit, setSecurityDeposit] = useState();
   const[sharing,setSharing]=useState();
+  const[roomType,setRoomType] = useState();
   const classes = useStyles();
 
 
@@ -198,8 +199,10 @@ export default function CustomizedButtons(props) {
     console.log("row" + data.price);
     setSelectedRow(data.price);
     setSharing(data.sharing)
+    setRoomType(data.roomType);
+
   };
-  console.log(sharing)
+  console.log(roomType)
 
   //calculating rent amount for total
   const monthlySec = 0;
@@ -213,6 +216,7 @@ export default function CustomizedButtons(props) {
     defaultRent: selectedRow,
     securityDeposit: securityDeposit,
     duration:duration,
+    roomType:roomType,
     sharing:sharing
   };
   props.func(occupancyObject);
