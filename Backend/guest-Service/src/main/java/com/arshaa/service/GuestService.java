@@ -571,17 +571,20 @@ public ResponseEntity paymentRemainder(int buildingId)
 			System.out.println("m"+m);
 
 
-			LocalDate checkIn = s.toInstant()
-	                  .atZone(ZoneId.systemDefault())
-	                  .toLocalDate();
-			System.out.println("checkIn"+checkIn);
+//			LocalDate checkIn = s.toInstant()
+//	                  .atZone(ZoneId.systemDefault())
+//	                  .toLocalDate();
+//			System.out.println("checkIn"+checkIn);
+			LocalDate now=LocalDate.now();
+			Date  checkIn=getGuest.getCheckInDate();
+			LocalDate localDate1 = checkIn.toLocalDate();
 
 			LocalDate plannedCheckOut = m.toInstant()
 	                  .atZone(ZoneId.systemDefault())
 	                  .toLocalDate();
 			System.out.println("plannedCheckOut"+plannedCheckOut);
 
-			double  diff=(int) ChronoUnit.DAYS.between(checkIn, plannedCheckOut);
+			double  diff=(int) ChronoUnit.DAYS.between(localDate1, plannedCheckOut);
 			System.out.println("diff"+diff);		
 				 double perDayCharge=(getGuest.getDefaultRent()/30);
 					System.out.println("perDayCharge"+perDayCharge);

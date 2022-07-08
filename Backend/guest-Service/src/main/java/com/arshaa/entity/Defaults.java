@@ -33,7 +33,8 @@ public class Defaults {
 	public void setSecurityDepositAmount(double securityDepositAmount) {
 		this.securityDepositAmount = securityDepositAmount;
 	}
-	public String getOccupencyType() {
+	
+	public String getOccupancyType() {
 		return occupancyType;
 	}
 	public void setOccupancyType(String occupancyType) {

@@ -70,13 +70,16 @@ const CheckOut = (props) => {
 
   }
   return (
-    <>
+    <div className="CheckOutComponent">
 
 
       <Grid container>
-        {props.guestdetails.guestStatus == "InNotice" || props.guestdetails.occupancyType == 'Daily' || props.guestdetails.occupancyType == 'Monthly' ? (<div></div>) : (<Grid xs={5} sx={{ pt: "30px", pr: "40px" }}>
+      {/* <Grid xs={5} sx={{ pt: "30px", pr: "40px" }}> */}
+          {/* <Button disabled={disableCheckoutButtons} variant="contained" color="primary" onClick={initiateCheckoutProcess} style={{ color: "white" }}>INITIATE CHECKOUT</Button> */}
+        {/* </Grid> */}
+        {props.guestdetails.occupancyType == "Regular"  ?  (<Grid xs={5} sx={{ pt: "30px", pr: "40px" }}>
           <Button disabled={disableCheckoutButtons} variant="contained" color="primary" onClick={initiateCheckoutProcess} style={{ color: "white" }}>INITIATE CHECKOUT</Button>
-        </Grid>)}
+        </Grid>) :(<div></div>)}
 
 
 
@@ -85,12 +88,12 @@ const CheckOut = (props) => {
         { }
 
 
-        {props.guestdetails.guestStatus == "InNotice" && guestdueamount == 0 ? (
+        {props.guestdetails.guestStatus == "InNotice"  ? (
           <Button disabled={disableCheckoutButtons} variant="contained" color="primary" style={{ color: "white", float: "right" }} onClick={finalCheckOutHandler} >Finish CheckOut</Button>
         ) : (<div></div>)}
        
 
-        {props.guestdetails.occupancyType == 'Daily' || props.guestdetails.occupancyType == 'Monthly' ? (
+        {props.guestdetails.occupancyType == 'Daily' || props.guestdetails.occupancyType == 'OneMonth' ? (
           <Button disabled={disableCheckoutButtons} className="btn-float-left" variant="contained" color="primary" style={{ color: "white", float: "right" }} onClick={finalCheckOutHandler} >CheckOut</Button>
         ) : (<div></div>)}
 
@@ -112,7 +115,7 @@ const CheckOut = (props) => {
         draggable
         pauseOnHover
       />
-    </>
+    </div>
   )
 }
 

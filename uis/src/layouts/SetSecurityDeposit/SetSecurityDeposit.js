@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import { Grid } from "@mui/material";
 // import axios from "axios";
-import axios from "../../../Uri";
+import axios from "../.././Uri";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function ConfigSecurityDeposit() {
+function SetSecurityDeposit() {
   let userData = JSON.parse(sessionStorage.getItem("userdata"));
   let userId = userData.data.userId;
   // console.log(userId);
@@ -17,7 +17,7 @@ function ConfigSecurityDeposit() {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("/guest/getSecurityDeposit")
+      .get("/guest/getAllconfiguredSecurityDeposit")
       .then((res) => {
         console.log(res.data);
         setData(res.data);
@@ -42,22 +42,15 @@ function ConfigSecurityDeposit() {
         color: "white",
       },
     },
-    // {
-    //   title: "Security Deposit",
-    //   field: "securityDepositAmount",
-    //   headerStyle: {
-    //     backgroundColor: "#1E90FF",
-    //     color: "white",
-    //   },
-    // },
     {
-      title: "Notice Period",
-      field: "noticeDays",
+      title: "Security Deposit",
+      field: "securitydeposit",
       headerStyle: {
         backgroundColor: "#1E90FF",
         color: "white",
       },
     },
+   
   ];
 
   return (
@@ -65,7 +58,7 @@ function ConfigSecurityDeposit() {
       <Grid container>
         <Grid xs={12}>
           <MaterialTable
-            title="Configure Security Deposit"
+            title="Set Security Deposit"
             data={data}
             sx={{ color: "white" }}
             columns={columns}
@@ -80,7 +73,7 @@ function ConfigSecurityDeposit() {
                   setTimeout(() => {
                     const res = axios
                       .post(
-                        "/guest/addSecurityDeposit",
+                        "/guest/setSecurityDeposit",
 
                         newRow
                       )
@@ -109,7 +102,7 @@ function ConfigSecurityDeposit() {
 
                   setTimeout(() => {
                     const res = axios
-                      .put(`/guest/updateSecurityDeposit/${index}`, updatedRow)
+                      .put(`/guest/postUpdateSecurityDeposit/${index}`, updatedRow)
                       .then((resp) => {
                         console.log(resp);
                         setData(updatedRows);
@@ -162,4 +155,4 @@ function ConfigSecurityDeposit() {
   );
 }
 
-export default ConfigSecurityDeposit;
+export default SetSecurityDeposit;

@@ -63,7 +63,7 @@ public class SecurityDepositServiceImpl implements SecurityDepositService {
 	public ResponseEntity<Defaults> addData(Defaults sdepo) {
 		
 		try {
-			if(securityDepositRepo.existsByOccupancyType(sdepo.getOccupencyType())==false)
+			if(securityDepositRepo.existsByOccupancyType(sdepo.getOccupancyType())==false)
 			{
 				Defaults securityadd = securityDepositRepo.save(sdepo);
 				return new ResponseEntity<>(securityadd,HttpStatus.OK);

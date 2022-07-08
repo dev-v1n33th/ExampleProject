@@ -4,6 +4,8 @@ import Profile from 'layouts/profile';
 import SignIn from 'layouts/authentication/sign-in';
 import Branch from 'layouts/branch/index';
 import RoomAvailability from 'layouts/roomAvailibity';
+import AddingSecurityDeposits from 'layouts/SetSecurityDeposit';
+
 // import BulkImport from 'layouts/bulkImport';
 // import Expenses from 'layouts/expenses';
 import Icon from '@mui/material/Icon';
@@ -146,6 +148,14 @@ const routes = [
 		icon:<Icon fontSize="small">send</Icon>,
 		route:'/configure',
 		component:<ConfigSecurityDeposits />
+	},
+	{
+		type: 'collapse',
+		name: 'adding Security Deposit',
+		key:'addingSecurityDeposits',
+		icon:<Icon fontSize="small">send</Icon>,
+		route:'/securityConfiguration',
+		component:<AddingSecurityDeposits />
 	},
 	{
 		type: 'collapse',

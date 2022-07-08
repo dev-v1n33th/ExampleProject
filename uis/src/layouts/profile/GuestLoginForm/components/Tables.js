@@ -58,7 +58,7 @@ export default function Tables(props) {
         }}
       />
       <div style={{ marginTop: "40px" }}>
-        You have selected: {selectedRow[0].sharing} sharing and rent of that room is &#8377; {selectedRow[0].price}
+        You have selected: {selectedRow[0].sharing} sharing {selectedRow[0].roomType} and rent of that room is &#8377; {selectedRow[0].price}
         {  
  
         props.func(selectedRow[0])}

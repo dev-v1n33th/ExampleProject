@@ -19,10 +19,12 @@ import com.arshaa.model.ResponseFile;
 import com.arshaa.model.ResponseMessage;
 import com.arshaa.model.VacatedGuests;
 import com.arshaa.repository.GuestRepository;
+import com.arshaa.repository.RatesConfigRepository;
 import com.arshaa.service.GuestInterface;
 import com.arshaa.service.GuestProfileService;
 import com.arshaa.service.NotesService;
 import com.arshaa.service.SecurityDepositService;
+import com.arshaa.service.SetSecurityInterface;
 import com.google.common.net.HttpHeaders;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +71,35 @@ public class GuestController {
 	@Autowired
 	private NotesService nServ;
 	
+	@Autowired
+	private SetSecurityInterface sint ;
+	
+	@Autowired
+	 private RatesConfigRepository rcr ;
+	
+	
+	//Posting Rates based on sharing 
+	@PostMapping("/postRates")
+	public RatesConfig saveRates(@RequestBody RatesConfig rates) {
+		try {
+			return rcr.save(rates);
+		}catch(Exception e) {
+		System.out.println("cant config Rents"+ e.getLocalizedMessage());
+		}
+		return null ;
+	}
+	
+	//delete rents ;
+	@DeleteMapping("/deleteRents/{id}")
+     public void deleteRents(@PathVariable int id) {
+		 rcr.deleteById(id);
+	}
+	
+	@GetMapping("/getRatesByOccupancyType/{occupancyType}")
+	public List<RatesConfig> findByOccupancyType(@PathVariable String occupancyType)
+	{
+		return service.findByOccupancyType(occupancyType);
+	}
 	
 	
 	
@@ -87,11 +118,11 @@ public class GuestController {
 	public List<RatesConfig> getByBuildingId(@PathVariable int buildingId, @PathVariable String occupancyType){
 		return service.findByBuildingIdAndOccupancyType(buildingId, occupancyType);
 	}
-	@GetMapping("/getRatesByOccupancyType/{occupancyType}")
-	public List<RatesConfig> findByOccupancyType(@PathVariable String occupancyType)
-	{
-		return service.findByOccupancyType(occupancyType);
-	}
+//	@GetMapping("/getRatesByOccupancyType/{occupancyType}")
+//	public List<RatesConfig> findByOccupancyType(@PathVariable String occupancyType)
+//	{
+//		return service.findByOccupancyType(occupancyType);
+//	}
 	@PostMapping("/addGuest")
 	public Guest saveGuest(@RequestBody Guest guest) {
 
@@ -435,7 +466,25 @@ public List<Guest> getGuestsForAll() {
 public ResponseEntity getEmailById(@PathVariable String id) {
 	Guest guest = repository.getEmailById(id);
 	return new ResponseEntity(guest.getEmail(), HttpStatus.OK);
+	
+	
 }
+//-------------------SecurityDepositSetting apis ------------------
+  @PostMapping("/setSecurityDeposit")
+  public SecurityDeposit saveSecurityDeposit(@RequestBody  SecurityDeposit security) {
+	  return this.sint.saveSecurityDeposit(security);
+  }
+  
+  
+  @GetMapping("/getAllconfiguredSecurityDeposit")
+  public List<SecurityDeposit> getallSecuritydeposit(){
+	  return sint.getallSecuritydeposit();
+  }
+  
+  @PutMapping("/postUpdateSecurityDeposit/{id}")
+  public SecurityDeposit  updateSecurityDeposit( @PathVariable  int id, @RequestBody SecurityDeposit sd){
+	  return this.sint.updateSecurityDeposit(id, sd);
+  }
 
 
 //June 30 .

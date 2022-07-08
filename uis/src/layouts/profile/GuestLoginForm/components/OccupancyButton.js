@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 // import 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Stack from "@mui/material/Stack";
 import { purple } from "@mui/material/colors";
@@ -75,7 +77,8 @@ const BootstrapButton = styled(Button)({
 
 const useStyles=makeStyles(()=>({
   activeButton:{
-    background:"#0373fc"
+    // background:"#0373fc"
+    background:"#139c15"
   }
 }))
 export default function CustomizedButtons(props) {
@@ -168,7 +171,16 @@ export default function CustomizedButtons(props) {
                 toast.error("Something went wrong🤦‍♂️");
               });
       }
-      
+      axios
+      .get("/guest/getAllconfiguredSecurityDeposit")
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something went wrong🤦‍♂️")
+      });
     }, [1]);
     const [activeButton, setActiveButton] = useState();
     console.log(occupancyType);

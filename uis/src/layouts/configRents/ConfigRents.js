@@ -66,7 +66,7 @@ function ConfigRents() {
   const columns = [
     {
       title: "Occupancy Type",
-      field: "occypancyType",
+      field: "occupancyType",
       editable: false,
       headerStyle: {
         backgroundColor: "#1E90FF",
@@ -83,16 +83,16 @@ function ConfigRents() {
       },
     },
     {
-      title: "AC -Price",
-      field: "acPrice",
+      title: "Room Type",
+      field: "roomType",
       headerStyle: {
         backgroundColor: "#1E90FF",
         color: "white",
       },
     },
     {
-      title: "N/AC -Price",
-      field: "nacPrice",
+      title: "Price",
+      field: "price",
       headerStyle: {
         backgroundColor: "#1E90FF",
         color: "white",
