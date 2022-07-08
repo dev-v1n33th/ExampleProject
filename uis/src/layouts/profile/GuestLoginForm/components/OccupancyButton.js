@@ -32,6 +32,7 @@ import axios from "../../../../Uri";
 import Tables from "./Tables";
 import Paper from "@mui/material/Paper";
 import SecurityDepo from "./SecurityDepo";
+
 //styles
 const BootstrapButton = styled(Button)({
   boxShadow: "none",
@@ -89,41 +90,85 @@ export default function CustomizedButtons(props) {
   const [occupancyType, setOccupancyType] = useState("");
   const [securityDeposit, setSecurityDeposit] = useState();
   const[sharing,setSharing]=useState();
+  const[roomType,setRoomType] = useState();
   const classes = useStyles();
+
+
     useEffect(() => {
-      let url = `guest/getRatesByBuildingId/${props.buildingId}/regular`;
-      axios
-        .get(url)
-        .then((res) => {
-          console.log(res.data);
-          setRentData(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-          toast.error("Something went wrong🤦‍♂️");
-        });
-        let url2 = `guest/getRatesByBuildingId/${props.buildingId}/daily`;
+
+
+      if(props.buildingId==0)
+      {
+        let url = `guest/getRatesByOccupancyType/regular`;
         axios
-          .get(url2)
+          .get(url)
           .then((res) => {
             console.log(res.data);
-            setDailyData(res.data);
+            setRentData(res.data);
           })
           .catch((err) => {
             console.log(err);
             toast.error("Something went wrong🤦‍♂️");
           });
-          let url3 = `guest/getRatesByBuildingId/${props.buildingId}/OneMonth`;
+          let url2 = `guest/getRatesByOccupancyType/daily`;
           axios
-            .get(url3)
+            .get(url2)
             .then((res) => {
               console.log(res.data);
-              setMonthlyData(res.data);
+              setDailyData(res.data);
             })
             .catch((err) => {
               console.log(err);
               toast.error("Something went wrong🤦‍♂️");
             });
+            let url3 = `guest/getRatesByOccupancyType/OneMonth`;
+            axios
+              .get(url3)
+              .then((res) => {
+                console.log(res.data);
+                setMonthlyData(res.data);
+              })
+              .catch((err) => {
+                console.log(err);
+                toast.error("Something went wrong🤦‍♂️");
+              });
+      }
+      else{
+        let url = `guest/getRatesByBuildingId/${props.buildingId}/regular`;
+        axios
+          .get(url)
+          .then((res) => {
+            console.log(res.data);
+            setRentData(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("Something went wrong🤦‍♂️");
+          });
+          let url2 = `guest/getRatesByBuildingId/${props.buildingId}/daily`;
+          axios
+            .get(url2)
+            .then((res) => {
+              console.log(res.data);
+              setDailyData(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+              toast.error("Something went wrong🤦‍♂️");
+            });
+            let url3 = `guest/getRatesByBuildingId/${props.buildingId}/OneMonth`;
+            axios
+              .get(url3)
+              .then((res) => {
+                console.log(res.data);
+                setMonthlyData(res.data);
+              })
+              .catch((err) => {
+                console.log(err);
+                toast.error("Something went wrong🤦‍♂️");
+              });
+      }
+      
     }, [1]);
     const [activeButton, setActiveButton] = useState();
     console.log(occupancyType);
@@ -154,8 +199,10 @@ export default function CustomizedButtons(props) {
     console.log("row" + data.price);
     setSelectedRow(data.price);
     setSharing(data.sharing)
+    setRoomType(data.roomType);
+
   };
-  console.log(sharing)
+  console.log(roomType)
 
   //calculating rent amount for total
   const monthlySec = 0;
@@ -169,6 +216,7 @@ export default function CustomizedButtons(props) {
     defaultRent: selectedRow,
     securityDeposit: securityDeposit,
     duration:duration,
+    roomType:roomType,
     sharing:sharing
   };
   props.func(occupancyObject);

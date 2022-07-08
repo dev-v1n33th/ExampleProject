@@ -87,7 +87,11 @@ public class GuestController {
 	public List<RatesConfig> getByBuildingId(@PathVariable int buildingId, @PathVariable String occupancyType){
 		return service.findByBuildingIdAndOccupancyType(buildingId, occupancyType);
 	}
-
+	@GetMapping("/getRatesByOccupancyType/{occupancyType}")
+	public List<RatesConfig> findByOccupancyType(@PathVariable String occupancyType)
+	{
+		return service.findByOccupancyType(occupancyType);
+	}
 	@PostMapping("/addGuest")
 	public Guest saveGuest(@RequestBody Guest guest) {
 
@@ -458,6 +462,7 @@ public ResponseEntity addData(@RequestBody Notes notes) {
 public ResponseEntity getNoteById(@PathVariable String guestId) {
    return nServ.getNoteById(guestId);
 }
+
 }
 //	@GetMapping("/getGuestAboutToCheckOut/RegulatInNotice/Daily-Monthly-Active/{id}")
 //	public List<GuestsInNotice> getAll(@PathVariable String id) {

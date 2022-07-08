@@ -172,6 +172,8 @@ const GuestLoginForm = (props) => {
   const [occupancyType, setOccupancyType] = React.useState({});
   const [sharing,setSharing]=React.useState(null);
   const [totalRent, setTotalRent] = useState("");
+  const[roomType,setRoomType] = React.useState();
+  let monthDuration;
   const getAmount = (data) => {
     console.log("amount" + data.securityDeposit);
     // setRentAmount(data);
@@ -181,7 +183,19 @@ const GuestLoginForm = (props) => {
     setOccupancyType(data.occupancyType);
     setDuration(data.duration);
     setSharing(data.sharing)
+    // setRoomType(data.roomType);
+    console.log(data.roomType)
+    if(data.roomType=="Ac")
+    {
+      setRoomType(true)
+    }
+    else
+    {
+      setRoomType(false)
+    }
   };
+  console.log(roomType);
+  console.log(duration);
   console.log(occupancyType);
   console.log(sharing);
   console.log(regular);
@@ -294,15 +308,18 @@ const GuestLoginForm = (props) => {
   };
 
   console.log(availableBeds)
+  let bedSharingStatus=true
   availableBeds.map((item) => {
-    if(item.sharing == sharing){
-         
+    if(item.sharing == sharing && item.ac==roomType){
         availableBedsByBuidlingName.push(item.bedId);
-
-
     }
-    
+    else{
+      bedSharingStatus=false;
+    }
   });
+  if(availableBedsByBuidlingName===null){
+    toast.error("Selected sharing beds are not available");
+  }
   console.log(availableBedsByBuidlingName);
 
   const selectBed = (e) => {
@@ -376,6 +393,7 @@ const GuestLoginForm = (props) => {
   const obj5 = { buildingId: buildId };
   const obj6 = { occupancyType: occupancyType };
   const obj7={sharing:sharing};
+  const obj8={duration: duration};
   const amountNeedToPay = (n) => {};
 
   function handleChooseGuestPicture(event) {
@@ -417,7 +435,8 @@ const GuestLoginForm = (props) => {
                   const guestdata3 = Object.assign(guestdata2, obj5);
                   const guestdata4 = Object.assign(guestdata3, obj3);
                   const guestdata5 = Object.assign(guestdata4, obj6);
-                  const guestdata =Object.assign(guestdata5,obj7);
+                  const guestdata6 =Object.assign(guestdata5,obj7);
+                  const guestdata=Object.assign(guestdata6, obj8);
 
                   console.log(guestdata);
                   try {

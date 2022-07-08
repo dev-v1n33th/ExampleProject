@@ -61,6 +61,8 @@ public interface GuestInterface {
 	
 	public List<RatesConfig> findByBuildingIdAndOccupancyType(int buildingId , String occupancyType);
 	
+	public List<RatesConfig> findByOccupancyType(String occupancyType);
+	
 	
 
 
