@@ -47,7 +47,7 @@ function ActregGuestDetails(props) {
         createData(<h4>Total Amount Paid</h4>, 'Rs.'+ props.TotalAmountByGuest)
       ]
       console.log(props.TotalAmountByGuest)
-    
+    //
   return (
     <Grid container spacing={2} columns={16}>
     <Grid item xs={8}>
