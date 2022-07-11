@@ -26,7 +26,7 @@ public class SecurityDepositServiceImpl implements SecurityDepositService {
 			
 		}
 		catch (Exception e){
-			return new ResponseEntity("Something went Wrong! Try again",HttpStatus.OK);
+			return new ResponseEntity(e.getMessage(),HttpStatus.OK);
 			
 		}
 	}

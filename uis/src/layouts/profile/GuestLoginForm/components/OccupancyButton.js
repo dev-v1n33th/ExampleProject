@@ -76,6 +76,23 @@ const BootstrapButton = styled(Button)({
 });
 
 const useStyles=makeStyles(()=>({
+//Azam changes start 
+// useEffect(() => {
+//   axios
+
+//     .get("/guest/getAllconfiguredSecurityDeposit")
+//     .then((res) => {
+//       setSecurityDeposit(res.data);
+//       console.log(res.data);
+
+//     };  
+//     .catch((err) => {
+//       console.log(err);
+//     }); []);
+
+
+
+//Azam ends here 
   activeButton:{
     // background:"#0373fc"
     background:"#139c15"
@@ -94,11 +111,18 @@ export default function CustomizedButtons(props) {
   const [securityDeposit, setSecurityDeposit] = useState();
   const[sharing,setSharing]=useState();
   const[roomType,setRoomType] = useState();
+  const[data,setData]=useState();
   const classes = useStyles();
 
-
     useEffect(() => {
-
+      axios
+      .get("/guest/getAllconfiguredSecurityDeposit")
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        toast.error("Something went wrong🤦‍♂️")
+      });
 
       if(props.buildingId==0)
       {
@@ -106,33 +130,27 @@ export default function CustomizedButtons(props) {
         axios
           .get(url)
           .then((res) => {
-            console.log(res.data);
             setRentData(res.data);
           })
           .catch((err) => {
-            console.log(err);
             toast.error("Something went wrong🤦‍♂️");
           });
           let url2 = `guest/getRatesByOccupancyType/daily`;
           axios
             .get(url2)
             .then((res) => {
-              console.log(res.data);
               setDailyData(res.data);
             })
             .catch((err) => {
-              console.log(err);
               toast.error("Something went wrong🤦‍♂️");
             });
             let url3 = `guest/getRatesByOccupancyType/OneMonth`;
             axios
               .get(url3)
               .then((res) => {
-                console.log(res.data);
                 setMonthlyData(res.data);
               })
               .catch((err) => {
-                console.log(err);
                 toast.error("Something went wrong🤦‍♂️");
               });
       }
@@ -141,57 +159,39 @@ export default function CustomizedButtons(props) {
         axios
           .get(url)
           .then((res) => {
-            console.log(res.data);
             setRentData(res.data);
           })
           .catch((err) => {
-            console.log(err);
             toast.error("Something went wrong🤦‍♂️");
           });
           let url2 = `guest/getRatesByBuildingId/${props.buildingId}/daily`;
           axios
             .get(url2)
             .then((res) => {
-              console.log(res.data);
               setDailyData(res.data);
             })
             .catch((err) => {
-              console.log(err);
               toast.error("Something went wrong🤦‍♂️");
             });
             let url3 = `guest/getRatesByBuildingId/${props.buildingId}/OneMonth`;
             axios
               .get(url3)
               .then((res) => {
-                console.log(res.data);
                 setMonthlyData(res.data);
               })
               .catch((err) => {
-                console.log(err);
                 toast.error("Something went wrong🤦‍♂️");
               });
       }
-      axios
-      .get("/guest/getAllconfiguredSecurityDeposit")
-      .then((res) => {
-        console.log(res.data);
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Something went wrong🤦‍♂️")
-      });
+
     }, [1]);
     const [activeButton, setActiveButton] = useState();
-    console.log(occupancyType);
     
     const clickedButtonHandler = (e) => {
-    console.log(e.target.value);
     const { name } = e.target.value;
     setActiveButton(e.target.value);
     setOccupancyType(e.target.value)
     };
-    console.log(occupancyType)
     
 
   const handleChange = (event) => {
@@ -203,12 +203,10 @@ export default function CustomizedButtons(props) {
 
 
   const getSec = (data) => {
-    console.log("hgf" + data);
     setSecurityDeposit(data);
   };
 
   const getRow = (data) => {
-    console.log("row" + data.price);
     setSelectedRow(data.price);
     setSharing(data.sharing)
     setRoomType(data.roomType);
@@ -326,8 +324,14 @@ export default function CustomizedButtons(props) {
                         label="Security Depsit"
                         onChange={handleChangeSecurityDeposit}
                       >
-                        <MenuItem value={3000}>3000</MenuItem>
-                        <MenuItem value={5000}>5000</MenuItem>
+                        {
+                          data.map((d) =>(
+                            <MenuItem value={d.securitydeposit}>
+                              {d.securitydeposit}
+                            </MenuItem>
+                          ))
+                        }
+                       
                       </Select>
                     </FormControl>
                   </Grid>

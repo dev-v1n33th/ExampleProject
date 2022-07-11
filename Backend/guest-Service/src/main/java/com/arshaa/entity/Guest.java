@@ -97,7 +97,7 @@ public class Guest implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date transactionDate = new java.util.Date(System.currentTimeMillis());
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @JsonFormat(pattern="yyyy-MM-dd")
+//    @JsonFormat(pattern="yyyy-MM-dd")
     private Date checkInDate ;
     
    // @DateTimeFormat(pattern = "dd-MM-yyyy")

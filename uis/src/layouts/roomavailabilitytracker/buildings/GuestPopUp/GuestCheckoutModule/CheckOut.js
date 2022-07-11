@@ -77,9 +77,15 @@ const CheckOut = (props) => {
       {/* <Grid xs={5} sx={{ pt: "30px", pr: "40px" }}> */}
           {/* <Button disabled={disableCheckoutButtons} variant="contained" color="primary" onClick={initiateCheckoutProcess} style={{ color: "white" }}>INITIATE CHECKOUT</Button> */}
         {/* </Grid> */}
-        {props.guestdetails.occupancyType == "Regular"  ?  (<Grid xs={5} sx={{ pt: "30px", pr: "40px" }}>
+        {/* {props.guestdetails.occupancyType == "Regular"  ?  (<Grid xs={5} sx={{ pt: "30px", pr: "40px" }}>
           <Button disabled={disableCheckoutButtons} variant="contained" color="primary" onClick={initiateCheckoutProcess} style={{ color: "white" }}>INITIATE CHECKOUT</Button>
-        </Grid>) :(<div></div>)}
+        </Grid>) :(<div></div>)} */}
+
+{props.guestdetails.occupancyType == "Regular"  && props.guestdetails.guestStatus == "active" ?  (<Grid xs={5} sx={{ pt: "30px", pr: "40px" }}>
+
+<Button disabled={disableCheckoutButtons} variant="contained" color="primary" onClick={initiateCheckoutProcess} style={{ color: "white" }}>INITIATE CHECKOUT</Button>
+
+</Grid>) :(<div></div>)}
 
 
 

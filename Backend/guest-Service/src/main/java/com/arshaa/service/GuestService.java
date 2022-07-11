@@ -567,6 +567,7 @@ public ResponseEntity paymentRemainder(int buildingId)
 			
 			java.util.Date s=getGuest.getCheckInDate();
 			java.util.Date m=getGuest.getPlannedCheckOutDate();
+			//m  = date.toInstant();
 			System.out.println("date"+s);
 			System.out.println("m"+m);
 
