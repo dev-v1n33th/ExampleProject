@@ -131,83 +131,90 @@ public class GuestService implements GuestInterface {
        
        java.sql.Date createDate =new java.sql.Date(guest.getCreatedOn().getTime());
        guest.setCreatedOn(createDate);
-       
-        repository.save(guest);
+       if(guest.getBuildingId()==0 || guest.getBedId()==null)
+       {
+    	   Guest g=null;
+    	   return g;
+       }
+       else {
+    	   repository.save(guest);
+           
+           if(guest.getOccupancyType().equalsIgnoreCase("Daily"))
+           {
+           	java.util.Date m = guest.getCheckInDate();
+               Calendar cal = Calendar.getInstance();  
+               cal.setTime(m);  
+               cal.add(Calendar.DATE, guest.getDuration()); 
+               m = cal.getTime();   
+               System.out.println(m);
+               guest.setPlannedCheckOutDate(m);
+               guest.setGuestStatus("Active");            
+               repository.save(guest);
+           }
+           else if(guest.getOccupancyType().equalsIgnoreCase("OneMonth"))
+           {
+           	guest.setDuration(1);
+           	repository.save(guest);
+           	java.util.Date m = guest.getCheckInDate();
+               Calendar cal = Calendar.getInstance();  
+               cal.setTime(m);  
+               cal.add(Calendar.MONTH, guest.getDuration()); 
+               m = cal.getTime();   
+               System.out.println(m);
+               
+               DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+               //System.out.println(dtf.format(m));  
+
+               guest.setPlannedCheckOutDate(m);
+               guest.setGuestStatus("Active");            
+               repository.save(guest);
+           }        
+           else {
+               guest.setGuestStatus("active");            
+
+               repository.save(guest);
+           }
+
+
+//           System.out.println(initialDefaultrent); 
+           guest.setGuestStatus("active");            
+
+           repository.save(guest);
+                   System.out.println(guest.getDueAmount());
+           Bed bedReq = new Bed();
+           Payment payReq = new Payment();
+           //bed setting
+           bedReq.setBedId(guest.getBedId());
+           
+           bedReq.setGuestId(guest.getId());
+           //bedReq.setDueAmount(guest.getDueAmount());
+           template.put(bedUri, bedReq, Bed.class);
+           //payment setting
+           payReq.setGuestId(guest.getId());
+           payReq.setBuildingId(guest.getBuildingId());
+           payReq.setTransactionId(guest.getTransactionId());
+           payReq.setOccupancyType(guest.getOccupancyType());
+           payReq.setTransactionDate(guest.getTransactionDate());
+          // payReq.setCheckinDate(cSqlDate);
+           payReq.setAmountPaid(guest.getAmountPaid());
+          // payReq.setDueAmount(guest.getDueAmount());
+           payReq.setPaymentPurpose(guest.getPaymentPurpose());
+           repository.save(guest);
+           Payment parRes = template.postForObject(payUri, payReq, Payment.class);
+           System.out.println(parRes);
+           
+//           OnboardingConfirmation mail=new OnboardingConfirmation();
+//           mail.setName(guest.getFirstName()+guest.getLastName());
+//           mail.setAmountPaid(guest.getAmountPaid());
+//           String name=template.getForObject("http://bedService/bed/getBuildingNameByBuildingId/"+ guest.getBuildingId(), String.class);
+//           mail.setBuildingName(name);
+//           mail.setBedId(guest.getBedId());
+//           mail.setEmail(guest.getEmail());
+//           OnboardingConfirmation res = template.postForObject(mailUri, mail, OnboardingConfirmation.class);
+
+                   return guest;
+       }
         
-        if(guest.getOccupancyType().equalsIgnoreCase("Daily"))
-        {
-        	java.util.Date m = guest.getCheckInDate();
-            Calendar cal = Calendar.getInstance();  
-            cal.setTime(m);  
-            cal.add(Calendar.DATE, guest.getDuration()); 
-            m = cal.getTime();   
-            System.out.println(m);
-            guest.setPlannedCheckOutDate(m);
-            guest.setGuestStatus("Active");            
-            repository.save(guest);
-        }
-        else if(guest.getOccupancyType().equalsIgnoreCase("OneMonth"))
-        {
-        	guest.setDuration(1);
-        	repository.save(guest);
-        	java.util.Date m = guest.getCheckInDate();
-            Calendar cal = Calendar.getInstance();  
-            cal.setTime(m);  
-            cal.add(Calendar.MONTH, guest.getDuration()); 
-            m = cal.getTime();   
-            System.out.println(m);
-            
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-            //System.out.println(dtf.format(m));  
-
-            guest.setPlannedCheckOutDate(m);
-            guest.setGuestStatus("Active");            
-            repository.save(guest);
-        }        
-        else {
-            guest.setGuestStatus("active");            
-
-            repository.save(guest);
-        }
-
-
-//        System.out.println(initialDefaultrent); 
-        guest.setGuestStatus("active");            
-
-        repository.save(guest);
-                System.out.println(guest.getDueAmount());
-        Bed bedReq = new Bed();
-        Payment payReq = new Payment();
-        //bed setting
-        bedReq.setBedId(guest.getBedId());
-        
-        bedReq.setGuestId(guest.getId());
-        //bedReq.setDueAmount(guest.getDueAmount());
-        template.put(bedUri, bedReq, Bed.class);
-        //payment setting
-        payReq.setGuestId(guest.getId());
-        payReq.setBuildingId(guest.getBuildingId());
-        payReq.setTransactionId(guest.getTransactionId());
-        payReq.setOccupancyType(guest.getOccupancyType());
-        payReq.setTransactionDate(guest.getTransactionDate());
-       // payReq.setCheckinDate(cSqlDate);
-        payReq.setAmountPaid(guest.getAmountPaid());
-       // payReq.setDueAmount(guest.getDueAmount());
-        payReq.setPaymentPurpose(guest.getPaymentPurpose());
-        repository.save(guest);
-        Payment parRes = template.postForObject(payUri, payReq, Payment.class);
-        System.out.println(parRes);
-        
-//        OnboardingConfirmation mail=new OnboardingConfirmation();
-//        mail.setName(guest.getFirstName()+guest.getLastName());
-//        mail.setAmountPaid(guest.getAmountPaid());
-//        String name=template.getForObject("http://bedService/bed/getBuildingNameByBuildingId/"+ guest.getBuildingId(), String.class);
-//        mail.setBuildingName(name);
-//        mail.setBedId(guest.getBedId());
-//        mail.setEmail(guest.getEmail());
-//        OnboardingConfirmation res = template.postForObject(mailUri, mail, OnboardingConfirmation.class);
-
-                return guest;
     }
 
 

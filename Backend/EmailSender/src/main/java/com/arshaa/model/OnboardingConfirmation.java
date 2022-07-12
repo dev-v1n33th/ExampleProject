@@ -1,4 +1,4 @@
-package com.arshaa.common;
+package com.arshaa.model;
 
 public class OnboardingConfirmation {
 
@@ -45,18 +45,5 @@ public class OnboardingConfirmation {
 	public void setBuildingName(String buildingName) {
 		this.buildingName = buildingName;
 	}
-	public OnboardingConfirmation(String email, String name, double amountPaid, String bedId, String buildingName) {
-		super();
-		this.email = email;
-		this.name = name;
-		this.amountPaid = amountPaid;
-		this.bedId = bedId;
-		this.buildingName = buildingName;
-	}
-	public OnboardingConfirmation() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-	
 }

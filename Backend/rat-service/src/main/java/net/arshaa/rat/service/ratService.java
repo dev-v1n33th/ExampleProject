@@ -38,44 +38,56 @@ public class ratService implements RatInterfaces {
 
 	@Override
 	public Rooms updateRoomsSharing(RoomDto roomDto, int id) {
-		try {
-			int b = bedrepo.countSharing(id);
-			Rooms rooms = roomRepo.getById(id);
-			rooms.setRoomId(id);
-			rooms.setSharing(b);
-
-			return roomRepo.save(rooms);
-
-		} catch (Exception e) {
-			System.out.println(e.getLocalizedMessage());
-		}
+		// TODO Auto-generated method stub
 		return null;
-
 	}
 
 	@Override
 	public ResponseEntity<String> deleteBedsById(RoomDto kamra, int id) {
-	
-		try {
-			if ((bedrepo.getById(id).isBedStatus() == true)) {
-				bedrepo.deleteById(id);
-
-				int b = bedrepo.countSharing(id);
-				Rooms rooms = roomRepo.getById(id);
-				//Rooms room = new Rooms();
-			//	rooms.setRoomId(kamra.getRoomId());
-				rooms.setSharing(b);
-
-				updateRoomsSharing(kamra, rooms.getRoomId());
-				roomRepo.save(rooms);
-
-				return new ResponseEntity<String>("Deleted Successfully", HttpStatus.OK);
-			} else {
-				return new ResponseEntity<String>("Action Failed: Bed contains Guest", HttpStatus.OK);
-			}
-		} catch (Exception e) {
-			return new ResponseEntity<String>("😣😏 Cant Update Room", HttpStatus.OK);
-		}
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+//	@Override
+//	public Rooms updateRoomsSharing(RoomDto roomDto, int id) {
+//		try {
+//			int b = bedrepo.countSharing(id);
+//			Rooms rooms = roomRepo.getById(id);
+//			rooms.setRoomId(id);
+//			rooms.setSharing(b);
+//
+//			return roomRepo.save(rooms);
+//
+//		} catch (Exception e) {
+//			System.out.println(e.getLocalizedMessage());
+//		}
+//		return null;
+//
+//	}
+
+//	@Override
+//	public ResponseEntity<String> deleteBedsById(RoomDto kamra, int id) {
+//	
+//		try {
+//			if ((bedrepo.getById(id).isBedStatus() == true)) {
+//				bedrepo.deleteById(id);
+//
+//				int b = bedrepo.countSharing(id);
+//				Rooms rooms = roomRepo.getById(id);
+//				//Rooms room = new Rooms();
+//			//	rooms.setRoomId(kamra.getRoomId());
+//				rooms.setSharing(b);
+//
+//				updateRoomsSharing(kamra, rooms.getRoomId());
+//				roomRepo.save(rooms);
+//
+//				return new ResponseEntity<String>("Deleted Successfully", HttpStatus.OK);
+//			} else {
+//				return new ResponseEntity<String>("Action Failed: Bed contains Guest", HttpStatus.OK);
+//			}
+//		} catch (Exception e) {
+//			return new ResponseEntity<String>("😣😏 Cant Update Room", HttpStatus.OK);
+//		}
+//	}
 
 }
