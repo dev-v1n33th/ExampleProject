@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.arshaa.model.EmailResponse;
 import com.arshaa.model.Response;
 import com.ctc.wstx.api.EmptyElementHandler.HtmlEmptyElementHandler;
 
@@ -64,7 +65,7 @@ public class EmailSender {
 	
 	public ResponseEntity sendRemainder(String email,String Name,double dueAmount) {
 		// TODO Auto-generated method stub
-		Response response=new Response();
+		EmailResponse response=new EmailResponse();
 		try {
 			SimpleMailMessage msg = new SimpleMailMessage();
 			msg.setTo(email);
@@ -84,7 +85,7 @@ public class EmailSender {
 		{
 			response.setMessage("something went wrong");
 			response.setStatus(false);
-            return new ResponseEntity(e.getMessage(),HttpStatus.OK);
+            return new ResponseEntity(response,HttpStatus.OK);
 		}
 								
 			}
