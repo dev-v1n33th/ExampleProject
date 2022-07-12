@@ -721,12 +721,12 @@ Rooms room = roomRepo.save(newRoom);
 		return new ResponseEntity<List<BedsInfo>>(bedsList, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getByRoomAndSharing/{roomId}/{b}/{sharing}")
-	public Optional<List<Bed>> findByRoomIdAndBedStatusAndSharing(@PathVariable int roomId ,@PathVariable boolean b , @PathVariable int sharing){
-							Optional<List<Bed>> getBeds = bedrepo.findByRoomIdAndBedStatusAndSharing(roomId, true,sharing);
-							return getBeds ;
-
-	}
+//	@GetMapping("/getByRoomAndSharing/{roomId}/{b}/{sharing}")
+//	public Optional<List<Bed>> findByRoomIdAndBedStatusAndSharing(@PathVariable int roomId ,@PathVariable boolean b , @PathVariable int sharing){
+//							Optional<List<Bed>> getBeds = bedrepo.findByRoomIdAndBedStatusAndSharing(roomId, true,sharing);
+//							return getBeds ;
+//
+//	}
 
 // GET MAPPING API FOR NOT AVAILABLE BEDS BY BUILDING ID
 

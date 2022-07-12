@@ -28,7 +28,7 @@ public interface BedRepository extends JpaRepository<Bed, Integer>{
     List<Bed> findAllByBuildingId(int buildingId);
 	boolean existsByBedId(String bedId);
 	List<Bed> getBedsByRoomId(int roomId);
-	Optional<List<Bed>> findByRoomIdAndBedStatusAndSharing(int roomId, boolean b, int sharing);
+	//Optional<List<Bed>> findByRoomIdAndBedStatusAndSharing(int roomId, boolean b, int sharing);
 
 	@Query(
 			 value="select count(sharing)  from  beds  where  room_id= ?1  and bed_status=true " , nativeQuery = true)
