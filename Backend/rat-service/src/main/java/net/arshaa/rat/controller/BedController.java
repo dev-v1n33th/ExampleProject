@@ -314,9 +314,7 @@ Rooms room = roomRepo.save(newRoom);
 			Bed bed = bedrepo.save(bed1);
 			bed1.setBedId(bed1.getId()+"-"+ rooms.getRoomNumber()+"-"+newBed.getBedName()+"-"+(newBed.isAc()==true ? "AC":"NonAC"));
 			Bed bed2 = bedrepo.save(bed1);
-			int count=bedrepo.getBedsByRoomId(newBed.getRoomId()).size();
-			bed2.setSharing(count);
-			bedrepo.save(bed2);
+			
 
 			return new ResponseEntity("Bed Added Successfully", HttpStatus.OK);
 		} catch (Exception e) {

@@ -33,7 +33,6 @@ public class Bed {
     private double defaultRent;
     @Column
     private boolean ac;
-    private int sharing;
     @Column
     private String createdBy;
     @Column
@@ -43,12 +42,6 @@ public class Bed {
     @Temporal(TemporalType.DATE)
     private java.util.Date createdOn= new java.util.Date(System.currentTimeMillis());
 	
-    public int getSharing() {
-		return sharing;
-	}
-	public void setSharing(int sharing) {
-		this.sharing = sharing;
-	}
 	public int getId() {
 		return id;
 	}
@@ -124,7 +117,7 @@ public class Bed {
 	}
 	
 	public Bed(int id, String bedId, int roomId, boolean bedStatus, String guestId, String bedName, double defaultRent,
-			boolean ac, int sharing, String createdBy, int floorId, int buildingId, java.util.Date createdOn) {
+			boolean ac,String createdBy, int floorId, int buildingId, java.util.Date createdOn) {
 		super();
 		this.id = id;
 		this.bedId = bedId;
@@ -134,7 +127,6 @@ public class Bed {
 		this.bedName = bedName;
 		this.defaultRent = defaultRent;
 		this.ac = ac;
-		this.sharing = sharing;
 		this.createdBy = createdBy;
 		this.floorId = floorId;
 		this.buildingId = buildingId;

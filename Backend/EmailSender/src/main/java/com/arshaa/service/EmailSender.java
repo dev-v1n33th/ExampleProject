@@ -73,9 +73,7 @@ public class EmailSender {
 			
 
 			msg.setText("Hi " + Name + "," + "\n"+ "\n"+"I hope you're well. This is just to remind you that payment of Due Amount: " +dueAmount +"."+"\n" +
-			"I'm sure you're busy, but I'd appreciate if you could take a moment and clear the due as soon as possible." +"\n"+"\n"+"Please let me know if you have any questions" +"\n"+"\n"+"Regards,"+"\n"+"Manager"+"\n"+"Sree Lakshmi Heavens");
-		
-			
+			"I'm sure you're busy, but I'd appreciate if you could take a moment and clear the due as soon as possible." +"\n"+"\n"+"Please let me know if you have any questions" +"\n"+"\n"+"Regards,"+"\n"+"Manager"+"\n"+"Sree Lakshmi Heavens");			
 			mailSender.send(msg);
 			response.setMessage("email sent successfully");
 			response.setStatus(true);
@@ -89,6 +87,33 @@ public class EmailSender {
 		}
 								
 			}
+	
+	
+	
+//	public ResponseEntity OnboardingConfirmation(String email, String name, double amountPaid, String bedId, String buildingName) {
+//		// TODO Auto-generated method stub
+//		EmailResponse response=new EmailResponse();
+//		try {
+//			SimpleMailMessage msg = new SimpleMailMessage();
+//			msg.setTo(email);
+//			msg.setSubject("Sree Lakshmi Heavens: Payment Reminder");
+//			
+//
+//			msg.setText("Hi " + name + "," + "\n"+ "\n"+"I hope you're well. This is just to remind you that payment of Due Amount: " +dueAmount +"."+"\n" +
+//			"I'm sure you're busy, but I'd appreciate if you could take a moment and clear the due as soon as possible." +"\n"+"\n"+"Please let me know if you have any questions" +"\n"+"\n"+"Regards,"+"\n"+"Manager"+"\n"+"Sree Lakshmi Heavens");			
+//			mailSender.send(msg);
+//			response.setMessage("email sent successfully");
+//			response.setStatus(true);
+//            return new ResponseEntity(response,HttpStatus.OK);
+//		}
+//		catch(Exception e)
+//		{
+//			response.setMessage("something went wrong");
+//			response.setStatus(false);
+//            return new ResponseEntity(response,HttpStatus.OK);
+//		}
+//								
+//			}
 
 	
 //	public void sentEmail(String Name,  String email) {
