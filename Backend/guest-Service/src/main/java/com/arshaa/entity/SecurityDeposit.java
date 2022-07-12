@@ -16,57 +16,35 @@ public class SecurityDeposit {
 	
 	private double securitydeposit ;
 	private String occupancyType ;
-	
-	
-	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public double getSecuritydeposit() {
+		return securitydeposit;
+	}
+	public void setSecuritydeposit(double securitydeposit) {
+		this.securitydeposit = securitydeposit;
+	}
+	public String getOccupancyType() {
+		return occupancyType;
+	}
+	public void setOccupancyType(String occupancyType) {
+		this.occupancyType = occupancyType;
+	}
 	public SecurityDeposit(int id, double securitydeposit, String occupancyType) {
 		super();
 		this.id = id;
 		this.securitydeposit = securitydeposit;
 		this.occupancyType = occupancyType;
 	}
-
-
-
-	public int getId() {
-		return id;
-	}
-
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-
-	public double getSecuritydeposit() {
-		return securitydeposit;
-	}
-
-
-
-	public void setSecuritydeposit(double securitydeposit) {
-		this.securitydeposit = securitydeposit;
-	}
-
-
-
-	public String getOccupancyType() {
-		return occupancyType;
-	}
-
-
-
-	public void setOccupancyType(String occupancyType) {
-		this.occupancyType = occupancyType;
-	}
-
-
-
 	public SecurityDeposit() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
+	
 }

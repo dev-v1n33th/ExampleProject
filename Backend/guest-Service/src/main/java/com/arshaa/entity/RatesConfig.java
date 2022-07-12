@@ -15,7 +15,7 @@ public class RatesConfig {
 	private int id ;
 	private int buildingId ;
 	
-	private String sharing ;
+	private int sharing ;
 	private String roomType ;
 	private String occupancyType ;
 	private  double price ;
@@ -31,10 +31,10 @@ public class RatesConfig {
 	public void setBuildingId(int buildingId) {
 		this.buildingId = buildingId;
 	}
-	public String getSharing() {
+	public int getSharing() {
 		return sharing;
 	}
-	public void setSharing(String sharing) {
+	public void setSharing(int sharing) {
 		this.sharing = sharing;
 	}
 	public String getRoomType() {

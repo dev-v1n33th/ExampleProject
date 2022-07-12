@@ -14,8 +14,7 @@ public class Defaults {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@Column
-	private double securityDepositAmount;
+	
 	private String occupancyType;
 	
 	
@@ -27,12 +26,7 @@ public class Defaults {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public double getSecurityDepositAmount() {
-		return securityDepositAmount;
-	}
-	public void setSecurityDepositAmount(double securityDepositAmount) {
-		this.securityDepositAmount = securityDepositAmount;
-	}
+	
 	
 	public String getOccupancyType() {
 		return occupancyType;
@@ -46,10 +40,10 @@ public class Defaults {
 	public void setNoticeDays(int noticeDays) {
 		this.noticeDays = noticeDays;
 	}
-	public Defaults(int id, double securityDepositAmount, String occupancyType, int noticeDays) {
+	public Defaults(int id,  String occupancyType, int noticeDays) {
 		super();
 		this.id = id;
-		this.securityDepositAmount = securityDepositAmount;
+	
 		this.occupancyType = occupancyType;
 		this.noticeDays = noticeDays;
 	}
