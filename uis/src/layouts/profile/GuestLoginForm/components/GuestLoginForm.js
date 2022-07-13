@@ -758,14 +758,14 @@ const GuestLoginForm = (props) => {
                         />
                       </Grid>
 
-                      {/* <Grid item xs={12}>
+                      <Grid item xs={12}>
                         <h6>Guest Picture</h6>
                         
                         <input
                           type="file"
                           onChange={handleChooseGuestPicture}
                         />
-                      </Grid> */}
+                      </Grid>
                       <Grid item xs={12} />
 
                       <Grid item xs={12}>

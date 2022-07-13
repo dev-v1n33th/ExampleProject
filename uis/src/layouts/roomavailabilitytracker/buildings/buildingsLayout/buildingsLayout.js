@@ -88,7 +88,7 @@ const BuildingsLayout = (props) => {
                   GuestDueAmount={GuestDueAmount}
                   TotalAmountByGuest={TotalAmountByGuest}
                   // GuestPicUrl={GuestPicUrl}
-                  GuestPic={GuestPic}
+                  // GuestPic={GuestPic}
 
                 />
 
