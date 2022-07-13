@@ -88,6 +88,9 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
         // console.log('inside iffff')
         type = "main";
       }
+      else if(typeOfUser == "admin" && (key == "profile")){
+        type ="main"
+      }
     }
     if (type === "collapse") {
       returnValue = href ? (
