@@ -20,8 +20,7 @@ public class EmailSender {
 	@Autowired(required = true)
 	private JavaMailSender mailSender;
 
-	@Autowired
-	private EmailConstants eCons;
+	 EmailConstants eCons= new EmailConstants();
 
 	//Test Email 
 	public void postMail() {
@@ -71,8 +70,8 @@ public class EmailSender {
 			msg.setSubject(eCons.ONBOARD_CONFIRMATION);
 
 			msg.setText("Hi " + name + "," + "\n" + "\n"
-					+ "Welcome to Sree Lakshmi Heavens, You are checked in to the PG successfully with the below details :"
-					+ "buildingName " + buildingName + ", bedId " + bedId + ", Paid Amount " + amountPaid + "." + "\n"
+					+ "Welcome to Sree Lakshmi Heavens, you are checked in to the PG successfully with the below details :"
+					+ " buildingName : " + buildingName + ", bedId : " + bedId + ", Paid Amount : " + amountPaid + "." + "\n"
 					+ "\n" + "Please let me know if you have any questions" + "\n" + "\n" + "Regards," + "\n"
 					+ "Manager" + "\n" + "Sree Lakshmi Heavens");
 			mailSender.send(msg);
