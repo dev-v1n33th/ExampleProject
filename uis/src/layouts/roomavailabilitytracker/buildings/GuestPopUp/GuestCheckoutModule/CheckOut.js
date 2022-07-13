@@ -47,7 +47,7 @@ const CheckOut = (props) => {
   const initiateCheckoutProcess = () => {
     axios.get(`guest/get/${props.guestdetails.id}`).
       then((res) => { setDates(res.data); 
-        // setDisableCheckoutButtons(true);
+         setDisableCheckoutButtons(true);
          toast.success("Initiated Checkout Successfully");})
       .catch(err => { console.err(err); toast.error("Checkout Initiation Failed"); })
     // setCheckOutDate(formatDate(props.guestdetails.checkOutDate));
@@ -60,7 +60,7 @@ const CheckOut = (props) => {
 
    await axios.get(`guest/getFinalCheckout/${props.guestdetails.id}`)
     .then((res) => {console.log(res.data); 
-      // setDisableCheckoutButtons(true);
+       setDisableCheckoutButtons(true);
        toast.success("Guest Checked-Out Successfully. Please wait before we complete the transaction.");})
        .catch((err)=> console.log(err));
    
@@ -99,7 +99,7 @@ const CheckOut = (props) => {
         ) : (<div></div>)}
        
 
-        {props.guestdetails.occupancyType == 'Daily' || props.guestdetails.occupancyType == 'OneMonth' ? (
+        {props.guestdetails.occupancyType == 'daily' || props.guestdetails.occupancyType == 'OneMonth' ? (
           <Button disabled={disableCheckoutButtons} className="btn-float-left" variant="contained" color="primary" style={{ color: "white", float: "right" }} onClick={finalCheckOutHandler} >CheckOut</Button>
         ) : (<div></div>)}
 
