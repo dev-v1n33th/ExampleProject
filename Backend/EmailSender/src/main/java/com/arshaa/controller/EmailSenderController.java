@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.arshaa.common.EmployeeLogin;
-import com.arshaa.common.UserModel;
-import com.arshaa.common.Users;
+import com.arshaa.common.OnboardingConfirmation;
 import com.arshaa.entity.PaymentRemainder;
 import com.arshaa.service.EmailSender;
 
@@ -33,58 +31,24 @@ public class EmailSenderController {
 	@Lazy
 	private RestTemplate template;
 
-	@PostMapping(value = "/sendmail")
-	public void send(@RequestBody UserModel model) throws AddressException, MessagingException, IOException {
-		emailSender.sendEmail(model.getName(), model.getUserName(), model.getEmail(), model.getPassword(),
-				model.getEmployeeId());
-		
-	}
-//	@PostMapping(value = "/sendmails")
-//	public void sent(@RequestBody UserModel model) throws AddressException, MessagingException, IOException {
-//		emailSender.sentEmail(model.getName(), model.getUserName(), model.getEmail(), model.getPassword(),
-//				model.getEmployeeId());
-//		String loginURL="http://loginservice/login/addUsers";
-//		String userURL="http://urpService/user/addUser";
-//
-//		Random rand = new Random();
-//		Integer intRandom = rand.nextInt(9999);
-//		String userId = model.getName() + intRandom;
-//		int n = model.getName().length();
-//		char first = model.getName().charAt(0);
-//		char last = model.getName().charAt(n - 1);
-//		String password = "user" + first + last + intRandom;
-//		//System.out.println("Username :" + userId + "Password" + password);
-//
-//		//Posting data to UserMaster table
-//		Users users = new Users();
-//		users.setEmployeeId(model.getEmployeeId());
-//		users.setUserName(userId);
-//		template.postForObject(userURL, users, Users.class);
-//		
-//		//Posting data to Employee login table
-//		EmployeeLogin login = new EmployeeLogin();
-//		login.setEmail(model.getEmail());
-//		login.setUserName(userId);
-//		login.setPassword(password);
-//		login.setEmployeeId(model.getEmployeeId());
-//		login.setUserType("employee");
-//		template.postForObject(loginURL, login, EmployeeLogin.class);
-//		
-//	}
-	//String loginURL="http://loginservice/login/addUsers";
+	
 
+// Test Email
 	@PostMapping(value = "/postmail")
-
 	public String send() throws AddressException, MessagingException, IOException {
 		emailSender.postMail();
 
 		return "Email Sent Successfully";
 	}
-	
+//Payment Remainder Email for due Amount	
 	@PostMapping("/sendPaymentRemainder")
 	public ResponseEntity sendPaymentRemainder(@RequestBody PaymentRemainder sendPayRem)throws AddressException, MessagingException, IOException
 	{
 		 return emailSender.sendRemainder(sendPayRem.getEmail(),sendPayRem.getName(), sendPayRem.getDueAmount());
 	}
-
+	@PostMapping("/sendOnboardingConfirmation")
+	public ResponseEntity sendOnboardingConfirmation(@RequestBody OnboardingConfirmation onBoard)
+	{
+		return emailSender.OnboardingConfirmation(onBoard.getEmail(), onBoard.getName(), onBoard.getAmountPaid(), onBoard.getBedId(), onBoard.getBuildingName());
+	}
 }

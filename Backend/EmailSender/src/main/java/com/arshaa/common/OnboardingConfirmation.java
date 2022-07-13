@@ -1,4 +1,4 @@
-package com.arshaa.model;
+package com.arshaa.common;
 
 public class OnboardingConfirmation {
 
