@@ -24,7 +24,7 @@ function Guestdetails(props) {
   // today = dd + "-" + mm + "-" + yyyy;
   function formatDate(checkInDate) {
     var datePart = checkInDate.match(/\d+/g),
-      year = datePart[0].substring(2), // get only two digits
+      year = datePart[0], // get only two digits
       month = datePart[1],
       day = datePart[2];
 
@@ -63,7 +63,7 @@ function Guestdetails(props) {
   ];
   const rows1=[
     
-    createData(<h4>Check-in Date</h4>, props.guestdetails.checkInDate),
+    createData(<h4>Check-in Date</h4>, formatDate(props.guestdetails.checkInDate)),
     createData(<h4>Planned Check-out Date</h4>,props.guestdetails.plannedCheckOutDate),
     createData(<h4>Due Amount</h4>, 'Rs.'+props.GuestDueAmount),
     createData(<h4>Total Amount Paid</h4>, 'Rs.'+ props.TotalAmountByGuest),
