@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import axios from '../../../../../Uri'
 import { Grid ,Avatar} from '@mui/material';
 import {pic}  from './GuestPic.css';
+import Button from '@mui/material/Button';
 
 function GuestPic(props) {
     console.log(props.GuestPic)
@@ -30,6 +31,10 @@ function GuestPic(props) {
            <Grid item xs={12}>
             <Image className='pic' alt={`${props.guestdetails.firstName} ${props.guestdetails.lastName}`} src={`data:image/jpeg;base64,${guestPicUrl.data}`} height={230} width={200}/>
             </Grid>
+            <Button variant="contained" component="label">
+  Upload
+  <input hidden accept="image/*" multiple type="file" />
+</Button>
             </Grid>
         
        
