@@ -23,6 +23,7 @@ import ConfigSecurityDeposits from 'layouts/cofigSecurityDeposit/Components';
 import PastGuest from 'layouts/profile/indexforpastGuest';
 import PendingPayments from 'layouts/pendingPayments' ;
 import ConfigRentsIndex from 'layouts/configRents';
+import MonthlySummary from 'layouts/MonthlySummary';
 const routes = [
 	{
 		type: 'collapse',
@@ -116,6 +117,14 @@ const routes = [
 		icon: <Icon fontSize="small">archive</Icon>,
 		route: '/archivedGuests',
 		component: <ArchivedGuests />
+	},
+	{
+		type: 'collapse',
+		name: 'Monthly Summary',
+		key: 'monthlySummary',
+		icon: <Icon fontSize="small">Important</Icon>,
+		route: '/monthlySummary',
+		component: <MonthlySummary />
 	},
 	{
 		type: 'collapse',

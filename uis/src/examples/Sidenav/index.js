@@ -82,7 +82,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       let typeOfUser = userData.data.userType;
       // console.log(typeOfUser)
 
-      if (typeOfUser == "manager" && (key == "dashboard" || key == "branch" || key == "upcomingCheckouts" ||
+      if (typeOfUser == "manager" && (key == "dashboard" || key == "branch" || key == "upcomingCheckouts" || key == "monthlySummary"||
        key == "archivedGuests" || key =="allTransactions"||key=="guestData" || key == "configSecurityDeposit" || 
        key == "addingSecurityDeposits" || key =="configRents")) {
         // console.log('inside iffff')

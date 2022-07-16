@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import { Grid } from "@mui/material";
-
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import axios from "../../Uri";
 
 function AllTransaction() {
@@ -10,7 +11,13 @@ function AllTransaction() {
   console.log(userId);
 
   const [data, setData] = useState([]);
-
+  const [open,setOpen] = React.useState();
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
   const columns = [
 
     {
@@ -131,13 +138,14 @@ function AllTransaction() {
   ];
 
   useEffect(() => {
+    handleToggle();
     axios
 
       .get("/payment/getAllTransactions")
 
       .then((res) => {
         setData(res.data);
-
+        handleClose();
         console.log(res.data);
       })
 
@@ -176,7 +184,15 @@ function AllTransaction() {
           }}
         />
       </Grid>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Grid>
+    
   );
 }
 

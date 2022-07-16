@@ -141,7 +141,7 @@ const GuestpaymentsinPopUp = (props) => {
                       <Textfield name="amountPaid"  />
                     </Grid>
                     <Grid item xs={6}>
-                      <h5>Transation Id</h5>
+                      <h5>Transaction Id</h5>
                       <Textfield name="transactionId"  />
                     </Grid>
 
