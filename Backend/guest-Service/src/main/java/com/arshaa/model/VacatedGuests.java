@@ -9,7 +9,14 @@ public class VacatedGuests {
     private String BuildingName;
     private String bedId;
     private String personalNumber;
-    private String email;
+    private String guestStatus ;
+    public String getGuestStatus() {
+		return guestStatus;
+	}
+	public void setGuestStatus(String guestStatus) {
+		this.guestStatus = guestStatus;
+	}
+	private String email;
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
     private java.util.Date checkOutDate;
 	public String getFirstName() {

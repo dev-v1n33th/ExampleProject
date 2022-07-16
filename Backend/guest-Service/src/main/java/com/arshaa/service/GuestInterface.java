@@ -63,7 +63,10 @@ public interface GuestInterface {
 	
 	public List<RatesConfig> findByOccupancyType(String occupancyType);
 	
+	public ResponseEntity getAllRents(String occupancyType, int buildingId, int sharing);
 	
+	
+
 
 
 }
