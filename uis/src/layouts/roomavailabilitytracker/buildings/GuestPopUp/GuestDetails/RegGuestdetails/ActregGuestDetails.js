@@ -16,7 +16,7 @@ import Grid from '@mui/material/Grid';
 function ActregGuestDetails(props) {
     function formatDate(checkInDate) {
         var datePart = checkInDate.match(/\d+/g),
-          year = datePart[0].substring(2), // get only two digits
+          year = datePart[0], // get only two digits
           month = datePart[1],
           day = datePart[2];
     
@@ -40,7 +40,7 @@ function ActregGuestDetails(props) {
         createData(<h4>Occupancy Type</h4>, props.guestdetails.occupancyType),
       ];
       const rows1=[
-        createData(<h4>Check-in Date</h4>, props.guestdetails.checkInDate),
+        createData(<h4>Check-in Date</h4>, formatDate(props.guestdetails.checkInDate)),
         createData(<h4>Current Due Amount</h4>, 'Rs.'+props.GuestDueAmount),
         createData(<h4>Security Deposit</h4>,'Rs.'+ props.guestdetails.securityDeposit ),
         createData(<h4>Default Rent</h4>,'Rs.'+ props.guestdetails.defaultRent ),

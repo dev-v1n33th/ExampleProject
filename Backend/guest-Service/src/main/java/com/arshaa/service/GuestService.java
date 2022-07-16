@@ -112,7 +112,7 @@ public class GuestService implements GuestInterface {
         //double initialDefaultrent = 0;
         String bedUri = "http://bedService/bed/updateBedStatusBydBedId";
         String payUri = "http://paymentService/payment/addPaymentAtOnBoarding";
-    //    String mailUri="http://emailService/mail/sendOnboardingConfirmation";
+        String mailUri="http://emailService/mail/sendOnboardingConfirmation";
  //     Bed getUniqueBed = template.getForObject("http://bedService/bed/getBedByBedId/" + guest.getBedId(), Bed.class);
 //        if (getUniqueBed.getBedId().equalsIgnoreCase(guest.getBedId())) {
 //            System.out.println(getUniqueBed.getBedId());
@@ -203,14 +203,14 @@ public class GuestService implements GuestInterface {
            Payment parRes = template.postForObject(payUri, payReq, Payment.class);
            System.out.println(parRes);
            
-//           OnboardingConfirmation mail=new OnboardingConfirmation();
-//           mail.setName(guest.getFirstName()+guest.getLastName());
-//           mail.setAmountPaid(guest.getAmountPaid());
-//           String name=template.getForObject("http://bedService/bed/getBuildingNameByBuildingId/"+ guest.getBuildingId(), String.class);
-//           mail.setBuildingName(name);
-//           mail.setBedId(guest.getBedId());
-//           mail.setEmail(guest.getEmail());
-//           OnboardingConfirmation res = template.postForObject(mailUri, mail, OnboardingConfirmation.class);
+           OnboardingConfirmation mail=new OnboardingConfirmation();
+           mail.setName(guest.getFirstName()+guest.getLastName());
+           mail.setAmountPaid(guest.getAmountPaid());
+           String name=template.getForObject("http://bedService/bed/getBuildingNameByBuildingId/"+ guest.getBuildingId(), String.class);
+           mail.setBuildingName(name);
+           mail.setBedId(guest.getBedId());
+           mail.setEmail(guest.getEmail());
+           OnboardingConfirmation res = template.postForObject(mailUri, mail, OnboardingConfirmation.class);
 
                    return guest;
        }

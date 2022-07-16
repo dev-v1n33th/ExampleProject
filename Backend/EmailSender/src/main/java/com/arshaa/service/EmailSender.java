@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.arshaa.model.EmailConstants;
 import com.arshaa.model.EmailResponse;
 import com.arshaa.model.Response;
 import com.ctc.wstx.api.EmptyElementHandler.HtmlEmptyElementHandler;
@@ -17,26 +18,11 @@ import com.ctc.wstx.api.EmptyElementHandler.HtmlEmptyElementHandler;
 @Service
 public class EmailSender {
 	@Autowired(required = true)
-	private JavaMailSender mailSender;// public void sendEmail(int id,String userName,String email,String
-										// password,String employeeId)
-// {
-//
-//
-//
-// SimpleMailMessage msg = new SimpleMailMessage();
-//
-// msg.setTo(email);
-// msg.setSubject("You are onboarded successfully to the SRI LAKSHMI HEAVEN'S PG");
-// msg.setText("Hello "+userName+","+" Welcome to SRI LAKSHMI HEAVEN'S PG." +"\n"+"\n"+ "You are checked in to the PG successfully with the below details :"+"\n"+"\n"+
-// "Employee Id: "+employeeId+"\n"+"\n");
-//
-// mailSender.send(msg);
-//
-//
-//   
-//
-// }
+	private JavaMailSender mailSender;
 
+	 EmailConstants eCons= new EmailConstants();
+
+	//Test Email 
 	public void postMail() {
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo("muralikrishna.miriyala@arshaa.com");
@@ -45,91 +31,58 @@ public class EmailSender {
 		mailSender.send(mail);
 	}
 
-	public void sendEmail(String Name, String userName, String email, String password, String employeeId) {
-		// TODO Auto-generated method stub
-				SimpleMailMessage msg = new SimpleMailMessage();
-				msg.setTo(email);
-				msg.setSubject("Welcome Onboard");
-				
 
-				msg.setText("Hello " + Name + "," + "\n"+ "Welcome to Arshaa Technologies." + "\n" + "\n"
-						+ "Please login with your username and password as we mentioned here, These are your credentials  UserName: "+userName+" Password: "+password + "\n" + "\n" + "Employee Id: "
-						+ employeeId + "\n" + "Link to login: http://65.1.40.113"+ "\n"+
-						"Kindly fill your details in Employee Profile, It doesn't take much time to fill the details please complete it by End of the Day" +"\n"+"\n"+" Note: After login, you need reset your password" +"\n"+"\n"+"Regards,"+"\n"+"Team Hr"+"\n"+"Arshaa Technologies PvtLtd");
-				
-				
-				mailSender.send(msg);
-				
-			}
-	
-	
-	public ResponseEntity sendRemainder(String email,String Name,double dueAmount) {
+	//Payment Remainder service
+	public ResponseEntity sendRemainder(String email, String Name, double dueAmount) {
 		// TODO Auto-generated method stub
-		EmailResponse response=new EmailResponse();
+		EmailResponse response = new EmailResponse();
 		try {
 			SimpleMailMessage msg = new SimpleMailMessage();
 			msg.setTo(email);
 			msg.setSubject("Sree Lakshmi Heavens: Payment Reminder");
-			
 
-			msg.setText("Hi " + Name + "," + "\n"+ "\n"+"I hope you're well. This is just to remind you that payment of Due Amount: " +dueAmount +"."+"\n" +
-			"I'm sure you're busy, but I'd appreciate if you could take a moment and clear the due as soon as possible." +"\n"+"\n"+"Please let me know if you have any questions" +"\n"+"\n"+"Regards,"+"\n"+"Manager"+"\n"+"Sree Lakshmi Heavens");			
+			msg.setText("Hi " + Name + "," + "\n" + "\n"
+					+ "I hope you're well. This is just to remind you that payment of Due Amount: " + dueAmount + "."
+					+ "\n"
+					+ "I'm sure you're busy, but I'd appreciate if you could take a moment and clear the due as soon as possible."
+					+ "\n" + "\n" + "Please let me know if you have any questions" + "\n" + "\n" + "Regards," + "\n"
+					+ "Manager" + "\n" + "Sree Lakshmi Heavens");
 			mailSender.send(msg);
 			response.setMessage("email sent successfully");
 			response.setStatus(true);
-            return new ResponseEntity(response,HttpStatus.OK);
-		}
-		catch(Exception e)
-		{
+			return new ResponseEntity(response, HttpStatus.OK);
+		} catch (Exception e) {
 			response.setMessage("something went wrong");
 			response.setStatus(false);
-            return new ResponseEntity(response,HttpStatus.OK);
+			return new ResponseEntity(response, HttpStatus.OK);
 		}
-								
-			}
-	
-	
-	
-//	public ResponseEntity OnboardingConfirmation(String email, String name, double amountPaid, String bedId, String buildingName) {
-//		// TODO Auto-generated method stub
-//		EmailResponse response=new EmailResponse();
-//		try {
-//			SimpleMailMessage msg = new SimpleMailMessage();
-//			msg.setTo(email);
-//			msg.setSubject("Sree Lakshmi Heavens: Payment Reminder");
-//			
-//
-//			msg.setText("Hi " + name + "," + "\n"+ "\n"+"I hope you're well. This is just to remind you that payment of Due Amount: " +dueAmount +"."+"\n" +
-//			"I'm sure you're busy, but I'd appreciate if you could take a moment and clear the due as soon as possible." +"\n"+"\n"+"Please let me know if you have any questions" +"\n"+"\n"+"Regards,"+"\n"+"Manager"+"\n"+"Sree Lakshmi Heavens");			
-//			mailSender.send(msg);
-//			response.setMessage("email sent successfully");
-//			response.setStatus(true);
-//            return new ResponseEntity(response,HttpStatus.OK);
-//		}
-//		catch(Exception e)
-//		{
-//			response.setMessage("something went wrong");
-//			response.setStatus(false);
-//            return new ResponseEntity(response,HttpStatus.OK);
-//		}
-//								
-//			}
 
-	
-//	public void sentEmail(String Name,  String email) {
-//		// TODO Auto-generated method stub
-//				SimpleMailMessage msg = new SimpleMailMessage();
-//				msg.setTo(email);
-//				msg.setSubject("Congratulations");
-//				
-//
-//				msg.setText("Hello " + Name + "," + " Welcome to Arshaa Technologies." + "\n" + "\n"
-//						+ "Please login with your username and password as we mentioned here, These are your credentials  UserName: "+userName+" Password: "+password + "\n" + "\n" + "Employee Id: "
-//						+ employeeId + "\n" + "Link to login: http://65.1.40.113"+ "\n"+
-//						"Kindly fill your details in Employee Profile, It does't take much time to fill the details complete it by End of the Day" +"\n"+"\n"+" Note: After login, You need reset your password" +"\n"+"\n"+"Regards,"+"\n"+"Team Hr"+"\n"+"Arshaa Technologies PvtLtd");
-//				
-//				
-//				mailSender.send(msg);
-//				
-//			}
+	}
+
+	//Onboarding confirmation email service
+	public ResponseEntity OnboardingConfirmation(String email, String name, double amountPaid, String bedId,
+			String buildingName) {
+		// TODO Auto-generated method stub
+		EmailResponse response = new EmailResponse();
+		try {
+			SimpleMailMessage msg = new SimpleMailMessage();
+			msg.setTo(email);
+			msg.setSubject(eCons.ONBOARD_CONFIRMATION);
+
+			msg.setText("Hi " + name + "," + "\n" + "\n"
+					+ "Welcome to Sree Lakshmi Heavens, you are checked in to the PG successfully with the below details :"
+					+ " buildingName : " + buildingName + ", bedId : " + bedId + ", Paid Amount : " + amountPaid + "." + "\n"
+					+ "\n" + "Please let me know if you have any questions" + "\n" + "\n" + "Regards," + "\n"
+					+ "Manager" + "\n" + "Sree Lakshmi Heavens");
+			mailSender.send(msg);
+			response.setMessage("email sent successfully");
+			response.setStatus(true);
+			return new ResponseEntity(response, HttpStatus.OK);
+		} catch (Exception e) {
+			response.setMessage("something went wrong");
+			response.setStatus(false);
+			return new ResponseEntity(response, HttpStatus.OK);
+		}
+	}
+
 }

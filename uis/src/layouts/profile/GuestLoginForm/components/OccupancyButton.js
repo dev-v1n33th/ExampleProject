@@ -230,6 +230,7 @@ export default function CustomizedButtons(props) {
     sharing:sharing
   };
   props.func(occupancyObject);
+ 
 
   return (
     <>
@@ -300,6 +301,7 @@ export default function CustomizedButtons(props) {
             <div style={{ width: "100%", paddingTop: 50 }}>
 
               <Tables
+                empty={empty}
                 func={getRow}
                 occupancyType={occupancyType}
                 buildingId={props.buildingId}

@@ -150,9 +150,12 @@ const FORM_VALIDATION = Yup.object().shape({
 console.log(JSON.parse(sessionStorage.getItem("userdata")));
 
 const GuestLoginForm = (props) => {
+  console.log("hi")
   function getOccupencyType(data) {
     console.log(data);
   }
+  //let empt = props.empty();
+  //onsole.log(empt)
   const [building, setBuilding] = React.useState([]);
   const [oneBuilding, setoneBuilding] = React.useState([]);
   const [bed, setBed] = React.useState([]);
@@ -238,7 +241,10 @@ const GuestLoginForm = (props) => {
   let userBuildingId = userData.data.buildingId;
   let userType = userData.data.userType;
   var userID = userData.data.userId;
-
+  const emptytable = ()=>{
+    console.log("Empty table")
+    setOccupancyType("")
+   }
   console.log(userBuildingId);
   function securityDepoist() {
     axios
@@ -403,6 +409,7 @@ const GuestLoginForm = (props) => {
       toast.warning("Please select file with less than 1 MB");
     }
   }
+  
   return (
     <div>
       <Typography>
@@ -423,7 +430,7 @@ const GuestLoginForm = (props) => {
               <Formik
                 initialValues={{ ...INITIAL_FORM_STATE }}
                 validationSchema={FORM_VALIDATION}
-                onSubmit={async (guest, { resetForm }) => {
+                onSubmit={async (guest, { resetForm },empty) => {
                   handleToggle();
 
                   const gustes = Object.assign(guest, obj);
@@ -448,6 +455,7 @@ const GuestLoginForm = (props) => {
                             handleClose();
                             toast.success(" Guest onboarded successfully");
                             resetForm();
+                            empty;
                             const url = `guest/upload/${res.data.id}/`;
                             const formData = new FormData();
                             if (file !== null) {
@@ -758,14 +766,14 @@ const GuestLoginForm = (props) => {
                         />
                       </Grid>
 
-                      {/* <Grid item xs={12}>
+                      <Grid item xs={12}>
                         <h6>Guest Picture</h6>
                         
                         <input
                           type="file"
                           onChange={handleChooseGuestPicture}
                         />
-                      </Grid> */}
+                      </Grid>
                       <Grid item xs={12} />
 
                       <Grid item xs={12}>

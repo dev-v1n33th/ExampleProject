@@ -44,6 +44,7 @@ export default function GuestPopUp({ open, handleClose, ...props }) {
             Guest Details
           </AppBar>
           <DialogContent>
+          <GuestPic    guestdetails={props.GuestDetails}/>
             <GuestDetailsIndex
               guestdetails={props.GuestDetails}
               GuestDueAmount={props.GuestDueAmount}
@@ -96,7 +97,7 @@ export default function GuestPopUp({ open, handleClose, ...props }) {
             Guest Details
           </MDButton>
           <DialogContent>
-            {/* <GuestPic   GuestPic={props.GuestPic} guestdetails={props.GuestDetails}/> */}
+            <GuestPic    guestdetails={props.GuestDetails}/>
             <GuestDetailsIndex
               guestdetails={props.GuestDetails}
               GuestDueAmount={props.GuestDueAmount}
