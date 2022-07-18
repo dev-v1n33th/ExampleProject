@@ -40,4 +40,6 @@ public interface PaymentService {
 	public List<THistory> getAllTransactions();
 	
 	public ResponseEntity getCountOfPaymentAmount(String guestId);
-}
+	
+	public ResponseEntity getMonthlySummary(int month, int year, int buildingId);
+	}
