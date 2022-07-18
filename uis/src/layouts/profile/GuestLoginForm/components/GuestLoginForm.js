@@ -78,16 +78,19 @@ const FORM_VALIDATION = Yup.object().shape({
     .required("Required"),
   fatherName: Yup.string().matches(/^[aA-zZ\s]+$/, "Invalid LastName "),
   email: Yup.string().email("Invalid email.").required("Required"),
-  dateOfBirth: Yup.date(),
-  checkInDate: Yup.date(),
-
-  // .test(
-  //   "DOB",
-  //   "Please choose a valid date of birth",
-  //   (date) =>
-  //     moment().diff(moment(date), "years") >= 12 &&
-  //     moment().diff(moment(date), "years") <= 80
-  // )
+  checkInDate: Yup.date().test(
+    "Check In Date",
+    "Please choose a valid Check In Date 🥱🥳",
+    (date) =>
+      moment().diff(moment(date), "years") <= 8
+  ),
+  dateOfBirth: Yup.date().test(
+    "DOB",
+    "Please choose a valid date of birth",
+    (date) =>
+      moment().diff(moment(date), "years") >= 12 &&
+      moment().diff(moment(date), "years") <= 80
+  ),
   bloodGroup: Yup.string().matches(/^(A|B|AB|O)[+-]$/, {
     message: "Please enter valid Blood Group.",
     excludeEmptyString: false,
@@ -569,7 +572,7 @@ const GuestLoginForm = (props) => {
                       <Grid item xs={6}>
                         <h6>CheckIn Date* </h6>
                         <DateTimePicker
-                          maxdate={new Date()}
+                         maxdate={new Date()}
                           name="checkInDate"
                           //label="Date of Birth"
                           required

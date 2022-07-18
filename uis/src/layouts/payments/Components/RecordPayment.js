@@ -104,6 +104,7 @@ export default function FormDialog() {
                             <TextField
                                 id="outlined-textarea"
                                 label="Transaction Date"
+                                
                                 style={{ width: '65%', marginLeft: '50px', marginBottom: '20px' }}
                             /></Grid>
                     </Grid>

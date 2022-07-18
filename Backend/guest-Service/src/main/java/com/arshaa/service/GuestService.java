@@ -10,6 +10,7 @@ import com.arshaa.common.Bed;
 import com.arshaa.common.MailDto;
 import com.arshaa.common.Payment;
 import com.arshaa.common.PaymentRemainderData;
+import com.arshaa.common.UpdateGuestDetails;
 import com.arshaa.dtos.GuestDto;
 import com.arshaa.dtos.RatedDto;
 import com.arshaa.entity.Guest;
@@ -77,13 +78,13 @@ public class GuestService implements GuestInterface {
 	
 
 
-	    //@Scheduled(cron="*/5 * * * * MON-FRI")
-	    @Scheduled(cron = "* 1 * * * *")
-	     public  List<Guest> addDue() {
-	    	List<Guest> list=new ArrayList<>();
-	    	List<Guest>getAllData=repository.findAll();
-	    	getAllData.forEach(e->{
-	    		double preDue=e.getDueAmount();
+//	    //@Scheduled(cron="*/5 * * * * MON-FRI")
+//	    @Scheduled(cron = "* 1 * * * *")
+//	     public  List<Guest> addDue() {
+//	    	List<Guest> list=new ArrayList<>();
+//	    	List<Guest>getAllData=repository.findAll();
+//	    	getAllData.forEach(e->{
+//	    		double preDue=e.getDueAmount();
 //	    		RatesConfig rc=rconfig.findByOccupancyTypeAndBuildingIdAndSharing(e.getOccupancyType(),e.getBuildingId(),e.getSharing());
 //	    List<RatesConfig> rc=rconfig.findAll();
 //	    rc.forEach(r->{
@@ -91,16 +92,16 @@ public class GuestService implements GuestInterface {
 //	    	e.setDueAmount(preDue+r.getPrice());
 //	    	list.add(e);
 //	    });
-	    		RatesConfig rc=rconfig.getById(e.getPackageId());
-	    		e.setDueAmount(preDue+rc.getPrice());	
-    	repository.save(e);
-    	list.add(e);
-
-	    	});
-	    	System.out.println(list);
-			return list;
-	    }
-	    
+//	    		RatesConfig rc=rconfig.getById(e.getPackageId());
+//	    		e.setDueAmount(preDue+rc.getPrice());	
+//    	repository.save(e);
+//    	list.add(e);
+//
+//	    	});
+//	    	System.out.println(list);
+//			return list;
+//	    }
+//	    
 	    
 	    public ResponseEntity getAllRents(String occupancyType, int buildingId, int sharing)
 	    {
@@ -767,6 +768,44 @@ public ResponseEntity paymentRemainder(int buildingId)
 	public List<RatesConfig> findByOccupancyType(String occupancyType) {
 		// TODO Auto-generated method stub
 		return rconfig.findByOccupancyType(occupancyType);
+	}
+
+	@Override
+	public ResponseEntity updateGuestDetails(UpdateGuestDetails editGuest, String id) {
+		// TODO Auto-generated method stub
+		Guest guest = repository.findById(id);
+		if(guest.getAadharNumber()== null) {
+			guest.setId(id);
+			guest.setAadharNumber(editGuest.getAadharNumber());
+			guest.setAddressLine1(editGuest.getAddressLine1());
+			guest.setAddressLine2(editGuest.getAddressLine2());
+			guest.setBloodGroup(editGuest.getBloodGroup());
+			guest.setEmail(editGuest.getEmail());
+			guest.setFatherNumber(editGuest.getFatherNumber());
+			guest.setPersonalNumber(editGuest.getPersonalNumber());
+			guest.setPincode(editGuest.getPincode());
+			guest.setState(editGuest.getState());
+			guest.setCity(editGuest.getCity());
+			return new ResponseEntity(repository.save(guest), HttpStatus.OK);
+		}else {
+			if(guest.getAadharNumber()!=null) {
+				guest.setId(id);
+			guest.setAadharNumber(guest.getAadharNumber());
+			guest.setAddressLine1(editGuest.getAddressLine1());
+			guest.setAddressLine2(editGuest.getAddressLine2());
+			guest.setBloodGroup(editGuest.getBloodGroup());
+			guest.setEmail(editGuest.getEmail());
+			guest.setFatherNumber(editGuest.getFatherNumber());
+			guest.setPersonalNumber(editGuest.getPersonalNumber());
+			guest.setPincode(editGuest.getPincode());
+			guest.setState(editGuest.getState());
+			guest.setCity(editGuest.getCity());
+				return new ResponseEntity(repository.save(guest), HttpStatus.OK);
+			}
+			
+		}
+		return new ResponseEntity( "Cant update", HttpStatus.OK);	
+		
 	}
 
 }

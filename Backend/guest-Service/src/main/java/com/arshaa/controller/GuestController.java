@@ -2,6 +2,7 @@ package com.arshaa.controller;
 
 import com.arshaa.common.Bed;
 import com.arshaa.common.GuestModel;
+import com.arshaa.common.UpdateGuestDetails;
 import com.arshaa.dtos.GuestDto;
 import com.arshaa.dtos.RatedDto;
 import com.arshaa.entity.Guest;
@@ -78,6 +79,19 @@ public class GuestController {
 	 private RatesConfigRepository rcr ;
 	
 	
+	@PatchMapping("/editGuestDetails/{guestId}")
+	public ResponseEntity editGuest(@RequestBody UpdateGuestDetails ud , @PathVariable String guestId) {
+		Guest guest = new Guest();
+		try {
+		if(guest.getId()!=null) {
+			return new ResponseEntity( service.updateGuestDetails(ud, guestId), HttpStatus.OK);
+		}
+		
+		}catch(Exception e) {
+			System.out.println("id not available" + e.getLocalizedMessage());
+		}
+		return new ResponseEntity( service.updateGuestDetails(ud, guestId), HttpStatus.OK);
+	}
 	//Posting Rates based on sharing 
 	@PostMapping("/postRates")
 	public RatesConfig saveRates(@RequestBody RatesConfig rates) {
