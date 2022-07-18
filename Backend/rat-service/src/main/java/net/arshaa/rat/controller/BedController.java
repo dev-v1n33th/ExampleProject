@@ -28,6 +28,7 @@ import Models.RoomsInfo;
 import Models.UpdateBedDto;
 import common.Guest;
 import common.GuestProfile;
+import common.MonthlySummary;
 import common.User;
 import net.arshaa.rat.entity.Bed;
 import net.arshaa.rat.entity.Buildings;
@@ -1075,12 +1076,36 @@ Rooms room = roomRepo.save(newRoom);
 
 		   	}
 	
-	@GetMapping("/getSharingCount/{roomId}")
-  int calculatingSharing(@PathVariable  int roomId){
-        // repo.findNumberOfRemainingLeavesByEmployeeId(employeeId);
-        int b = bedrepo.countSharing(roomId);
-        return b;
-    
+//Get Api to get monthly summary by buildingwise
+	
+    @GetMapping("getMonthlySummaryForAdmin/{month}/{year}")	
+	public ResponseEntity getMonthlySummary(@PathVariable int month,@PathVariable int year)
+	{
+		String getIncomeRefURL="http://paymentService/payment/getMonthlySummary/";
+		List<MonthlySummary> getList=new ArrayList<>();
+		try {
+			List<Buildings> getBuildings = buildingRepo.findAll();
+			if (!getBuildings.isEmpty()) {
+				getBuildings.forEach(building -> {
+					MonthlySummary ms=new MonthlySummary();
+
+					MonthlySummary getMonthlySum=template.getForObject(getIncomeRefURL+month+"/"+year+"/"+building.getBuildingId(), MonthlySummary.class);
+					ms.setBuildingName(building.getBuildingName());
+					ms.setIncomeAmount(getMonthlySum.getIncomeAmount());
+					ms.setRefundAmount(getMonthlySum.getRefundAmount());
+					double actualIncome=getMonthlySum.getIncomeAmount()-getMonthlySum.getRefundAmount();
+					ms.setActualIncome(actualIncome);
+					getList.add(ms);
+				});
+				return new ResponseEntity<>(getList, HttpStatus.OK);
+			}
+			else {
+				return new ResponseEntity<>("something went wrong", HttpStatus.OK);
+			}
+		}
+		catch (Exception e){
+			return new ResponseEntity<>("Something  went wrong", HttpStatus.OK);
+		}
 	}
 	
 

@@ -206,4 +206,10 @@ public class PayCOntroller {
 		public ResponseEntity getCountOfPaymentAmount(@PathVariable String guestId) {
            return serve.getCountOfPaymentAmount(guestId);
 		}
+		
+		@GetMapping("/getMonthlySummary/{month}/{year}/{buildingId}")
+		public ResponseEntity getMonthlySummary(@PathVariable int month,@PathVariable int year,@PathVariable int buildingId) {
+			return serve.getMonthlySummary(month, year,buildingId);
+		}
+		
 }

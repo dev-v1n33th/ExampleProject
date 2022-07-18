@@ -36,7 +36,7 @@ import Paper from "@mui/material/Paper";
 import SecurityDepo from "./SecurityDepo";
 
 //styles
-const BootstrapButton = styled(Button)({
+export const BootstrapButton = styled(Button)({
   boxShadow: "none",
   textTransform: "none",
   fontSize: 16,
@@ -301,7 +301,6 @@ export default function CustomizedButtons(props) {
             <div style={{ width: "100%", paddingTop: 50 }}>
 
               <Tables
-                empty={empty}
                 func={getRow}
                 occupancyType={occupancyType}
                 buildingId={props.buildingId}

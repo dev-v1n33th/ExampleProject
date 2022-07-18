@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import Grid from "@mui/material/Grid";
 import { Dropdown } from "react-bootstrap";
-import { Button } from "react-bootstrap";
+import MDButton from "components/MDButton";
 import { Form } from "react-bootstrap";
 import Stack from "@mui/material/Stack";
+import { Box } from "@mui/material";
+import {BootstrapButton} from"../profile/GuestLoginForm/components/OccupancyButton"
 
 export default function HolidayTable() {
   const [data, setData] = useState([]);
@@ -69,27 +71,32 @@ export default function HolidayTable() {
   const obj = { updatedBy: employeeid };
   return (
 <Grid container spacing={2}>
-                      <Grid item xs={10}>      {" "}
+                      <Grid item xs={8} style={{ paddingLeft: 10, height: 49, marginLeft: 180 }}>      
       <Grid container spacing={2} direction="row">
 <Grid item xs={4}> 
         <Form>
           <Form.Group>
-            <Form.Label>Select year</Form.Label>
+            <Form.Label>Select Year</Form.Label>
             <Form.Select
               style={{
-                width: "45%",
+                width: "48%",
                 height: "8%",
                 padding: "9px",
                 marginLeft: "10px",
-                cursor: "pointer"
+                cursor: "pointer",
+                borderRadius : 10
+
               }}
             >
               <option>Select</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
               <option value="2022">2022</option>
-              <option value="2022">2022</option>
-              <option value="2022">2022</option>
-              <option value="2022">2022</option>
-              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
             </Form.Select>
           </Form.Group>
         </Form>
@@ -98,56 +105,58 @@ export default function HolidayTable() {
         <Grid item xs={4}> 
         <Form>
           <Form.Group>
-            <Form.Label>Select year</Form.Label>
+            <Form.Label>Select Month</Form.Label>
             <Form.Select
               style={{
-                width: "45%",
+                width: "48%",
                 height: "8%",
                 padding: "9px",
                 marginLeft: "10px",
-                cursor: "pointer"
+                cursor: "pointer",
+                borderRadius : 10
               }}
             >
               <option>Select</option>
-              <option value="2022">2022</option>
-              <option value="2022">2022</option>
-              <option value="2022">2022</option>
-              <option value="2022">2022</option>
-              <option value="2022">2022</option>
+              <option value="January">January</option>
+              <option value="February">February </option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="June">July</option>
+              <option value="Augest">Augest</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+
+              
+
             </Form.Select>
           </Form.Group>
         </Form>
         </Grid>
-        <Grid item xs={4}> 
-        <Form>
-          <Form.Group>
-            <Form.Label>Select year</Form.Label>
-            <Form.Select
-              style={{
-                width: "45%",
-                height: "8%",
-                padding: "9px",
-                marginLeft: "10px",
-                cursor: "pointer"
-              }}
-            >
-              <option>Select</option>
-              <option value="2022">2022</option>
-              <option value="2022">2022</option>
-              <option value="2022">2022</option>
-              <option value="2022">2022</option>
-              <option value="2022">2022</option>
-            </Form.Select>
-          </Form.Group>
-        </Form>
+        <Grid item xs={1}></Grid>
+        <Grid item xs={3} > 
+        <Box>
+        <BootstrapButton  variant="contained"
+                  disableRipple
+                  
+                  style={{width: '100%', height: '100%',backgroundColor:'blue',borderRadius : 12,color:'white'}}
+                  value="OneMonth">
+  Submit
+</BootstrapButton>
+        </Box>
+        
+
         </Grid>
         </Grid>
 
-        {/* </Stack> */}
       <br />
       <Grid>
         <MaterialTable
           columns={columns}
+          title="Monthly Summary"
           data={data}
           editable={{
           }}
