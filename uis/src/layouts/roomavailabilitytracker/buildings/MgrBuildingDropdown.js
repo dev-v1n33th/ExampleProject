@@ -27,11 +27,13 @@ function MgrBuildingDropdown(props) {
   const classes= useStyles();
   const [selected, setSelected] = React.useState("");
   const [building, setBuilding] = React.useState([]);
+  const [showPaymentRemainder , setShowPaymentRemainder] = React.useState(false)
   
 
   function handleChange(event) {
     //console.log(event.target.outerText);
     setSelected(event.target.outerText)
+    setShowPaymentRemainder(true);
   }
   let userData = JSON.parse(sessionStorage.getItem('userdata'))
   let buildingsId = userData.data.buildingId;
@@ -72,7 +74,7 @@ function MgrBuildingDropdown(props) {
       </Select>
       </Grid>
       <Grid item xs={6}>
-      {/* {buildingId == null ? (<div></div>):( <EmailBtn buildingId={buildingId}/>)} */}
+      {showPaymentRemainder  ? ( <EmailBtn buildingId={buildingsId}/>)  :(<></>)   }
       </Grid>
       </Grid>
       {building.buildingName === selected ? (
