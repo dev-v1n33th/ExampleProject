@@ -3,6 +3,10 @@
         cursor: pointer;
         border-radius: 25px;
     }
+    .text{
+        color: red;
+    }
+  
 
 /* .click:hover {
            opacity: 0.3;
