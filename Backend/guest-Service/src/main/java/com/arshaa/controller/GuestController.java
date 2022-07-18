@@ -512,6 +512,17 @@ public ResponseEntity getNoteById(@PathVariable String guestId) {
    return nServ.getNoteById(guestId);
 }
 
+@GetMapping("/getAllRents/{occupancyType}/{buildingId}/{sharing}")
+public ResponseEntity getAllRents(@PathVariable String occupancyType,@PathVariable int buildingId,@PathVariable int sharing)
+{
+	try {
+		
+   return service.getAllRents(occupancyType, buildingId, sharing);
+	}catch(Exception e) {
+		System.out.println("ABCD");
+	}
+	return null;
+}
 }
 //	@GetMapping("/getGuestAboutToCheckOut/RegulatInNotice/Daily-Monthly-Active/{id}")
 //	public List<GuestsInNotice> getAll(@PathVariable String id) {

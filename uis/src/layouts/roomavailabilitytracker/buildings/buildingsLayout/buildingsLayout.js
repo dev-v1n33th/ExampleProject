@@ -139,76 +139,6 @@ const BuildingsLayout = (props) => {
 
                                                 }
 																
-                                                // else if (bdno.guestStatus == "InNotice") {
-
-                                                //   return (
-                                                //     <Tooltip
-                                                //       title={bdno.guestName}
-                                                //     >
-                                                //       <HotelOutlinedIcon
-                                                //         key={bdno.bedId}
-                                                //         color="warning"
-                                                //         className="click"
-                                                //         id={bdno.guestId}
-                                                //         onClick={async () => {
-                                                //           setLoading(false);
-                                                //           GuestId = bdno.guestId
-                                                //           console.log(
-                                                //             bdno.guestId
-                                                //           );
-                                                //           totalAmountPaidByGuest()
-
-                                                //           await axios
-                                                //             .get(`guest/getTotalPaid/${bdno.guestId}`)
-                                                //             .then((response) =>
-                                                //               (TotalAmountByGuest = response.data)
-                                                //             );
-                                                //           console.log(
-                                                //             TotalAmountByGuest
-                                                //           );
-
-                                                //           await axios
-                                                //             .get(
-                                                //               `guest/onClickDues/${bdno.guestId}`
-                                                //             )
-                                                //             .then(
-                                                //               (response) =>
-                                                //               (GuestDueAmount =
-                                                //                 response.data)
-                                                //             );
-                                                //           console.log(
-                                                //             GuestDueAmount
-                                                //           );
-
-                                                //           await axios
-                                                //             .get(
-                                                //               `/guest/getGuestByGuestId/${bdno.guestId}`
-                                                //             )
-                                                //             .then((res) => {
-                                                //               GuestDetails =
-                                                //                 res.data;
-                                                //               console.log(
-                                                //                 GuestDetails
-                                                //               );
-
-                                                //               setOpen(true);
-                                                //               setLoading(true);
-                                                //             })
-                                                //             .catch((err) => {
-                                                //               console.log(err);
-                                                //             });
-
-                                                //           // await axios .get(`guest/getPendingAndCompletedById/${bdno.guestId}`)
-                                                //           // .then((res) => {
-                                                //           //   GuestDueAmount = res.data;
-                                                //           //   console.log(GuestDueAmount)
-
-                                                //           // })
-                                                //         }}
-                                                //       />
-                                                //     </Tooltip>
-                                                //   );
-                                                // }
                                                 else  {
 
                                                   return (
@@ -264,98 +194,42 @@ const BuildingsLayout = (props) => {
                                                               console.log(err);
                                                             });
 
-                                                          // await axios .get(`guest/getPendingAndCompletedById/${bdno.guestId}`)
-                                                          // .then((res) => {
-                                                          //   GuestDueAmount = res.data;
-                                                          //   console.log(GuestDueAmount)
-
-                                                          // })
+                                                          
                                                         }}
                                                       />
                                                     </Tooltip>
                                                   );
                                                 }
-                                                // else {
-                                                //   return (
-                                                //     <Tooltip
-                                                //       title={bdno.guestName}
-                                                //     >
-                                                //       <Avatar className="click" src={`data:image/jpeg;base64,${bdno.url}`} height={40} width={40}
-                                                //         onClick={async () => {
-                                                //           setLoading(false);
-                                                //           console.log(
-                                                //             bdno.guestId
-                                                //           );
-                                                //           // totalAmountPaidByGuest
-
-                                                //           await axios
-                                                //             .get(`guest/getTotalPaid/${bdno.guestId}`)
-                                                //             .then((response) =>
-                                                //               (TotalAmountByGuest = response.data)
-                                                //             );
-                                                //           console.log(
-                                                //             TotalAmountByGuest
-                                                //           );
-                                                //           await axios
-                                                //             .get(
-                                                //               `guest/onClickDues/${bdno.guestId}`
-                                                //             )
-                                                //             .then(
-                                                //               (response) =>
-                                                //               (GuestDueAmount =
-                                                //                 response.data)
-                                                //             );
-                                                //           console.log(
-                                                //             GuestDueAmount
-                                                //           );
-
-                                                //           await axios
-                                                //             .get(
-                                                //               `/guest/getGuestByGuestId/${bdno.guestId}`
-                                                //             )
-                                                //             .then((res) => {
-                                                //               GuestDetails =
-                                                //                 res.data;
-                                                //               console.log(
-                                                //                 GuestDetails
-                                                //               );
-
-                                                //               setOpen(true);
-                                                //               setLoading(true);
-                                                //             })
-                                                //             .catch((err) => {
-                                                //               console.log(err);
-                                                //             });
-
-                                                //          
-
-
-                                                //         
-
-                                                //           
-
-
-                                                //         }}
-
-
-                                                //       />
-
-                                                //     </Tooltip>
-                                                //   );
-                                                // }
+                                               
                                               })()}
                                             </Grid>
-                                            {/* {bdno.bedStatus === true ? 
-                                                                                             (<IconButton><HotelOutlinedIcon color="success" /></IconButton>)
-                                                                                    :
-                                                                                            (<IconButton onClick={() => { setOpen(true) }}><HotelOutlinedIcon color="error" /></IconButton>) }                                                                                                                                                                                                                                                             */}
-                                            <Grid item xs={12} align="center">
-                                              <h6
+
+                                             <Grid item xs={12} align="center">
+                                              {(()=>{
+                                                if(bdno.guestStatus=="InNotice"){
+                                                  return(<h6 className="text"
+                                                  align="center"
+                                                  key={bdno.bedName}
+                                                >
+                                                  {bdno.bedName}
+                                                </h6>)
+                                                  
+
+                                                }
+                                                else{
+                                                  return(
+                                                    <h6
                                                 align="center"
                                                 key={bdno.bedName}
                                               >
                                                 {bdno.bedName}
                                               </h6>
+
+                                                  )
+                                                  
+                                                }
+                                              })()}
+                                              
                                             </Grid>
                                           </Grid>
                                         </Grid>

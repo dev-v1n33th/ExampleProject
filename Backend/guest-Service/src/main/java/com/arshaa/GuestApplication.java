@@ -2,6 +2,7 @@ package com.arshaa;
 
 import com.arshaa.common.Bed;
 import com.arshaa.entity.Guest;
+import com.arshaa.entity.RatesConfig;
 import com.arshaa.repository.GuestRepository;
 
 import org.modelmapper.ModelMapper;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
-//@EnableScheduling
+@EnableScheduling
 @EnableEurekaClient
 public class GuestApplication extends SpringBootServletInitializer {
 
@@ -34,6 +35,8 @@ public class GuestApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(GuestApplication.class, args);
+    
+       
     }
 
     @Bean
@@ -50,16 +53,24 @@ public class GuestApplication extends SpringBootServletInitializer {
 	
     
 
-    @Autowired
-    private GuestRepository repo;
-
-//    @Scheduled(cron = "*/10 * * * * *")
-//    void addDue() {
-//        ResponseEntity<Bed[]> responseEntity = restTemplate().getForEntity("http://bedService/bed/getAllBeds", Bed[].class);
-//        Bed[] array = responseEntity.getBody();
-//        List<String> ids = Arrays.stream(array).map(Bed::getGuestId).collect(Collectors.toList());
-//        for (String id : ids ){
-//            System.out.println(id);
-//        }
-//    }
+//    @Autowired
+//    private static GuestRepository repo;
+//    @Autowired
+//    private static RatesConfigRepository rcRepo;
+//    double amount=6700;
+//    double dueAmount=0;
+//
+//
+//    //@Scheduled(cron="*/5 * * * * MON-FRI")
+//    @Scheduled(cron = "*/5 * * * * *")
+//     public  void addDue() {
+//    	Guest g=new Guest();
+//    	
+//    	List<Guest>getAllData=repo.findAll();
+//    	getAllData.forEach(e->{
+//    		double preDue=e.getDueAmount();
+//    		RatesConfig rc=rcRepo.findByOccupancyTypeAndBuildingIdAndSharing(e.getOccupancyType(),e.getBuildingId(),e.getSharing());
+//    		e.setDueAmount(preDue+rc.getPrice());
+//    	});
+    
 }

@@ -74,10 +74,13 @@ public class Guest implements Serializable {
     private String pincode;
     private String city;
     private String state;
-    private String workPhone;
-    private String workAddressLine1;
-    private String workAddressLine2;
+    private Date lastBillGenerationDate ;
+    private Date paidtill ;
+    private Date nextDuesGeneration ;
+    
     //@UniqueElements
+    
+    private int packageId ;
     private String transactionId;
     private String paymentPurpose;
     private double amountToBePaid;
@@ -181,60 +184,8 @@ public class Guest implements Serializable {
 	public String getEmail() {
 		return email;
 	}
-		public Guest(String id, String firstName, String lastName, String email, Date dateOfBirth, String personalNumber,
-			String secondaryPhoneNumber, String fatherName, String fatherNumber, String bloodGroup, String occupation,
-			String occupancyType, String gender, String aadharNumber, int buildingId, String bedId, int duration,
-			double dueAmount, String addressLine1, String addressLine2, String pincode, String city, String state,
-			String workPhone, String workAddressLine1, String workAddressLine2, String transactionId,
-			String paymentPurpose, double amountToBePaid, double securityDeposit, String guestStatus, Date noticeDate,
-			double amountPaid, String checkinNotes, java.util.Date transactionDate,Date checkInDate,
-			 java.util.Date plannedCheckOutDate, java.util.Date checkOutDate, String createdBy, java.util.Date  createdOn,
-			double defaultRent, int sharing) {
-		super();
-		this.id = id;
-		this.sharing= sharing ;
-		this.createdOn = createdOn;
-		this.createdBy = createdBy;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.dateOfBirth = dateOfBirth;
-		this.personalNumber = personalNumber;
-		this.secondaryPhoneNumber = secondaryPhoneNumber;
-		this.fatherName = fatherName;
-		this.fatherNumber = fatherNumber;
-		this.bloodGroup = bloodGroup;
-		this.occupation = occupation;
-		this.occupancyType = occupancyType;
-		this.gender = gender;
-		this.aadharNumber = aadharNumber;
-		this.buildingId = buildingId;
-		this.bedId = bedId;
-		this.duration = duration;
-		this.dueAmount = dueAmount;
-		this.addressLine1 = addressLine1;
-		this.addressLine2 = addressLine2;
-		this.pincode = pincode;
-		this.city = city;
-		this.state = state;
-		this.workPhone = workPhone;
-		this.workAddressLine1 = workAddressLine1;
-		this.workAddressLine2 = workAddressLine2;
-		this.transactionId = transactionId;
-		this.paymentPurpose = paymentPurpose;
-		this.amountToBePaid = amountToBePaid;
-		this.securityDeposit = securityDeposit;
-		this.guestStatus = guestStatus;
-		this.noticeDate = noticeDate;
-		this.amountPaid = amountPaid;
-		this.checkinNotes = checkinNotes;
-		this.transactionDate = transactionDate;
-		this.checkInDate = checkInDate;
+		
 	
-		this.plannedCheckOutDate = plannedCheckOutDate;
-		this.checkOutDate = checkOutDate;
-		this.defaultRent = defaultRent;
-	}
 		public int getSharing() {
 			return sharing;
 		}
@@ -322,6 +273,8 @@ public class Guest implements Serializable {
 	public void setDueAmount(double dueAmount) {
 		this.dueAmount = dueAmount;
 	}
+	
+	
 	public String getAddressLine1() {
 		return addressLine1;
 	}
@@ -352,24 +305,7 @@ public class Guest implements Serializable {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public String getWorkPhone() {
-		return workPhone;
-	}
-	public void setWorkPhone(String workPhone) {
-		this.workPhone = workPhone;
-	}
-	public String getWorkAddressLine1() {
-		return workAddressLine1;
-	}
-	public void setWorkAddressLine1(String workAddressLine1) {
-		this.workAddressLine1 = workAddressLine1;
-	}
-	public String getWorkAddressLine2() {
-		return workAddressLine2;
-	}
-	public void setWorkAddressLine2(String workAddressLine2) {
-		this.workAddressLine2 = workAddressLine2;
-	}
+	
 	public String getTransactionId() {
 		return transactionId;
 	}
@@ -429,6 +365,84 @@ public class Guest implements Serializable {
 	}
 	public void setDuration(int duration) {
 		this.duration = duration;
+	}
+	public int getPackageId() {
+		return packageId;
+	}
+	public void setPackageId(int packageId) {
+		this.packageId = packageId;
+	}
+	public Guest(String id, String firstName, String lastName, String email, Date dateOfBirth, String personalNumber,
+			String secondaryPhoneNumber, String fatherName, String fatherNumber, String bloodGroup, String occupation,
+			String occupancyType, String gender, int sharing, String aadharNumber, int buildingId, String bedId,
+			int duration, double dueAmount, String addressLine1, String addressLine2, String pincode, String city,
+			String state, Date lastBillGenerationDate, Date paidtill, Date nextDuesGeneration, int packageId,
+			String transactionId, String paymentPurpose, double amountToBePaid, double securityDeposit,
+			String guestStatus, String createdBy, java.util.Date createdOn, Date noticeDate, double amountPaid,
+			String checkinNotes, java.util.Date transactionDate, Date checkInDate, java.util.Date plannedCheckOutDate,
+			java.util.Date checkOutDate, double defaultRent) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.dateOfBirth = dateOfBirth;
+		this.personalNumber = personalNumber;
+		this.secondaryPhoneNumber = secondaryPhoneNumber;
+		this.fatherName = fatherName;
+		this.fatherNumber = fatherNumber;
+		this.bloodGroup = bloodGroup;
+		this.occupation = occupation;
+		this.occupancyType = occupancyType;
+		this.gender = gender;
+		this.sharing = sharing;
+		this.aadharNumber = aadharNumber;
+		this.buildingId = buildingId;
+		this.bedId = bedId;
+		this.duration = duration;
+		this.dueAmount = dueAmount;
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.pincode = pincode;
+		this.city = city;
+		this.state = state;
+		this.lastBillGenerationDate = lastBillGenerationDate;
+		this.paidtill = paidtill;
+		this.nextDuesGeneration = nextDuesGeneration;
+		this.packageId = packageId;
+		this.transactionId = transactionId;
+		this.paymentPurpose = paymentPurpose;
+		this.amountToBePaid = amountToBePaid;
+		this.securityDeposit = securityDeposit;
+		this.guestStatus = guestStatus;
+		this.createdBy = createdBy;
+		this.createdOn = createdOn;
+		this.noticeDate = noticeDate;
+		this.amountPaid = amountPaid;
+		this.checkinNotes = checkinNotes;
+		this.transactionDate = transactionDate;
+		this.checkInDate = checkInDate;
+		this.plannedCheckOutDate = plannedCheckOutDate;
+		this.checkOutDate = checkOutDate;
+		this.defaultRent = defaultRent;
+	}
+	@Override
+	public String toString() {
+		return "Guest [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", dateOfBirth=" + dateOfBirth + ", personalNumber=" + personalNumber + ", secondaryPhoneNumber="
+				+ secondaryPhoneNumber + ", fatherName=" + fatherName + ", fatherNumber=" + fatherNumber
+				+ ", bloodGroup=" + bloodGroup + ", occupation=" + occupation + ", occupancyType=" + occupancyType
+				+ ", gender=" + gender + ", sharing=" + sharing + ", aadharNumber=" + aadharNumber + ", buildingId="
+				+ buildingId + ", bedId=" + bedId + ", duration=" + duration + ", dueAmount=" + dueAmount
+				+ ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", pincode=" + pincode
+				+ ", city=" + city + ", state=" + state + ", lastBillGenerationDate=" + lastBillGenerationDate
+				+ ", paidtill=" + paidtill + ", nextDuesGeneration=" + nextDuesGeneration + ", packageId=" + packageId
+				+ ", transactionId=" + transactionId + ", paymentPurpose=" + paymentPurpose + ", amountToBePaid="
+				+ amountToBePaid + ", securityDeposit=" + securityDeposit + ", guestStatus=" + guestStatus
+				+ ", createdBy=" + createdBy + ", createdOn=" + createdOn + ", noticeDate=" + noticeDate
+				+ ", amountPaid=" + amountPaid + ", checkinNotes=" + checkinNotes + ", transactionDate="
+				+ transactionDate + ", checkInDate=" + checkInDate + ", plannedCheckOutDate=" + plannedCheckOutDate
+				+ ", checkOutDate=" + checkOutDate + ", defaultRent=" + defaultRent + "]";
 	}
 	
 

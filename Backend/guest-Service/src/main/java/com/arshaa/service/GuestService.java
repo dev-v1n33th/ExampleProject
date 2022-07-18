@@ -15,7 +15,6 @@ import com.arshaa.dtos.RatedDto;
 import com.arshaa.entity.Guest;
 import com.arshaa.entity.RatesConfig;
 import com.arshaa.model.DueGuestsList;
-import com.arshaa.model.GuestsInNotice;
 import com.arshaa.model.PaymentRemainder;
 import com.arshaa.model.PreviousGuests;
 import com.arshaa.model.VacatedGuests;
@@ -29,6 +28,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
@@ -73,6 +73,40 @@ public class GuestService implements GuestInterface {
 	@Autowired
 	@PersistenceContext
 	private EntityManager em;
+	
+	
+
+
+	    //@Scheduled(cron="*/5 * * * * MON-FRI")
+	    @Scheduled(cron = "* 1 * * * *")
+	     public  List<Guest> addDue() {
+	    	List<Guest> list=new ArrayList<>();
+	    	List<Guest>getAllData=repository.findAll();
+	    	getAllData.forEach(e->{
+	    		double preDue=e.getDueAmount();
+//	    		RatesConfig rc=rconfig.findByOccupancyTypeAndBuildingIdAndSharing(e.getOccupancyType(),e.getBuildingId(),e.getSharing());
+//	    List<RatesConfig> rc=rconfig.findAll();
+//	    rc.forEach(r->{
+//	    	
+//	    	e.setDueAmount(preDue+r.getPrice());
+//	    	list.add(e);
+//	    });
+	    		RatesConfig rc=rconfig.getById(e.getPackageId());
+	    		e.setDueAmount(preDue+rc.getPrice());	
+    	repository.save(e);
+    	list.add(e);
+
+	    	});
+	    	System.out.println(list);
+			return list;
+	    }
+	    
+	    
+	    public ResponseEntity getAllRents(String occupancyType, int buildingId, int sharing)
+	    {
+    		RatesConfig rc=rconfig.findByOccupancyTypeAndBuildingIdAndSharing(occupancyType,buildingId,sharing);
+             return new ResponseEntity(rc,HttpStatus.OK);
+	    }
 
 	@Override
 	public List<GuestDto> getGuests(String field) {
@@ -360,9 +394,7 @@ public class GuestService implements GuestInterface {
 //		g.setTransactionDate(tDate);
 		g.setTransactionDate(guest.getTransactionDate());
 		g.setTransactionId(guest.getTransactionId());
-		g.setWorkAddressLine1(guest.getWorkAddressLine1());
-		g.setWorkAddressLine2(guest.getWorkAddressLine2());
-		g.setWorkPhone(guest.getWorkPhone());
+		
 		repository.save(g);
 
 		if (guest.getOccupancyType().equalsIgnoreCase("daily")) {
