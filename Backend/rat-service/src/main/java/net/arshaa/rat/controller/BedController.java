@@ -23,11 +23,13 @@ import Models.BuildingSummary;
 import Models.FloorNameAndId;
 import Models.FloorsInfo;
 import Models.NewBuildModel;
+import Models.Response;
 import Models.RoomDto;
 import Models.RoomsInfo;
 import Models.UpdateBedDto;
 import common.Guest;
 import common.GuestProfile;
+import common.MonthluSumResponse;
 import common.MonthlySummary;
 import common.User;
 import net.arshaa.rat.entity.Bed;
@@ -1077,34 +1079,40 @@ Rooms room = roomRepo.save(newRoom);
 		   	}
 	
 //Get Api to get monthly summary by buildingwise
-	
     @GetMapping("getMonthlySummaryForAdmin/{month}/{year}")	
 	public ResponseEntity getMonthlySummary(@PathVariable int month,@PathVariable int year)
-	{
+	{ 
+    	MonthluSumResponse msRes=new MonthluSumResponse();
 		String getIncomeRefURL="http://paymentService/payment/getMonthlySummary/";
 		List<MonthlySummary> getList=new ArrayList<>();
 		try {
 			List<Buildings> getBuildings = buildingRepo.findAll();
-			if (!getBuildings.isEmpty()) {
+			
 				getBuildings.forEach(building -> {
 					MonthlySummary ms=new MonthlySummary();
 
-					MonthlySummary getMonthlySum=template.getForObject(getIncomeRefURL+month+"/"+year+"/"+building.getBuildingId(), MonthlySummary.class);
-					ms.setBuildingName(building.getBuildingName());
-					ms.setIncomeAmount(getMonthlySum.getIncomeAmount());
-					ms.setRefundAmount(getMonthlySum.getRefundAmount());
-					double actualIncome=getMonthlySum.getIncomeAmount()-getMonthlySum.getRefundAmount();
-					ms.setActualIncome(actualIncome);
-					getList.add(ms);
+					Response getMonthlySum=template.getForObject(getIncomeRefURL+month+"/"+year+"/"+building.getBuildingId(), Response.class);
+					if(!(getMonthlySum.getData()).equals(null))
+					{
+						ms.setBuildingName(building.getBuildingName());
+						ms.setIncomeAmount(getMonthlySum.getData().getIncomeAmount());
+						ms.setRefundAmount(getMonthlySum.getData().getRefundAmount());
+						double actualIncome=getMonthlySum.getData().getIncomeAmount()-getMonthlySum.getData().getRefundAmount();
+						ms.setActualIncome(actualIncome);
+						getList.add(ms);
+						msRes.setStatus(true);
+						msRes.setData(getList);
+					}
+					else {
+						msRes.setStatus(false);
+						msRes.setData(null);
+					}
 				});
-				return new ResponseEntity<>(getList, HttpStatus.OK);
-			}
-			else {
-				return new ResponseEntity<>("something went wrong", HttpStatus.OK);
-			}
+				return new ResponseEntity<>(msRes, HttpStatus.OK);
 		}
 		catch (Exception e){
-			return new ResponseEntity<>("Something  went wrong", HttpStatus.OK);
+			msRes.setStatus(false);
+			return new ResponseEntity<>(msRes, HttpStatus.OK);
 		}
 	}
 	

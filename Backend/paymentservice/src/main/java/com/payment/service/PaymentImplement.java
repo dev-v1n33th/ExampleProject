@@ -244,19 +244,25 @@ response.setMessage("something went wrong");
 	@Override
 	public ResponseEntity getMonthlySummary(int month, int year,int buildingId) {
 
-		
+		Response response=new Response();
 		MonthlySummary ms=new MonthlySummary();
-	
-		{
-			
-			double incomeAmount=repo.getCountOfAmountPaidByBuildingId(month, year, buildingId);
-			double refundAmount=repo.getCountOfRefundByBuildingId(month, year, buildingId);
-			ms.setIncomeAmount(incomeAmount);
+		try {
+			 double incomeAmount=repo.getCountOfAmountPaidByBuildingId(month, year, buildingId);
+			  double refundAmount=repo.getCountOfRefundByBuildingId(month, year, buildingId);
+			  ms.setIncomeAmount(incomeAmount);
 			ms.setRefundAmount(refundAmount);
-			
-			
+			response.setStatus(true);
+			response.setData(ms);
+				return new ResponseEntity<>(response,HttpStatus.OK);
 		}
-		return new ResponseEntity<>(ms,HttpStatus.OK);
+		catch(Exception e)
+		{
+			response.setStatus(true);
+            response.setData(null);
+			return new ResponseEntity<>(response,HttpStatus.OK);
+
+		}
+		   
 	}
 
 }
