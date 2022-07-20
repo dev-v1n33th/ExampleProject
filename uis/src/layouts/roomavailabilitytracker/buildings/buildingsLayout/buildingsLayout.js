@@ -16,7 +16,7 @@ import HotelOutlinedIcon from "@mui/icons-material/HotelOutlined";
 // import MDButton from "components/MDButton";
 // import axios from 'axios';
 import axios from "../../../../Uri";
-
+import FilterFramesIcon from '@mui/icons-material/FilterFrames';
 import { Image } from "react-bootstrap";
 import GuestPopUp from "../GuestPopUp/guestPopUP";
 // import { setOpenConfigurator } from "context";
@@ -24,7 +24,8 @@ import "./buildingLayout.css";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import Tooltip from "@material-ui/core/Tooltip";
-
+import CropSquareIcon from '@mui/icons-material/CropSquare';
+import SquareIcon from '@mui/icons-material/Square';
 var GuestDetails = {};
 var GuestDueAmount = null;
 var TotalAmountByGuest = null;
@@ -75,7 +76,11 @@ const BuildingsLayout = (props) => {
 
   return (
     <>
-      <MDBox bgColor="white" padding="30px" sx={{ border: 3 }}>
+    <SquareIcon className="availableBed"/>Available Beds
+    <SquareIcon className="dueGuests"/>Due Guests
+    <SquareIcon className="inNotice"/>In Notice Guests
+    <SquareIcon className="activeGuests"/>Active Guests without Due
+      <MDBox padding="30px" sx={{ border: 3 }}>
         {loading ? (
           buildingInfo.map((post) => {
             return (
@@ -95,14 +100,14 @@ const BuildingsLayout = (props) => {
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     {" "}
-                    <h4 key={post.buildingName}>{post.buildingName}</h4>{" "}
+                    <h4 className="buildingColor"  key={post.buildingName}>{post.buildingName}</h4>{" "}
                   </Grid>
                   {post.floors.map((item) => {
                     return (
                       <>
                         <Grid item xs={12}>
                           {" "}
-                          <h6 key={item.floorName} align="center">
+                          <h6  className="floorColor"  key={item.floorName} align="center">
                             {item.floorName}
                           </h6>
                         </Grid>
@@ -117,7 +122,7 @@ const BuildingsLayout = (props) => {
                                   sx={{ border: 1, pl: 1 }}
                                 >
                                   <Grid item xs={12}>
-                                    <h5 key={rmno.roomNumber}>
+                                    <h5 className="roomColor " key={rmno.roomNumber}>
                                       {rmno.roomNumber}
                                     </h5>
                                   </Grid>
@@ -130,11 +135,13 @@ const BuildingsLayout = (props) => {
                                               {(() => {
                                                 if (bdno.bedStatus === true) {
                                                   return (
+                                                    <>
                                                     <HotelOutlinedIcon
                                                       key={bdno.bedId}
                                                       className="click"
                                                       color="success"
                                                     />
+                                                </>
                                                   );
 
                                                 }
@@ -145,7 +152,7 @@ const BuildingsLayout = (props) => {
                                                     <Tooltip
                                                       title={bdno.guestName}
                                                     >
-                                                      <Avatar className="click" src={`data:image/jpeg;base64,${bdno.url}`} height={40} width={40}
+                                                      <Avatar className="click" src={`data:image/jpeg;base64,${bdno.url}`} height={45} width={45}
                                                         onClick={async () => {
                                                           setLoading(false);
                                                           GuestId = bdno.guestId
@@ -192,42 +199,51 @@ const BuildingsLayout = (props) => {
                                                             })
                                                             .catch((err) => {
                                                               console.log(err);
-                                                            });
-
-                                                          
+                                                            });                                                         
                                                         }}
                                                       />
                                                     </Tooltip>
                                                   );
-                                                }
-                                               
+                                                }                                              
                                               })()}
                                             </Grid>
 
                                              <Grid item xs={12} align="center">
                                               {(()=>{
                                                 if(bdno.guestStatus=="InNotice"){
-                                                  return(<h6 className="text"
+                                                  return(<h5 className="inNoticeText"
                                                   align="center"
                                                   key={bdno.bedName}
                                                 >
                                                   {bdno.bedName}
-                                                </h6>)
-                                                  
-
+                                                </h5>)
                                                 }
-                                                else{
+                                                else if(bdno.bedStatus === true){
                                                   return(
-                                                    <h6
+                                                    <h5 className="availableBedText"
                                                 align="center"
                                                 key={bdno.bedName}
                                               >
                                                 {bdno.bedName}
-                                              </h6>
-
-                                                  )
-                                                  
+                                              </h5>)
                                                 }
+                                              else if(bdno.dueAmount>0){
+                                                return(
+                                                  <h5 className="dueGuestsText"
+                                              align="center"
+                                              key={bdno.bedName}
+                                            >
+                                              {bdno.bedName}
+                                            </h5>)}
+                                            else{
+                                              return(
+                                                <h5 
+                                                className="activeGuestsText"
+                                            align="center"
+                                            key={bdno.bedName}
+                                          >
+                                            {bdno.bedName}
+                                          </h5>)}
                                               })()}
                                               
                                             </Grid>

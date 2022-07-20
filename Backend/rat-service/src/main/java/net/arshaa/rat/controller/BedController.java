@@ -657,7 +657,7 @@ Rooms room = roomRepo.save(newRoom);
 										//newBed.setGuest(listOfGuests);
 										newBed.setGuestName(listOfGuests.getFirstName());
 										newBed.setGuestStatus(listOfGuests.getGuestStatus());
-										
+										newBed.setDueAmount(listOfGuests.getDueAmount());
 										GuestProfile getProfile=template.getForObject("http://guestService/guest/files/" + newBed.getGuestId(),GuestProfile.class);										
                                         newBed.setName(getProfile.getName());
                                         newBed.setType(getProfile.getType());

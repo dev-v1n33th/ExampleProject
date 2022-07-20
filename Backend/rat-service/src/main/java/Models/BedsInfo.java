@@ -16,6 +16,7 @@ public class BedsInfo {
 	private String buildingName;
 	private int bedNum;
 	private String name;
+    private double dueAmount;
 	  private byte[] url;
 	  private String type;
 	  private long size;
@@ -26,6 +27,12 @@ public class BedsInfo {
     
     private Object data;
     
+	public double getDueAmount() {
+		return dueAmount;
+	}
+	public void setDueAmount(double dueAmount) {
+		this.dueAmount = dueAmount;
+	}
 	public int getSharing() {
 		return sharing;
 	}
