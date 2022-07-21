@@ -778,7 +778,7 @@ public ResponseEntity paymentRemainder(int buildingId)
 //            if(guest.getAddressLine1()==null || guest.getAddressLine2()==null || guest.getBloodGroup() ==null || guest.getPincode()==null || guest.getFatherNumber()==null) {
 
 
-            if(guest.getAadharNumber()==null) {
+             {
                 guest.setId(id);
 
             guest.setFirstName(editGuest.getLastName());
@@ -796,25 +796,7 @@ public ResponseEntity paymentRemainder(int buildingId)
 
             return new ResponseEntity(repository.save(guest), HttpStatus.OK);
         }
-            else if(guest.getAadharNumber()!=null){
-            guest.setId(id);
-            guest.setFirstName(editGuest.getLastName());
-            guest.setLastName(editGuest.getLastName());
-            guest.setEmail(editGuest.getEmail());
-            guest.setPersonalNumber(editGuest.getPersonalNumber());
-            guest.setAadharNumber(guest.getAadharNumber());
-            guest.setAddressLine1(editGuest.getAddressLine1());
-            guest.setDateOfBirth(editGuest.getDateOfBirth());
-            guest.setGender(editGuest.getGender());
-
-            guest.setPincode(editGuest.getPincode());
-            guest.setState(editGuest.getState());
-            guest.setCity(editGuest.getCity());
-            guest.setAadharNumber(guest.getAadharNumber());
-
-            return new ResponseEntity(repository.save(guest), HttpStatus.OK);
-
-        }
-        return new ResponseEntity( "Cant update", HttpStatus.OK);      
+           
+//        return new ResponseEntity( "Cant update", HttpStatus.OK);      
     }
 }
