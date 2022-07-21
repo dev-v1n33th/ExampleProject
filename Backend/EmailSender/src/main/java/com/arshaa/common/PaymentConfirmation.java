@@ -9,6 +9,17 @@ public class PaymentConfirmation {
 	private double amountPaid;
 	private String transactionId;
 	private Date date;
+	private int paymentId;
+	private double refundAmount;
+	
+
+	public double getRefundAmount() {
+		return refundAmount;
+	}
+
+	public void setRefundAmount(double refundAmount) {
+		this.refundAmount = refundAmount;
+	}
 
 	public String getEmail() {
 		return email;
@@ -50,4 +61,25 @@ public class PaymentConfirmation {
 		this.date = date;
 	}
 
+	public int getPaymentId() {
+		return paymentId;
+	}
+
+	public void setPaymentId(int paymentId) {
+		this.paymentId = paymentId;
+	}
+
+	public PaymentConfirmation(String email, String name, double amountPaid, String transactionId, Date date,
+			int paymentId, double refundAmount) {
+		super();
+		this.email = email;
+		this.name = name;
+		this.amountPaid = amountPaid;
+		this.transactionId = transactionId;
+		this.date = date;
+		this.paymentId = paymentId;
+		this.refundAmount = refundAmount;
+	}
+
+	
 }
