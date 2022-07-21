@@ -1,16 +1,19 @@
 package com.arshaa.common;
 
+import java.sql.Date;
+
 public class UpdateGuestDetails {
 
 	
 	private String id ;
-	private String personalNumber;
+	private String firstName ;
+	private String lastName;
 	private String email ;
-	private String bloodGroup;
+	private String personalNumber;
 	private String aadharNumber;
-	private String fatherNumber ;
 	private String addressLine1 ;
-	private String addressLine2 ;
+	private Date dateOfBirth ;
+	private String gender ;
 	private String pincode;
 	private String city;
 	private String state;
@@ -20,11 +23,17 @@ public class UpdateGuestDetails {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getPersonalNumber() {
-		return personalNumber;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setPersonalNumber(String personalNumber) {
-		this.personalNumber = personalNumber;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getEmail() {
 		return email;
@@ -32,11 +41,11 @@ public class UpdateGuestDetails {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getBloodGroup() {
-		return bloodGroup;
+	public String getPersonalNumber() {
+		return personalNumber;
 	}
-	public void setBloodGroup(String bloodGroup) {
-		this.bloodGroup = bloodGroup;
+	public void setPersonalNumber(String personalNumber) {
+		this.personalNumber = personalNumber;
 	}
 	public String getAadharNumber() {
 		return aadharNumber;
@@ -44,23 +53,23 @@ public class UpdateGuestDetails {
 	public void setAadharNumber(String aadharNumber) {
 		this.aadharNumber = aadharNumber;
 	}
-	public String getFatherNumber() {
-		return fatherNumber;
-	}
-	public void setFatherNumber(String fatherNumber) {
-		this.fatherNumber = fatherNumber;
-	}
 	public String getAddressLine1() {
 		return addressLine1;
 	}
 	public void setAddressLine1(String addressLine1) {
 		this.addressLine1 = addressLine1;
 	}
-	public String getAddressLine2() {
-		return addressLine2;
+	public Date getDateOfBirth() {
+		return dateOfBirth;
 	}
-	public void setAddressLine2(String addressLine2) {
-		this.addressLine2 = addressLine2;
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	public String getPincode() {
 		return pincode;
@@ -80,7 +89,5 @@ public class UpdateGuestDetails {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
-	
-	
+
 }
