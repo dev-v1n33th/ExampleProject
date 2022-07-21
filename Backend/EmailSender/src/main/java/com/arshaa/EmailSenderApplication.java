@@ -20,6 +20,15 @@ public class EmailSenderApplication {
 	        return new RestTemplate();
 	    }
 
+//	@Bean
+//	public ITemplateResolver thymeleafTemplateResolver() {
+//	    ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+//	    templateResolver.setPrefix("mail-templates/");
+//	    templateResolver.setSuffix(".html");
+//	    templateResolver.setTemplateMode("HTML");
+//	    templateResolver.setCharacterEncoding("UTF-8");
+//	    return templateResolver;
+//	}
 	
 
 }

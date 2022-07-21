@@ -24,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.payment.entity.Payments;
+import com.payment.model.EmailResponse;
 import com.payment.model.MonthlySummary;
 import com.payment.repos.PayRepos;
 import org.springframework.web.client.RestTemplate;
@@ -109,7 +110,7 @@ public class PaymentImplement implements PaymentService {
 	@Override
 	public String addPaymentAfterOnBoard(PostPayments payment) {
 		// String uri = "http://guestService/guest/updateDueAmount";
-		//String eUri="http://emailService/mail/sendPaymentConfirmation/";
+		String eUri="http://emailService/mail/sendPaymentConfirmation/";
 
 		Guest guest = new Guest();
 		Payments secondpay = new Payments();
@@ -128,29 +129,35 @@ public class PaymentImplement implements PaymentService {
 			payment.setCreatedOn(c);
 			
 			secondpay.setTransactionDate(secondpay.getTransactionDate());
-			secondpay.setRefundAmount(payment.getRefundAmount());
-			
-					
-			
-			PaymentConfirmation pc=new PaymentConfirmation();
-			
-			String name = template.getForObject("http://guestService/guest/getNameByGuestId/" + secondpay.getGuestId(),
-					String.class);
-			String email = template.getForObject("http://guestService/guest/getEmailByGuestId/" + secondpay.getGuestId(),
-					String.class);
-			
-			pc.setAmountPaid(payment.getAmountPaid());
-			// pc.setDate(tSqlDate);
-			pc.setEmail(email);
-			pc.setName(name);
-			pc.setTransactionId(payment.getTransactionId());
-			
-//			PaymentConfirmation pcEmail=template.postForObject(eUri, pc, PaymentConfirmation.class);
-		repo.save(secondpay);
+			secondpay.setRefundAmount(payment.getRefundAmount());		
+		Payments p=repo.save(secondpay);
+		PaymentConfirmation pc=new PaymentConfirmation();
+		
+		String name = template.getForObject("http://guestService/guest/getNameByGuestId/" + secondpay.getGuestId(),
+				String.class);
+		String email = template.getForObject("http://guestService/guest/getEmailByGuestId/" + secondpay.getGuestId(),
+				String.class);
+		
+		pc.setAmountPaid(payment.getAmountPaid());
+		// pc.setDate(tSqlDate);
+		pc.setEmail(email);
+		pc.setName(name);
+		pc.setTransactionId(payment.getTransactionId());
+		pc.setPaymentId(p.getId());
+		pc.setAmountPaid(p.getAmountPaid());
+		pc.setRefundAmount(p.getRefundAmount());
+		pc.setDate(secondpay.getTransactionDate());
+		EmailResponse pcEmail=template.postForObject(eUri, pc, EmailResponse.class);
 //			guest.setId(secondpay.getGuestId());
 //			// guest.setDueAmount(secondpay.getDueAmount());
 //			// template.put(uri, guest, Guest.class);
+		if(pcEmail.isStatus()==true)
+		{
+			return "Payment done successfully, email also sent successfully";
+		}
+		else {
 			return "successfull";
+		}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return e.getMessage();

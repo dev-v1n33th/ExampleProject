@@ -1,6 +1,7 @@
 package com.arshaa.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.arshaa.common.OnboardingConfirmation;
+import com.arshaa.common.PaymentConfirmation;
 import com.arshaa.entity.PaymentRemainder;
 import com.arshaa.service.EmailSender;
 
@@ -31,8 +33,6 @@ public class EmailSenderController {
 	@Lazy
 	private RestTemplate template;
 
-	
-
 // Test Email
 	@PostMapping(value = "/postmail")
 	public String send() throws AddressException, MessagingException, IOException {
@@ -40,15 +40,26 @@ public class EmailSenderController {
 
 		return "Email Sent Successfully";
 	}
+
 //Payment Remainder Email for due Amount	
 	@PostMapping("/sendPaymentRemainder")
-	public ResponseEntity sendPaymentRemainder(@RequestBody PaymentRemainder sendPayRem)throws AddressException, MessagingException, IOException
-	{
-		 return emailSender.sendRemainder(sendPayRem.getEmail(),sendPayRem.getName(), sendPayRem.getDueAmount());
+	public ResponseEntity sendPaymentRemainder(@RequestBody PaymentRemainder sendPayRem)
+			throws AddressException, MessagingException, IOException {
+		return emailSender.sendRemainder(sendPayRem.getEmail(), sendPayRem.getName(), sendPayRem.getDueAmount());
 	}
+
 	@PostMapping("/sendOnboardingConfirmation")
 	public ResponseEntity sendOnboardingConfirmation(@RequestBody OnboardingConfirmation onBoard)
-	{
-		return emailSender.OnboardingConfirmation(onBoard.getEmail(), onBoard.getName(), onBoard.getAmountPaid(), onBoard.getBedId(), onBoard.getBuildingName());
+			throws AddressException, MessagingException, IOException {
+		return emailSender.OnboardingConfirmation(onBoard.getEmail(), onBoard.getName(), onBoard.getAmountPaid(),
+				onBoard.getBedId(), onBoard.getBuildingName());
 	}
+	
+	@PostMapping("/sendPaymentConfirmation")
+	public ResponseEntity sendPaymentConfirmation(@RequestBody PaymentConfirmation pconfirm)
+			throws AddressException, MessagingException, IOException {
+		return emailSender.sendPaymentConfirmation(pconfirm.getEmail(), pconfirm.getName(), pconfirm.getAmountPaid(),
+				pconfirm.getTransactionId(), pconfirm.getDate(), pconfirm.getPaymentId(),pconfirm.getRefundAmount());
+	}
+
 }
