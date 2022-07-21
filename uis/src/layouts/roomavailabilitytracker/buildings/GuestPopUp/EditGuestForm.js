@@ -37,25 +37,29 @@ const useStyles = makeStyles({
 });
 
 const FORM_VALIDATION = Yup.object().shape({
-    email: Yup.string().email("Invalid email.").required("Required"),
-    dateOfBirth: Yup.date().test(
-        "DOB",
-        "Please choose a valid date of birth",
-        (date) =>
-            moment().diff(moment(date), "years") >= 12 &&
-            moment().diff(moment(date), "years") <= 80
-    ),
-    gender: Yup.string().required("Required"),
+    email: Yup.string().email("Invalid email."),
+    // dateOfBirth: Yup.date().test(
+    //     "DOB",
+    //     "Please choose a valid date of birth",
+    //     (date) =>
+    //         moment().diff(moment(date), "years") >= 12 &&
+    //         moment().diff(moment(date), "years") <= 80
+    // ),
+    aadharNumber: Yup.string()
+    .matches(/^\d{4}\d{4}\d{4}$/, "Invalid Aadhar Number"),
+    gender: Yup.string(),
     personalNumber: Yup.string()
         .matches(/^[6-9]\d{9}$/, {
             message: "Please enter Valid Mobile Number",
             excludeEmptyString: false,
-        })
-        .required("Required"),
+        }),
+        city: Yup.string()
+    .matches(/^[aA-zZ\s]+$/, "Invalid City Name"),
+    state: Yup.string()
+    .matches(/^[aA-zZ\s]+$/, "Invalid State "),
     pincode: Yup.string()
-        .matches(/^\d{2}\d{2}\d{2}$/, "Invalid PinCode Number")
-        .required("Required"),
-    addressLine1: Yup.string().required("Required"),
+        .matches(/^\d{2}\d{2}\d{2}$/, "Invalid PinCode Number"),
+    addressLine1: Yup.string(),
 
 
 });
@@ -130,7 +134,7 @@ const EditGuestForm = (props) => {
                                     handleClose()
                                     toast.success("Updated successfully");
                                     setINITIAL_FORM_STATE({
-                                        firstName: res.data.body.firstName,
+                                        firstName: "res.data.body.firstName",
                                         lastName: res.data.body.lastName,
                                         email: res.data.body.email,
                                         personalNumber: res.data.body.personalNumber,
@@ -150,22 +154,22 @@ const EditGuestForm = (props) => {
                                 <Form>
                                     <Grid container spacing={2}>
                                         <Grid item xs={6}>
-                                            <h5>First Name</h5>
+                                            <h5>First Name*</h5>
                                             <Textfield inputProps={{ readOnly: true, }} name="firstName" />
 
 
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <h5>Last Name</h5>
+                                            <h5>Last Name*</h5>
                                             <Textfield inputProps={{ readOnly: true, }} name="lastName" />
                                         </Grid>
 
                                         <Grid item xs={6}>
-                                            <h5>Email</h5>
+                                            <h5>Email*</h5>
                                             <Textfield name="email" />
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <h5>Date of Birth </h5>
+                                            <h5>Date of Birth *</h5>
                                             <DateTimePicker
                                                 maxdate={new Date()}
                                                 name="dateOfBirth"
@@ -174,12 +178,12 @@ const EditGuestForm = (props) => {
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <h5>Phone Number</h5>
+                                            <h5>Phone Number*</h5>
                                             <Textfield name="personalNumber" />
                                         </Grid>
                                         <Grid item xs={6}>
 
-                                            <h5>Select Gender </h5>
+                                            <h5>Select Gender *</h5>
 
                                             <Select
                                                 IconComponent={() => (
@@ -191,15 +195,15 @@ const EditGuestForm = (props) => {
                                             ></Select>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <h5>Aadhar</h5>
+                                            <h5>Aadhar*</h5>
                                             <Textfield name="aadharNumber" />
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <h5>Address</h5>
+                                            <h5>Address*</h5>
                                             <Textfield name="addressLine1" />
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <h5>Pincode </h5>
+                                            <h5>Pincode *</h5>
                                             <Textfield
                                                 name="pincode"
                                                 //label="Pincode"
@@ -208,7 +212,7 @@ const EditGuestForm = (props) => {
                                         </Grid>
 
                                         <Grid item xs={6}>
-                                            <h5>City </h5>
+                                            <h5>City *</h5>
                                             <Textfield
                                                 name="city"
                                                 //label="City"
@@ -218,7 +222,7 @@ const EditGuestForm = (props) => {
 
                                         <Grid item xs={6}>
 
-                                            <h5>Select state </h5>
+                                            <h5>Select state *</h5>
 
                                             <Select
                                                 IconComponent={(Gender) => (
