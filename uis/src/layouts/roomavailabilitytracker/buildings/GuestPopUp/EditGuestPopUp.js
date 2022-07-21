@@ -25,28 +25,21 @@ import AppBar from '@mui/material/AppBar';
 import GuestPic from './GuestPicture/GuestPic';
 import { useNavigate } from "react-router-dom";
 // import EditGuestDetailsScreen from "../EditGuestDetails";
-import EditGuestPopUp from "./EditGuestPopUp";
+import EditGuestForm from "./EditGuestForm";
 
 
 
-export default function GuestPopUp({ open, handleCloseGuestModalWindow, ...props }) {
-  const [showEditGuest , setShowEditGuest] = useState(false);
-  // console.log('heeeeeeeeeeeeeee')
-  const navigate = useNavigate();
-
-  const editGuestHandler = () =>{
-    // navigate("/editGuest")
-    handleCloseGuestModalWindow();
-    setShowEditGuest(!showEditGuest);
-  }
-  // console.log(props.TotalAmountByGuest)
-  console.log(props.GuestPic)
+export default function EditGuestPopUp(props) {
+  const  guestdetails=props.guestdetails;
+//   const editGuestHandler = props.editGuestHandler;
+//   const closeEditGuestModal = () =>{
+//     editGuestHandler
+//   }
+  console.log(guestdetails);
+  console.log('from edit guest details')
   return (
     <div>
-      <EditGuestPopUp guestdetails={props.GuestDetails} showEditGuest={showEditGuest} editGuestHandler={editGuestHandler}
-                      // handleCloseGuestModalWindow={handleCloseGuestModalWindow}
-                      />
-      <Dialog open={open} onClose={handleCloseGuestModalWindow} maxWidth="lg">
+      <Dialog open={props.showEditGuest} onClose={props.editGuestHandler} maxWidth="lg">
           <MDButton
             width="20%"
             variant="contained"
@@ -55,42 +48,12 @@ export default function GuestPopUp({ open, handleCloseGuestModalWindow, ...props
             justify="center"
             style={{ borderRadius: 0 }}
           >
-            Guest Details
+            Edit Guest Details
           </MDButton>
-
           <DialogContent>
-          <MDButton
-                  width="20%"
-                  variant="contained"
-                  color="info"
-                  size="small"
-                  justify="center"
-                  style={{ borderRadius: 10,
-                           float:'right' }}
-                  onClick={editGuestHandler}
-                  
-                >
-                  EDit Guest
-                </MDButton>
-            <GuestPic    guestdetails={props.GuestDetails}/>
-            <GuestDetailsIndex
-              guestdetails={props.GuestDetails}
-              GuestDueAmount={props.GuestDueAmount}
-              TotalAmountByGuest={props.TotalAmountByGuest}
+            <EditGuestForm  guestdetails={props.guestdetails} editGuestHandler={props.editGuestHandler}
+            // handleCloseGuestModalWindow={handleCloseGuestModalWindow}
             />
-            
-            <br />
-
-            <CheckOut
-              guestdetails={props.GuestDetails}
-              GuestDueAmount={props.GuestDueAmount}
-            />
-            <br />
-
-            <br />
-            <h3 className="head-1-checkOut">Transaction History</h3>
-            <br />
-            <TransactionHistory guestdetails={props.GuestDetails} />
           </DialogContent>
           <DialogActions>
             <Grid container style={{ display: "flex" }}>
@@ -102,11 +65,12 @@ export default function GuestPopUp({ open, handleCloseGuestModalWindow, ...props
                   size="large"
                   justify="center"
                   style={{ borderRadius: 10 }}
-                  onClick={handleCloseGuestModalWindow}
+                  onClick={props.editGuestHandler}
                 >
                   Close
                 </MDButton>
               </Grid>
+            
             </Grid>
           </DialogActions>
         </Dialog>
