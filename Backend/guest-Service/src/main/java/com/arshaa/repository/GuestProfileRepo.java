@@ -11,4 +11,5 @@ public interface GuestProfileRepo extends JpaRepository<GuestProfile, String>{
 	//GuestProfile findByEmployeeId(String id);
 
 	GuestProfile findByGuestId(String id);
+	boolean existsByGuestId(String id);
 }

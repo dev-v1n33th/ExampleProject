@@ -771,41 +771,50 @@ public ResponseEntity paymentRemainder(int buildingId)
 	}
 
 	@Override
-	public ResponseEntity updateGuestDetails(UpdateGuestDetails editGuest, String id) {
-		// TODO Auto-generated method stub
-		Guest guest = repository.findById(id);
-		if(guest.getAadharNumber()== null) {
-			guest.setId(id);
-			guest.setAadharNumber(editGuest.getAadharNumber());
-			guest.setAddressLine1(editGuest.getAddressLine1());
-			guest.setAddressLine2(editGuest.getAddressLine2());
-			guest.setBloodGroup(editGuest.getBloodGroup());
-			guest.setEmail(editGuest.getEmail());
-			guest.setFatherNumber(editGuest.getFatherNumber());
-			guest.setPersonalNumber(editGuest.getPersonalNumber());
-			guest.setPincode(editGuest.getPincode());
-			guest.setState(editGuest.getState());
-			guest.setCity(editGuest.getCity());
-			return new ResponseEntity(repository.save(guest), HttpStatus.OK);
-		}else {
-			if(guest.getAadharNumber()!=null) {
-				guest.setId(id);
-			guest.setAadharNumber(guest.getAadharNumber());
-			guest.setAddressLine1(editGuest.getAddressLine1());
-			guest.setAddressLine2(editGuest.getAddressLine2());
-			guest.setBloodGroup(editGuest.getBloodGroup());
-			guest.setEmail(editGuest.getEmail());
-			guest.setFatherNumber(editGuest.getFatherNumber());
-			guest.setPersonalNumber(editGuest.getPersonalNumber());
-			guest.setPincode(editGuest.getPincode());
-			guest.setState(editGuest.getState());
-			guest.setCity(editGuest.getCity());
-				return new ResponseEntity(repository.save(guest), HttpStatus.OK);
-			}
-			
-		}
-		return new ResponseEntity( "Cant update", HttpStatus.OK);	
-		
-	}
+    public ResponseEntity updateGuestDetails(UpdateGuestDetails editGuest, String id) {
+        // TODO Auto-generated method stub
+        Guest guest = repository.findById(id);
+//        if(guest.getAadharNumber()== null || guest.getEmail()== null || guest.getPersonalNumber()==null || guest.getCity()==null || guest.getState()==null ) {
+//            if(guest.getAddressLine1()==null || guest.getAddressLine2()==null || guest.getBloodGroup() ==null || guest.getPincode()==null || guest.getFatherNumber()==null) {
 
+
+            if(guest.getAadharNumber()==null) {
+                guest.setId(id);
+
+            guest.setFirstName(editGuest.getLastName());
+            guest.setLastName(editGuest.getLastName());
+            guest.setEmail(editGuest.getEmail());
+            guest.setPersonalNumber(editGuest.getPersonalNumber());
+            guest.setAadharNumber(editGuest.getAadharNumber());
+            guest.setAddressLine1(editGuest.getAddressLine1());
+            guest.setDateOfBirth(editGuest.getDateOfBirth());
+            guest.setGender(editGuest.getGender());
+
+            guest.setPincode(editGuest.getPincode());
+            guest.setState(editGuest.getState());
+            guest.setCity(editGuest.getCity());
+
+            return new ResponseEntity(repository.save(guest), HttpStatus.OK);
+        }
+            else if(guest.getAadharNumber()!=null){
+            guest.setId(id);
+            guest.setFirstName(editGuest.getLastName());
+            guest.setLastName(editGuest.getLastName());
+            guest.setEmail(editGuest.getEmail());
+            guest.setPersonalNumber(editGuest.getPersonalNumber());
+            guest.setAadharNumber(guest.getAadharNumber());
+            guest.setAddressLine1(editGuest.getAddressLine1());
+            guest.setDateOfBirth(editGuest.getDateOfBirth());
+            guest.setGender(editGuest.getGender());
+
+            guest.setPincode(editGuest.getPincode());
+            guest.setState(editGuest.getState());
+            guest.setCity(editGuest.getCity());
+            guest.setAadharNumber(guest.getAadharNumber());
+
+            return new ResponseEntity(repository.save(guest), HttpStatus.OK);
+
+        }
+        return new ResponseEntity( "Cant update", HttpStatus.OK);      
+    }
 }

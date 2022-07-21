@@ -1,6 +1,7 @@
 package com.arshaa.service;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +22,24 @@ public class GuestProfileService {
 	    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 	    //String employeeId1=employeeId;
 	    //GuestProfile FileDB = new GuestProfile();
-	    GuestProfile newFile=new GuestProfile();
-	    newFile.setData(file.getBytes());
-	    newFile.setGuestId(guestId);
-	    newFile.setName(fileName);
-	    newFile.setType(file.getContentType());
-	    
-	    
-	    return gpRepo.save(newFile);
-	    
+	   GuestProfile getFile=gpRepo.findByGuestId(guestId);
+	   System.out.println(gpRepo.existsByGuestId(guestId));
+	    if(!gpRepo.existsByGuestId(guestId))
+	    {
+	    	 GuestProfile newFile=new GuestProfile();
+	 	    newFile.setData(file.getBytes());
+	 	    newFile.setGuestId(guestId);
+	 	    newFile.setName(fileName);
+	 	    newFile.setType(file.getContentType());    
+	 	    return gpRepo.save(newFile);
+	    }
+	    else {
+	    	getFile.setData(file.getBytes());
+	    	getFile.setGuestId(guestId);
+	    	getFile.setName(fileName);
+	    	getFile.setType(file.getContentType());
+	 	    return gpRepo.save(getFile);
+	    }
 	  }
 	  public GuestProfile getFile(String id) {
 	    return gpRepo.findById(id).get();

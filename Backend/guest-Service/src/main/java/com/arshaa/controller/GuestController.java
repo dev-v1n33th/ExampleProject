@@ -79,7 +79,7 @@ public class GuestController {
 	 private RatesConfigRepository rcr ;
 	
 	
-	@PatchMapping("/editGuestDetails/{guestId}")
+	@PutMapping("/editGuestDetails/{guestId}")
 	public ResponseEntity editGuest(@RequestBody UpdateGuestDetails ud , @PathVariable String guestId) {
 		Guest guest = new Guest();
 		try {
