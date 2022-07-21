@@ -24,6 +24,7 @@ import PastGuest from 'layouts/profile/indexforpastGuest';
 import PendingPayments from 'layouts/pendingPayments' ;
 import ConfigRentsIndex from 'layouts/configRents';
 import MonthlySummary from 'layouts/MonthlySummary';
+// import EditGuestDetailsScreen from 'layouts/roomavailabilitytracker/buildings/EditGuestDetails';
 const routes = [
 	{
 		type: 'collapse',
@@ -200,6 +201,14 @@ const routes = [
 		route: '/authentication/sign-in',
 		component: <SignIn />
 	},
+	// {
+	// 	type: 'main',
+	// 	name: 'Edit Guest',
+	// 	key: 'editGuest',
+	// 	icon: <Icon fontSize="small">logout</Icon>,
+	// 	route: '/editGuest',
+	// 	component: <EditGuestDetailsScreen />
+	// },
 	{
 		type: 'main',
 		name: 'Forgot Password',

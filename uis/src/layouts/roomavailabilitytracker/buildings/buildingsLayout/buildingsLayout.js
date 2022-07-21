@@ -72,7 +72,7 @@ const BuildingsLayout = (props) => {
 
   // const [GuestId, setGuestId] = React.useState("");
   const [open, setOpen] = React.useState(false);
-  const handleClose = () => setOpen(false);
+  const handleCloseGuestModalWindow = () => setOpen(false);
 
   return (
     <>
@@ -88,7 +88,7 @@ const BuildingsLayout = (props) => {
                 <GuestPopUp
 
                   open={open}
-                  handleClose={handleClose}
+                  handleCloseGuestModalWindow={handleCloseGuestModalWindow}
                   GuestDetails={GuestDetails}
                   GuestDueAmount={GuestDueAmount}
                   TotalAmountByGuest={TotalAmountByGuest}
