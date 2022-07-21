@@ -19,47 +19,45 @@ function GuestPic(props) {
     const UploadPhoto = (event) =>{
         console.log(event.target.files[0])
         setFile(event.target.files[0]);
+        
         if (event.target.files[0].size >= 1000000) {
             toast.warning("Please select file with less than 1 MB");
           }
-          else{
-        
-        
+    console.log(File);
+    
+    
     }
     console.log(File);
-    const formData = new FormData();
     if (File !== null) {
-        // console.log(file);
-        formData.append("file", File);
-        formData.append("fileName", File.name);
+      const formData = new FormData();
+      // console.log(file);
+      formData.append("file", File);
+      formData.append("fileName", File.name);
 
-        const config = {
-          headers: {
-            "content-type": "multipart/form-data",
-          },
-        };
-        console.log(formData);
-        console.log(config);
+      const config = {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      };
+      console.log(formData);
+      console.log(config);
 
-        axios
-          .post(`guest/upload/${props.guestdetails.id}/`, formData, config)
-          .then((response) => {
-            console.log(response.data);
-            toast.success(
-              "guest picture uploaded successfully"
-            );
-          })
-          .catch((error) => {
-            console.log(error);
-            // toast.warning("File s")
-            console.log("Not uploaded");
-          });
-      } else {
-        // toast.warning(" Picture is Not Uploaded")
-      }
+      axios
+        .post(`guest/upload/${props.guestdetails.id}/`, formData, config)
+        .then((response) => {
+          console.log(response.data);
+          toast.success(
+            "guest picture uploaded successfully"
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+          // toast.warning("File s")
+          console.log("Not uploaded");
+        });
+    } 
+
     
-
-    }
     useEffect(async () => {
         await axios
 
@@ -90,7 +88,7 @@ function GuestPic(props) {
         
              component="label"
              >
-  Upload photo
+  change photo
   <input hidden accept="image/*" multiple type="file" onChange={UploadPhoto} />
 </MDButton>
 <ToastContainer
