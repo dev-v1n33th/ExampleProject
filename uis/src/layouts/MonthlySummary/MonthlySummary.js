@@ -54,7 +54,7 @@ export default function HolidayTable() {
       .get(`/bed/getMonthlySummaryForAdmin/${selectedMonth}/${selectedYear}`)
       .catch((error) => {
         handleClose();
-        toast.error(" No Recards Found");
+        toast.error(" No Records Found");
       });
     console.log(response.data);
     if (response.data.status == true || response.data.data != null) {
@@ -62,8 +62,8 @@ export default function HolidayTable() {
       setRowData(response.data.data);
     } else if (response.data.status == false && response.data.data == null) {
       handleClose();
-      console.log("No Recards Found");
-      toast.warning(" No Recards Found");
+      console.log("No Records Found");
+      toast.warning(" No Records Found");
     }
   };
   return (
