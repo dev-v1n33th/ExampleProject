@@ -5,6 +5,7 @@ import axios from "../../../../Uri";
 import { Container, Grid, Typography, InputLabel } from "@mui/material";
 import moment from "moment";
 import { makeStyles } from "@mui/styles";
+import { useNavigate } from "react-router-dom";
 import Occupancytype from "./OccupancyType";
 import Textfield from "./TextField";
 import Select from "./Select";
@@ -153,6 +154,8 @@ const FORM_VALIDATION = Yup.object().shape({
 console.log(JSON.parse(sessionStorage.getItem("userdata")));
 
 const GuestLoginForm = (props) => {
+
+  const navigate = useNavigate();
   console.log("hi")
   function getOccupencyType(data) {
     console.log(data);
@@ -458,6 +461,7 @@ const GuestLoginForm = (props) => {
                             handleClose();
                             toast.success(" Guest onboarded successfully");
                             resetForm();
+                            
                             empty;
                             const url = `guest/upload/${res.data.id}/`;
                             const formData = new FormData();
@@ -487,9 +491,14 @@ const GuestLoginForm = (props) => {
                                   // toast.warning("File s")
                                   console.log("Not uploaded");
                                 });
+                              
                             } else {
                               // toast.warning(" Picture is Not Uploaded")
                             }
+                            setTimeout(() => {
+                              navigate("/tracker")
+                            }, 4000);
+                           
                           } else {
                             console.log("heeyyyyy");
                           }

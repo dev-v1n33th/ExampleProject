@@ -12,6 +12,11 @@ import ManagerPaymentsinPopup from './managerPaymentModule/managerPaymentinPopUp
 import GuestpaymentsinPopUp from './GuestPaymentModule/GuestpaymentsinPopUp';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DateTimePicker from 'layouts/profile/GuestLoginForm/components/DataTimePicker';
+import { Formik, Form } from "formik";
+// import Button from '../../../../profile/GuestLoginForm/components/Button';
+
+import InitiateCheckoutBtn from './InitiateCheckoutBtn';
 
 
 function formatDate(checkInDate) {
@@ -41,29 +46,36 @@ const CheckOut = (props) => {
   const [disableCheckoutButtons, setDisableCheckoutButtons] = React.useState(false);
   // const [disableRefundButton, setDisableRefuncdButton] = React.useState(false);
   // const [disableRecordPayment, setDisableRecordPayment] = React.useState(false);
+  const [pickNoticeDate, setPickNoticeDate] = useState(false)
+  
+
 
 
 
   const initiateCheckoutProcess = () => {
-    axios.get(`guest/get/${props.guestdetails.id}`).
-      then((res) => { setDates(res.data); 
-         setDisableCheckoutButtons(true);
-         toast.success("Initiated Checkout Successfully");})
-      .catch(err => { console.err(err); toast.error("Checkout Initiation Failed"); })
+    setPickNoticeDate(true)
+    console.log('clicked initiate checkout btn')
+    // axios.get(`guest/get/${props.guestdetails.id}`).
+    //   then((res) => { setDates(res.data); 
+    //      setDisableCheckoutButtons(true);
+    //      toast.success("Initiated Checkout Successfully");})
+    //   .catch(err => { console.err(err); toast.error("Checkout Initiation Failed"); })
     // setCheckOutDate(formatDate(props.guestdetails.checkOutDate));
     // setDate(dt);
   }
   console.log(dates)
 
 
-  const finalCheckOutHandler = async() => {
+  const finalCheckOutHandler = async () => {
 
-   await axios.get(`guest/getFinalCheckout/${props.guestdetails.id}`)
-    .then((res) => {console.log(res.data); 
-       setDisableCheckoutButtons(true);
-       toast.success("Guest Checked-Out Successfully. Please wait before we complete the transaction.");})
-       .catch((err)=> console.log(err));
-   
+    await axios.get(`guest/getFinalCheckout/${props.guestdetails.id}`)
+      .then((res) => {
+        console.log(res.data);
+        setDisableCheckoutButtons(true);
+        toast.success("Guest Checked-Out Successfully. Please wait before we complete the transaction.");
+      })
+      .catch((err) => console.log(err));
+
     // setTimeout(() => {
     //   window.location.();
     // }, 2000)
@@ -74,30 +86,33 @@ const CheckOut = (props) => {
 
 
       <Grid container>
-      {/* <Grid xs={5} sx={{ pt: "30px", pr: "40px" }}> */}
-          {/* <Button disabled={disableCheckoutButtons} variant="contained" color="primary" onClick={initiateCheckoutProcess} style={{ color: "white" }}>INITIATE CHECKOUT</Button> */}
+        {/* <Grid xs={5} sx={{ pt: "30px", pr: "40px" }}> */}
+        {/* <Button disabled={disableCheckoutButtons} variant="contained" color="primary" onClick={initiateCheckoutProcess} style={{ color: "white" }}>INITIATE CHECKOUT</Button> */}
         {/* </Grid> */}
         {/* {props.guestdetails.occupancyType == "Regular"  ?  (<Grid xs={5} sx={{ pt: "30px", pr: "40px" }}>
           <Button disabled={disableCheckoutButtons} variant="contained" color="primary" onClick={initiateCheckoutProcess} style={{ color: "white" }}>INITIATE CHECKOUT</Button>
         </Grid>) :(<div></div>)} */}
 
-{props.guestdetails.occupancyType == "Regular"  && props.guestdetails.guestStatus == "active" ?  (<Grid xs={5} sx={{ pt: "30px", pr: "40px" }}>
+        {props.guestdetails.occupancyType == "Regular" && props.guestdetails.guestStatus == "active" ? (<Grid xs={5} sx={{ pt: "30px", pr: "40px" }}>
 
-<Button disabled={disableCheckoutButtons} variant="contained" color="primary" onClick={initiateCheckoutProcess} style={{ color: "white" }}>INITIATE CHECKOUT</Button>
+          <Button disabled={disableCheckoutButtons} variant="contained" color="primary" onClick={initiateCheckoutProcess} style={{ color: "white" }}>INITIATE CHECKOUT</Button>
 
-</Grid>) :(<div></div>)}
+        </Grid>) : (<div></div>)}
 
-
+        
+        {pickNoticeDate === true ? (<>
+        <InitiateCheckoutBtn guestdetails={props.guestdetails}/>
+</>):(<></>)}
 
 
 
         { }
 
 
-        {props.guestdetails.guestStatus == "InNotice"  ? (
+        {props.guestdetails.guestStatus == "InNotice" ? (
           <Button disabled={disableCheckoutButtons} variant="contained" color="primary" style={{ color: "white", float: "right" }} onClick={finalCheckOutHandler} >Finish CheckOut</Button>
         ) : (<div></div>)}
-       
+
 
         {props.guestdetails.occupancyType == 'daily' || props.guestdetails.occupancyType == 'OneMonth' ? (
           <Button disabled={disableCheckoutButtons} className="btn-float-left" variant="contained" color="primary" style={{ color: "white", float: "right" }} onClick={finalCheckOutHandler} >CheckOut</Button>

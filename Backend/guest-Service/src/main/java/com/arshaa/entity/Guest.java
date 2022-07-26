@@ -92,8 +92,8 @@ public class Guest implements Serializable {
     private java.util.Date createdOn = new java.util.Date(System.currentTimeMillis());
 
     
-	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
-    private Date noticeDate;
+//	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
+    private java.util.Date noticeDate;
      private double amountPaid;
     private String checkinNotes;
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
@@ -104,7 +104,7 @@ public class Guest implements Serializable {
     private Date checkInDate ;
     
    // @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
+   // @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
     private java.util.Date plannedCheckOutDate;
    // @DateTimeFormat(pattern = "dd-MM-yyyy")
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
@@ -124,10 +124,10 @@ public class Guest implements Serializable {
 	public void setCreatedOn(java.util.Date  createdOn) {
 		this.createdOn = createdOn;
 	}
-    public Date getNoticeDate() {
+    public java.util.Date getNoticeDate() {
 		return noticeDate;
 	}
-	public void setNoticeDate(Date noticeDate) {
+	public void setNoticeDate(java.util.Date noticeDate) {
 		this.noticeDate = noticeDate;
 	}
 	

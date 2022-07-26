@@ -3,6 +3,7 @@ package com.arshaa.service;
 
 import com.arshaa.common.CheckOutIntiated;
 import com.arshaa.common.FinalCheckOutConfimation;
+import com.arshaa.common.InitiateCheckoutByGuestId;
 import com.arshaa.common.OnboardingConfirmation;
 import com.arshaa.model.EmailResponse;
 
@@ -11,6 +12,7 @@ import com.arshaa.common.MailDto;
 import com.arshaa.common.Payment;
 import com.arshaa.common.PaymentRemainderData;
 import com.arshaa.common.UpdateGuestDetails;
+import com.arshaa.common.UpdateGuestStatusAfterInitiateCheckout;
 import com.arshaa.dtos.GuestDto;
 import com.arshaa.dtos.RatedDto;
 import com.arshaa.entity.Guest;
@@ -799,4 +801,33 @@ public ResponseEntity paymentRemainder(int buildingId)
            
 //        return new ResponseEntity( "Cant update", HttpStatus.OK);      
     }
+	
+	@Override
+	public ResponseEntity GuestCheckoutBody(InitiateCheckoutByGuestId gcb ,String id) {
+		Guest guest = repository.findById(id);
+		{
+			guest.setId(id);
+			guest.setNoticeDate(gcb.getNoticeDate());
+			guest.setPlannedCheckOutDate(gcb.getPlannedCheckOutDate());
+			guest.setOccupancyType(gcb.getOccupancyType());
+			guest.setGuestStatus("InNotice");
+			
+			
+			
+		}
+		return new ResponseEntity (repository.save(guest) , HttpStatus.OK);
+		
+//		UpdateGuestStatusAfterInitiateCheckout upGstStatus = new UpdateGuestStatusAfterInitiateCheckout();
+//		
+//		guest.setId(id);
+//		upGstStatus.setGuestStatus("InNotice");
+		
+		
+		
+		
+		
+	}
+
+	
+	
 }
