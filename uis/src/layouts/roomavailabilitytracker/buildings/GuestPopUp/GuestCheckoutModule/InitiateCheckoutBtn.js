@@ -163,6 +163,7 @@ const InitiateCheckoutBtn = (props) => {
                 await axios.post(`guest/initiatecheckoutbyguestid/${props.guestdetails.id}` ,guest )
                 .then((res)=>{
                   console.log(res);
+                  toast.success("Guest Checkout Successfully Initiated ")
                 })
                 // handleToggle();               
               }}

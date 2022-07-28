@@ -7,7 +7,10 @@ function GuestDetailsIndex(props) {
     console.log("hey this is guest details index")
     console.log(props.TotalAmountByGuest)
   return (
-    <div>{occtype == 'Regular' ? (<RegGuestDetails TotalAmountByGuest={props.TotalAmountByGuest} guestdetails={props.guestdetails} GuestDueAmount={props.GuestDueAmount}/>) : (<Guestdetails TotalAmountByGuest={props.TotalAmountByGuest} guestdetails={props.guestdetails} GuestDueAmount={props.GuestDueAmount} />)}</div>
+    <div>{occtype == 'Regular' ? (<RegGuestDetails TotalAmountByGuest={props.TotalAmountByGuest} guestdetails={props.guestdetails} GuestDueAmount={props.GuestDueAmount}/>) : (<></>)}
+    {occtype !== 'Regular' && props.guestdetails.guestStatus == 'active' ? (<Guestdetails TotalAmountByGuest={props.TotalAmountByGuest} guestdetails={props.guestdetails} GuestDueAmount={props.GuestDueAmount} />):(<></>)}
+    {/* {occtype !== 'Regular' && props.guestdetails.guestStatus == 'VACATED' ? ():() } */}
+    </div>
   )
 }
 

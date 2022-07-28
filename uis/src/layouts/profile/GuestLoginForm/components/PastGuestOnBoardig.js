@@ -18,6 +18,7 @@ import months from "./Months";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Backdrop from "@mui/material/Backdrop";
+import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const useStyles = makeStyles({
@@ -145,6 +146,7 @@ const FORM_VALIDATION = Yup.object().shape({
 console.log(JSON.parse(sessionStorage.getItem("userdata")));
 
 const PastGuestLoginForm = () => {
+  const navigate = useNavigate();
   const [building, setBuilding] = React.useState([]);
   const [oneBuilding, setoneBuilding] = React.useState([]);
   const [bed, setBed] = React.useState([]);
@@ -381,6 +383,9 @@ const PastGuestLoginForm = () => {
                                               }else{
                                                 // toast.warning(" Picture is Not Uploaded")
                                               }
+                                              setTimeout(() => {
+                                                navigate("/tracker")
+                                              }, 4000);
                       
                                             }else{
                                               console.log('heeeeeeeeeeeeeeeyyyyyyyyyyyy')
