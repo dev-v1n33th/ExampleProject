@@ -2,6 +2,7 @@ package com.arshaa.controller;
 
 import com.arshaa.common.Bed;
 import com.arshaa.common.GuestModel;
+import com.arshaa.common.InitiateCheckoutByGuestId;
 import com.arshaa.common.UpdateGuestDetails;
 import com.arshaa.dtos.GuestDto;
 import com.arshaa.dtos.RatedDto;
@@ -78,6 +79,21 @@ public class GuestController {
 	@Autowired
 	 private RatesConfigRepository rcr ;
 	
+	
+	@PostMapping("/initiatecheckoutbyguestid/{guestId}")
+	public ResponseEntity initiateCheckOut(@RequestBody InitiateCheckoutByGuestId gcb , @PathVariable String guestId) {
+		Guest guest = new Guest();
+		try {
+			if(guest.getId()!= null) {
+				return new ResponseEntity(service.GuestCheckoutBody(gcb , guestId) , HttpStatus.OK);
+			}
+		}
+		catch(Exception e) {
+			System.out.println("id not available" + e.getLocalizedMessage());
+		}
+		return new ResponseEntity(service.GuestCheckoutBody(gcb , guestId) , HttpStatus.OK);
+		
+	}
 	
 	@PutMapping("/editGuestDetails/{guestId}")
 	public ResponseEntity editGuest(@RequestBody UpdateGuestDetails ud , @PathVariable String guestId) {

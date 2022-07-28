@@ -46,8 +46,8 @@ public class Guest {
     private double amountToBePaid;
     private double securityDeposit;
     private String guestStatus;
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
-    private Date noticeDate;
+//    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
+    private java.util.Date noticeDate;
      private double amountPaid;
     private String checkinNotes;
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
@@ -58,7 +58,7 @@ public class Guest {
     private Date checkInDate ;
     
    // @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
+  //  @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
     private java.util.Date plannedCheckOutDate;
    // @DateTimeFormat(pattern = "dd-MM-yyyy")
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
@@ -68,10 +68,10 @@ public class Guest {
 
     
     
-    public Date getNoticeDate() {
+    public java.util.Date getNoticeDate() {
 		return noticeDate;
 	}
-	public void setNoticeDate(Date noticeDate) {
+	public void setNoticeDate(java.util.Date noticeDate) {
 		this.noticeDate = noticeDate;
 	}
 	

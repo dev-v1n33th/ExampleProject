@@ -1,6 +1,7 @@
 package com.arshaa.service;
 
 import com.arshaa.common.Bed;
+import com.arshaa.common.InitiateCheckoutByGuestId;
 import com.arshaa.common.UpdateGuestDetails;
 import com.arshaa.dtos.GuestDto;
 import com.arshaa.dtos.RatedDto;
@@ -68,6 +69,7 @@ public interface GuestInterface {
 	
 	
 public ResponseEntity updateGuestDetails(UpdateGuestDetails editGuest , String id);
+public ResponseEntity GuestCheckoutBody(InitiateCheckoutByGuestId gcb ,String id);
 
 
 }
