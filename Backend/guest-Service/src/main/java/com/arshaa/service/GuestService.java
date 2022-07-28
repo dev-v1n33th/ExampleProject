@@ -398,6 +398,13 @@ public class GuestService implements GuestInterface {
 		g.setTransactionDate(guest.getTransactionDate());
 		g.setTransactionId(guest.getTransactionId());
 		
+		 if(guest.getBuildingId()==0 || guest.getBedId()==null)
+         {
+             Guest gt =null;
+             return gt;
+         }
+         else {
+		
 		repository.save(g);
 
 		if (guest.getOccupancyType().equalsIgnoreCase("daily")) {
@@ -436,6 +443,7 @@ public class GuestService implements GuestInterface {
 
 			repository.save(g);
 		}
+         }
 
 //	        System.out.println(initialDefaultrent); 
 		guest.setGuestStatus("active");

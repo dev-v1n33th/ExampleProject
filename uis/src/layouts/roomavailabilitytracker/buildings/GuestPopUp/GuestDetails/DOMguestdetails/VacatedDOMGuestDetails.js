@@ -16,7 +16,7 @@ import Divider from '@mui/material/Divider';
 //import Grid from '@mui/material/Grid'
 //import formatDate from "../guestPopUP/formateDate";
 
-function Guestdetails(props) {
+function VacatedDOMGuestdetails(props) {
   // var today = new Date();
   // var dd = String(today.getDate()).padStart(2, "0");
   // var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
@@ -40,11 +40,11 @@ function Guestdetails(props) {
   // } else {
   //   console.log("");
   // }
-  var s = props.guestdetails.plannedCheckOutDate.toLocaleString("ko-KR", {
-    timeZone: "Asia/Kolkata",
-  });
-  // console.log(s);
-  var da = formatDate(s)
+//   var s = props.guestdetails.plannedCheckOutDate.toLocaleString("ko-KR", {
+//     timeZone: "Asia/Kolkata",
+//   });
+//   // console.log(s);
+//   var da = formatDate(s)
   function createData(name, calories) {
     return { name, calories };
   }
@@ -69,7 +69,7 @@ function Guestdetails(props) {
     createData(<h4>Total Amount Paid</h4>, 'Rs.'+ props.TotalAmountByGuest),
     // createData(<h4>SecurityDeposit</h4>,'Rs.'+ props.guestdetails.securityDeposit ),
     createData(<h4>Default Rent</h4>,'Rs.'+ props.guestdetails.defaultRent ),
-    
+    createData(<h4>Checked-Out Date</h4>, props.guestdetails.checkOutDate )
 
   ]
 
@@ -138,4 +138,4 @@ function Guestdetails(props) {
   );
 }
 
-export default Guestdetails;
+export default VacatedDOMGuestdetails;
