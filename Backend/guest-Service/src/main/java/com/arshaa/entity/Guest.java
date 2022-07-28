@@ -93,7 +93,8 @@ public class Guest implements Serializable {
 
     
 //	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
-    private java.util.Date noticeDate;
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
+    private Date noticeDate;
      private double amountPaid;
     private String checkinNotes;
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
@@ -104,7 +105,7 @@ public class Guest implements Serializable {
     private Date checkInDate ;
     
    // @DateTimeFormat(pattern = "dd-MM-yyyy")
-   // @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
     private java.util.Date plannedCheckOutDate;
    // @DateTimeFormat(pattern = "dd-MM-yyyy")
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
@@ -124,13 +125,32 @@ public class Guest implements Serializable {
 	public void setCreatedOn(java.util.Date  createdOn) {
 		this.createdOn = createdOn;
 	}
-    public java.util.Date getNoticeDate() {
+   
+	
+	public Date getLastBillGenerationDate() {
+		return lastBillGenerationDate;
+	}
+	public void setLastBillGenerationDate(Date lastBillGenerationDate) {
+		this.lastBillGenerationDate = lastBillGenerationDate;
+	}
+	public Date getPaidtill() {
+		return paidtill;
+	}
+	public void setPaidtill(Date paidtill) {
+		this.paidtill = paidtill;
+	}
+	public Date getNextDuesGeneration() {
+		return nextDuesGeneration;
+	}
+	public void setNextDuesGeneration(Date nextDuesGeneration) {
+		this.nextDuesGeneration = nextDuesGeneration;
+	}
+	public Date getNoticeDate() {
 		return noticeDate;
 	}
-	public void setNoticeDate(java.util.Date noticeDate) {
+	public void setNoticeDate(Date noticeDate) {
 		this.noticeDate = noticeDate;
 	}
-	
 	public double getDefaultRent() {
 		return defaultRent;
 	}

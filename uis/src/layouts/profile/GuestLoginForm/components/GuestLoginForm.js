@@ -78,20 +78,20 @@ const FORM_VALIDATION = Yup.object().shape({
     .matches(/^[aA-zZ\s]+$/, "Invalid LastName ")
     .required("Required"),
   fatherName: Yup.string().matches(/^[aA-zZ\s]+$/, "Invalid LastName "),
-  email: Yup.string().email("Invalid email.").required("Required"),
+  email: Yup.string().email("Invalid email."),
   checkInDate: Yup.date().test(
     "Check In Date",
     "Please choose a valid Check In Date 🥱🥳",
     (date) =>
       moment().diff(moment(date), "years") <= 8
-  ),
-  dateOfBirth: Yup.date().test(
-    "DOB",
-    "Please choose a valid date of birth",
-    (date) =>
-      moment().diff(moment(date), "years") >= 12 &&
-      moment().diff(moment(date), "years") <= 80
-  ),
+  ).required("Required"),
+  // dateOfBirth: Yup.date().test(
+  //   "DOB",
+  //   "Please choose a valid date of birth",
+  //   (date) =>
+  //     moment().diff(moment(date), "years") >= 12 &&
+  //     moment().diff(moment(date), "years") <= 80
+  // ),
   bloodGroup: Yup.string().matches(/^(A|B|AB|O)[+-]$/, {
     message: "Please enter valid Blood Group.",
     excludeEmptyString: false,
@@ -101,13 +101,13 @@ const FORM_VALIDATION = Yup.object().shape({
     /^[aA-zZ\s]+$/,
     "Give a Valid Occupation Type "
   ),
-  gender: Yup.string().required("Required"),
+  gender: Yup.string(),
   personalNumber: Yup.string()
     .matches(/^[6-9]\d{9}$/, {
       message: "Please enter Valid Mobile Number",
       excludeEmptyString: false,
     })
-    .required("Required"),
+    ,
   secondaryPhoneNumber: Yup.string().matches(/^[6-9]\d{9}$/, {
     message: "Please enter Valid Mobile Number",
     excludeEmptyString: false,
@@ -119,21 +119,21 @@ const FORM_VALIDATION = Yup.object().shape({
 
   aadharNumber: Yup.string()
     .matches(/^\d{4}\d{4}\d{4}$/, "Invalid Aadhar Number")
-    .required("Required"),
+    ,
   pincode: Yup.string()
     .matches(/^\d{2}\d{2}\d{2}$/, "Invalid PinCode Number")
-    .required("Required"),
+    ,
 
   bedId: Yup.string().required("Required"),
 
-  addressLine1: Yup.string().required("Required"),
+  addressLine1: Yup.string(),
   city: Yup.string()
     .matches(/^[aA-zZ\s]+$/, "Invalid City Name")
-    .required("Required"),
+    ,
   addressLine2: Yup.string(),
   state: Yup.string()
     .matches(/^[aA-zZ\s]+$/, "Invalid State ")
-    .required("Required"),
+    ,
   buildingId: Yup.number().required("Required"),
   // occupancyType: Yup.string().required("Required"),
   amountPaid: Yup.number().required("Required"),

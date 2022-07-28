@@ -814,12 +814,12 @@ public ResponseEntity paymentRemainder(int buildingId)
 	public ResponseEntity GuestCheckoutBody(InitiateCheckoutByGuestId gcb ,String id) {
 		Guest guest = repository.findById(id);
 		{
-			guest.setId(id);
-			guest.setNoticeDate(gcb.getNoticeDate());
-			guest.setPlannedCheckOutDate(gcb.getPlannedCheckOutDate());
-			guest.setOccupancyType(gcb.getOccupancyType());
-			guest.setGuestStatus("InNotice");
-			
+//			guest.setId(id);
+//			guest.setNoticeDate(gcb.getNoticeDate());
+//			guest.setPlannedCheckOutDate(gcb.get);
+//			guest.setOccupancyType(gcb.getOccupancyType());
+//			guest.setGuestStatus("InNotice");
+//			
 			
 			
 		}

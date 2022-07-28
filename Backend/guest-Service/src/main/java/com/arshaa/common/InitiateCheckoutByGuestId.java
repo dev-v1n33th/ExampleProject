@@ -14,10 +14,10 @@ public class InitiateCheckoutByGuestId {
 	}
 	private String occupancyType;
 	private String guestStatus;
-//	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
-    private java.util.Date noticeDate;
-//	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
-    private java.util.Date plannedCheckOutDate;
+	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
+    private Date noticeDate;
+	  @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
+	    private Date plannedCheckOutDate;
 	public String getOccupancyType() {
 		return occupancyType;
 	}
