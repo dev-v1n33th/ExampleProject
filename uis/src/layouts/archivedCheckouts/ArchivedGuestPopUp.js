@@ -59,6 +59,7 @@ console.log(props.GuestDetails);
             size="large"
             justify="center"
             style={{ borderRadius: 0 }}
+            // className='div'
           >
            archived Guest Details
           </MDButton>

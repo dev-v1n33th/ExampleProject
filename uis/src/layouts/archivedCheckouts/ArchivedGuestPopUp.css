@@ -70,6 +70,10 @@
     color: black;
     text-align: center;
 }
+.div { 
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+}
 
 .Text-CheckOut{
 
