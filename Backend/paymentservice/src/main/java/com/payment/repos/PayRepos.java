@@ -36,16 +36,16 @@ public interface PayRepos extends JpaRepository<Payments, Integer> {
 	List<Payments> getDueAmountByGuestId(String guestId);
 	Optional<List<Payments>> findPaymentsByBuildingId(int buildingId) ;
 	
-	    @Query(value="SELECT SUM(amount_paid) FROM Payments u WHERE guest_id=:id",nativeQuery = true)
+	    @Query(value="SELECT SUM(amount_paid) FROM payments u WHERE guest_id=:id",nativeQuery = true)
 	    long getCountOfAmount(@Param("id") String guestId);
 	    
-	    @Query(value="SELECT SUM(refund_amount) FROM Payments u WHERE guest_id=:id",nativeQuery = true)
+	    @Query(value="SELECT SUM(refund_amount) FROM payments u WHERE guest_id=:id",nativeQuery = true)
 	    long getCountOfRefundAmount(@Param("id") String guestId);
 
-		@Query(value="select SUM(amount_paid) from Payments  where month(payments.transaction_date) = ?1 and year(payments.transaction_date)= ?2 and building_id=?3", nativeQuery=true)
+		@Query(value="select SUM(amount_paid) from payments  where month(payments.transaction_date) = ?1 and year(payments.transaction_date)= ?2 and building_id=?3", nativeQuery=true)
 		double getCountOfAmountPaidByBuildingId(@Param("month") Integer month,@Param("month") Integer year,@Param("id") int buildingId);
 		
-		@Query(value="select SUM(refund_amount) from Payments  where month(payments.transaction_date) = ?1 and year(payments.transaction_date)= ?2 and building_id=?3", nativeQuery=true)
+		@Query(value="select SUM(refund_amount) from payments  where month(payments.transaction_date) = ?1 and year(payments.transaction_date)= ?2 and building_id=?3", nativeQuery=true)
 		double getCountOfRefundByBuildingId(@Param("month") Integer month,@Param("month") Integer year,@Param("id") int buildingId);
 	    
 }

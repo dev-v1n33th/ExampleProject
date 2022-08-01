@@ -58,6 +58,7 @@ function VacatedDOMGuestdetails(props) {
     createData(<h4>Guest Status</h4>, props.guestdetails.guestStatus),
     createData(<h4>Duration</h4>, props.guestdetails.duration),
     createData(<h4>Occupancy Type</h4>, props.guestdetails.occupancyType),
+    createData(<h4>Aadhar Number</h4>, props.guestdetails.aadharNumber),
     
 
   ];
@@ -69,7 +70,10 @@ function VacatedDOMGuestdetails(props) {
     createData(<h4>Total Amount Paid</h4>, 'Rs.'+ props.TotalAmountByGuest),
     // createData(<h4>SecurityDeposit</h4>,'Rs.'+ props.guestdetails.securityDeposit ),
     createData(<h4>Default Rent</h4>,'Rs.'+ props.guestdetails.defaultRent ),
-    createData(<h4>Checked-Out Date</h4>, props.guestdetails.checkOutDate )
+    createData(<h4>Checked-Out Date</h4>, props.guestdetails.checkOutDate ),
+    createData(<h4>Gender </h4>, props.guestdetails.gender ),
+    createData(<h4>State </h4>, props.guestdetails.state ),
+    createData(<h4>Address </h4>, props.guestdetails.addressLine1 ),
 
   ]
 
