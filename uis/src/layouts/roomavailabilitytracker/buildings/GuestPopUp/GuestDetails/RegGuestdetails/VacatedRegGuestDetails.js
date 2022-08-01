@@ -38,6 +38,8 @@ function VacatedRegGuestDetails(props) {
         createData(<h4>Bed ID</h4>, props.guestdetails.bedId),
         createData(<h4>Guest Status</h4>, props.guestdetails.guestStatus),
         createData(<h4>Occupancy Type</h4>, props.guestdetails.occupancyType),
+        createData(<h4>Aadhar Number</h4>, props.guestdetails.aadharNumber),
+    
       ];
       const rows1=[
         createData(<h4>Check-in Date</h4>, formatDate(props.guestdetails.checkInDate)),
@@ -45,7 +47,11 @@ function VacatedRegGuestDetails(props) {
         createData(<h4>Security Deposit</h4>,'Rs.'+ props.guestdetails.securityDeposit ),
         createData(<h4>Default Rent</h4>,'Rs.'+ props.guestdetails.defaultRent ),
         createData(<h4>Total Amount Paid</h4>, 'Rs.'+ props.TotalAmountByGuest),
-        createData(<h4>Checked-Out Date</h4>,  props.guestdetails.checkOutDate)
+        createData(<h4>Checked-Out Date</h4>,  props.guestdetails.checkOutDate),
+        createData(<h4>Gender </h4>, props.guestdetails.gender ),
+    createData(<h4>State </h4>, props.guestdetails.state ),
+    createData(<h4>Address </h4>, props.guestdetails.addressLine1 ),
+
       ]
       console.log(props.TotalAmountByGuest)
     //
