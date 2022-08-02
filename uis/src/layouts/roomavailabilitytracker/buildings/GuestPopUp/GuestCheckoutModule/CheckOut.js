@@ -53,13 +53,13 @@ const CheckOut = (props) => {
 
 
   const initiateCheckoutProcess = () => {
-    // setPickNoticeDate(true)
+    setPickNoticeDate(true)
     // console.log('clicked initiate checkout btn')
-    axios.get(`guest/get/${props.guestdetails.id}`)
-      .then((res) => { setDates(res.data); 
-         setDisableCheckoutButtons(true);
-         toast.success("Initiated Checkout Successfully");})
-      .catch(err => { console.err(err); toast.error("Checkout Initiation Failed"); })
+    // axios.get(`guest/get/${props.guestdetails.id}`)
+    //   .then((res) => { setDates(res.data); 
+    //      setDisableCheckoutButtons(true);
+    //      toast.success("Initiated Checkout Successfully");})
+    //   .catch(err => { console.err(err); toast.error("Checkout Initiation Failed"); })
     // setCheckOutDate(formatDate(props.guestdetails.checkOutDate));
     // setDate(dt);
   }
@@ -100,9 +100,9 @@ const CheckOut = (props) => {
         </Grid>) : (<div></div>)}
 
         {/* for the date picker to notice dates */}
-        {/* {pickNoticeDate === true ? (<>
+        {pickNoticeDate === true ? (<>
         <InitiateCheckoutBtn guestdetails={props.guestdetails}/>
-</>):(<></>)} */}
+</>):(<></>)}
 
 
 
