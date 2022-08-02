@@ -35,7 +35,9 @@ public class SecurityDepositServiceImpl implements SecurityDepositService {
 	public ResponseEntity updateDataById(int id, Defaults sdepo) {
 		try {
 			Defaults s = securityDepositRepo.findById(sdepo.getId()).orElse(null);
-			
+			s.setId(id);
+			s.setMaintainanceCharge(sdepo.getMaintainanceCharge());
+			s.setNoticeDays(sdepo.getNoticeDays());
 			 securityDepositRepo.save(s);
 			 return new ResponseEntity(s,HttpStatus.OK);
 		} catch(Exception e) {

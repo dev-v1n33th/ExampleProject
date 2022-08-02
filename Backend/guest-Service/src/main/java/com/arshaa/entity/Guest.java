@@ -106,8 +106,8 @@ public class Guest implements Serializable {
     private Date checkInDate ;
     
    // @DateTimeFormat(pattern = "dd-MM-yyyy")
-    
-    private Date plannedCheckOutDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private java.util.Date plannedCheckOutDate;
    // @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date checkOutDate;
     private double defaultRent;
@@ -171,7 +171,7 @@ public class Guest implements Serializable {
 	public java.util.Date getPlannedCheckOutDate() {
 		return plannedCheckOutDate;
 	}
-	public void setPlannedCheckOutDate(Date plannedCheckOutDate) {
+	public void setPlannedCheckOutDate(java.util.Date plannedCheckOutDate) {
 		this.plannedCheckOutDate = plannedCheckOutDate;
 	}
 	public String getGuestStatus() {

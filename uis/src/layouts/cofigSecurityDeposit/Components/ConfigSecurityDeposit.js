@@ -50,14 +50,14 @@ function ConfigSecurityDeposit() {
     //     color: "white",
     //   },
     // },
-    {
-      title: "Notice Period",
-      field: "noticeDays",
-      headerStyle: {
-        backgroundColor: "#1E90FF",
-        color: "white",
-      },
-    },
+    // {
+    //   title: "Notice Period",
+    //   field: "noticeDays",
+    //   headerStyle: {
+    //     backgroundColor: "#1E90FF",
+    //     color: "white",
+    //   },
+    // },
     {
       title: "Maintanance charge",
       field: "maintainanceCharge",

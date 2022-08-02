@@ -16,8 +16,8 @@ public class InitiateCheckoutByGuestId {
 	private String guestStatus;
 	
     private Date noticeDate;
-	 
-	    private Date plannedCheckOutDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
+	    private java.util.Date plannedCheckOutDate;
 	  
 	
 	    private Date checkOutDate;
@@ -47,10 +47,10 @@ public class InitiateCheckoutByGuestId {
 	public void setNoticeDate(java.sql.Date noticeDate) {
 		this.noticeDate = noticeDate;
 	}
-	public Date getPlannedCheckOutDate() {
+	public java.util.Date getPlannedCheckOutDate() {
 		return plannedCheckOutDate;
 	}
-	public void setPlannedCheckOutDate(Date plannedCheckOutDate) {
+	public void setPlannedCheckOutDate(java.util.Date plannedCheckOutDate) {
 		this.plannedCheckOutDate = plannedCheckOutDate;
 	}
 	

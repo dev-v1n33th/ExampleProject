@@ -161,7 +161,7 @@ public class GuestService implements GuestInterface {
                cal.add(Calendar.DATE, guest.getDuration()); 
                m = cal.getTime();   
                System.out.println(m);
-               guest.setPlannedCheckOutDate(ms);
+               guest.setPlannedCheckOutDate(m);
                guest.setGuestStatus("Active");            
                repository.save(guest);
            }
@@ -182,7 +182,7 @@ public class GuestService implements GuestInterface {
                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
                //System.out.println(dtf.format(m));  
 
-               guest.setPlannedCheckOutDate(ms);
+               guest.setPlannedCheckOutDate(m);
                guest.setGuestStatus("Active");            
                repository.save(guest);
            }        
@@ -390,8 +390,11 @@ public class GuestService implements GuestInterface {
 		if (guest.getOccupancyType().equalsIgnoreCase("daily")) {
 			java.util.Date m = guest.getCheckInDate();
 			java.sql.Date ms = new java.sql.Date(m.getTime());
+			
+		
+			
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(m);
+			cal.setTime(ms);
 			cal.add(Calendar.DATE, guest.getDuration());
 			m = cal.getTime();
 			//Newly Addel Logic 
@@ -399,25 +402,26 @@ public class GuestService implements GuestInterface {
 			m=cal.getTime();
 			
 			System.out.println(m);
-			g.setPlannedCheckOutDate(ms);
+			g.setPlannedCheckOutDate(m);
 			g.setGuestStatus("active");
 			repository.save(g);
 		} else if (guest.getOccupancyType().equalsIgnoreCase("OneMonth")) {
 			java.util.Date m = guest.getCheckInDate();
 			java.sql.Date ms = new java.sql.Date(m.getTime());
 			Calendar cal = Calendar.getInstance();
-			cal.setTime(m);
+			cal.setTime(ms);
 			cal.add(Calendar.MONTH, guest.getDuration());
 			cal.add(Calendar.MONTH, 0);
-			m = cal.getTime();
+			ms = (Date) cal.getTime();
             cal.add(Calendar.DATE,-1);
             m=cal.getTime();
 			System.out.println(m);
+			
 
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			// System.out.println(dtf.format(m));
 
-			g.setPlannedCheckOutDate(ms);
+			g.setPlannedCheckOutDate(m);
 			g.setGuestStatus("active");
 			repository.save(g);
 		} else {
@@ -801,7 +805,7 @@ public ResponseEntity paymentRemainder(int buildingId)
 			guest.setPlannedCheckOutDate(gcb.getPlannedCheckOutDate());
 			guest.setOccupancyType(gcb.getOccupancyType());
 			guest.setGuestStatus("InNotice");
-			guest.setCheckOutDate(gcb.getPlannedCheckOutDate());
+		//	guest.setCheckOutDate(gcb.getPlannedCheckOutDate());
 		
 		
 		return new ResponseEntity (repository.save(guest) , HttpStatus.OK);
