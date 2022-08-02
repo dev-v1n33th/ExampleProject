@@ -94,7 +94,7 @@ public class Guest implements Serializable {
 
     
 //	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
+  
     private Date noticeDate;
      private double amountPaid;
     private String checkinNotes;
@@ -106,10 +106,9 @@ public class Guest implements Serializable {
     private Date checkInDate ;
     
    // @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
-    private java.util.Date plannedCheckOutDate;
+    
+    private Date plannedCheckOutDate;
    // @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
     private Date checkOutDate;
     private double defaultRent;
 
@@ -172,7 +171,7 @@ public class Guest implements Serializable {
 	public java.util.Date getPlannedCheckOutDate() {
 		return plannedCheckOutDate;
 	}
-	public void setPlannedCheckOutDate(java.util.Date plannedCheckOutDate) {
+	public void setPlannedCheckOutDate(Date plannedCheckOutDate) {
 		this.plannedCheckOutDate = plannedCheckOutDate;
 	}
 	public String getGuestStatus() {
@@ -408,7 +407,7 @@ public class Guest implements Serializable {
 			String state, Date lastBillGenerationDate, Date paidtill, Date nextDuesGeneration, int packageId,
 			String transactionId, String paymentPurpose, double amountToBePaid, double securityDeposit,
 			String guestStatus, String createdBy, java.util.Date createdOn, Date noticeDate, double amountPaid,
-			String checkinNotes, java.util.Date transactionDate, Date checkInDate, java.util.Date plannedCheckOutDate,
+			String checkinNotes, java.util.Date transactionDate, Date checkInDate, Date plannedCheckOutDate,
 		Date checkOutDate, double defaultRent) {
 		super();
 		this.id = id;

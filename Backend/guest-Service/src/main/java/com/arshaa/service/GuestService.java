@@ -155,12 +155,13 @@ public class GuestService implements GuestInterface {
            if(guest.getOccupancyType().equalsIgnoreCase("Daily"))
            {
            	java.util.Date m = guest.getCheckInDate();
+           	java.sql.Date ms = new java.sql.Date(m.getTime());
                Calendar cal = Calendar.getInstance();  
                cal.setTime(m);  
                cal.add(Calendar.DATE, guest.getDuration()); 
                m = cal.getTime();   
                System.out.println(m);
-               guest.setPlannedCheckOutDate(m);
+               guest.setPlannedCheckOutDate(ms);
                guest.setGuestStatus("Active");            
                repository.save(guest);
            }
@@ -169,6 +170,9 @@ public class GuestService implements GuestInterface {
            	guest.setDuration(1);
            	repository.save(guest);
            	java.util.Date m = guest.getCheckInDate();
+           	
+           	java.sql.Date ms = new java.sql.Date(m.getTime());
+           	
                Calendar cal = Calendar.getInstance();  
                cal.setTime(m);  
                cal.add(Calendar.MONTH, guest.getDuration()); 
@@ -178,7 +182,7 @@ public class GuestService implements GuestInterface {
                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
                //System.out.println(dtf.format(m));  
 
-               guest.setPlannedCheckOutDate(m);
+               guest.setPlannedCheckOutDate(ms);
                guest.setGuestStatus("Active");            
                repository.save(guest);
            }        
@@ -385,6 +389,7 @@ public class GuestService implements GuestInterface {
 
 		if (guest.getOccupancyType().equalsIgnoreCase("daily")) {
 			java.util.Date m = guest.getCheckInDate();
+			java.sql.Date ms = new java.sql.Date(m.getTime());
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(m);
 			cal.add(Calendar.DATE, guest.getDuration());
@@ -394,11 +399,12 @@ public class GuestService implements GuestInterface {
 			m=cal.getTime();
 			
 			System.out.println(m);
-			g.setPlannedCheckOutDate(m);
+			g.setPlannedCheckOutDate(ms);
 			g.setGuestStatus("active");
 			repository.save(g);
 		} else if (guest.getOccupancyType().equalsIgnoreCase("OneMonth")) {
 			java.util.Date m = guest.getCheckInDate();
+			java.sql.Date ms = new java.sql.Date(m.getTime());
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(m);
 			cal.add(Calendar.MONTH, guest.getDuration());
@@ -411,7 +417,7 @@ public class GuestService implements GuestInterface {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 			// System.out.println(dtf.format(m));
 
-			g.setPlannedCheckOutDate(m);
+			g.setPlannedCheckOutDate(ms);
 			g.setGuestStatus("active");
 			repository.save(g);
 		} else {
@@ -789,17 +795,15 @@ public ResponseEntity paymentRemainder(int buildingId)
 	@Override
 	public ResponseEntity GuestCheckoutBody(InitiateCheckoutByGuestId gcb ,String id) {
 		Guest guest = repository.findById(id);
-		{
+		
 			guest.setId(id);
 			guest.setNoticeDate(gcb.getNoticeDate());
 			guest.setPlannedCheckOutDate(gcb.getPlannedCheckOutDate());
 			guest.setOccupancyType(gcb.getOccupancyType());
 			guest.setGuestStatus("InNotice");
 			guest.setCheckOutDate(gcb.getPlannedCheckOutDate());
-			
-			
-			
-		}
+		
+		
 		return new ResponseEntity (repository.save(guest) , HttpStatus.OK);
 		
 //		UpdateGuestStatusAfterInitiateCheckout upGstStatus = new UpdateGuestStatusAfterInitiateCheckout();

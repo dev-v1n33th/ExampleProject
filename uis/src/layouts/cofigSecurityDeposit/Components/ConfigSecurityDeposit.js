@@ -58,6 +58,14 @@ function ConfigSecurityDeposit() {
         color: "white",
       },
     },
+    {
+      title: "Maintanance charge",
+      field: "maintainanceCharge",
+      headerStyle: {
+        backgroundColor: "#1E90FF",
+        color: "white",
+      },
+    },
   ];
 
   return (
