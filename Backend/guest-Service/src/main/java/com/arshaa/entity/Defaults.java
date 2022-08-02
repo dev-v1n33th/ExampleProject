@@ -5,9 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.UniqueElements;
 @Entity
 public class Defaults {
 	
@@ -20,6 +18,7 @@ public class Defaults {
 	
 	//@UniqueElements
 	private int noticeDays;
+	private int maintainanceCharge ;
 	public int getId() {
 		return id;
 	}
@@ -28,6 +27,12 @@ public class Defaults {
 	}
 	
 	
+	public int getMaintainanceCharge() {
+		return maintainanceCharge;
+	}
+	public void setMaintainanceCharge(int maintainanceCharge) {
+		this.maintainanceCharge = maintainanceCharge;
+	}
 	public String getOccupancyType() {
 		return occupancyType;
 	}
@@ -40,10 +45,10 @@ public class Defaults {
 	public void setNoticeDays(int noticeDays) {
 		this.noticeDays = noticeDays;
 	}
-	public Defaults(int id,  String occupancyType, int noticeDays) {
+	public Defaults(int id,  String occupancyType, int noticeDays, int maintainanceCharge) {
 		super();
 		this.id = id;
-	
+	this.maintainanceCharge=maintainanceCharge ;
 		this.occupancyType = occupancyType;
 		this.noticeDays = noticeDays;
 	}

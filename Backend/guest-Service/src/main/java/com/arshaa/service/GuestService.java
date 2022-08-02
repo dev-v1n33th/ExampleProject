@@ -79,31 +79,7 @@ public class GuestService implements GuestInterface {
 	
 	
 
-
-//	    //@Scheduled(cron="*/5 * * * * MON-FRI")
-//	    @Scheduled(cron = "* 1 * * * *")
-//	     public  List<Guest> addDue() {
-//	    	List<Guest> list=new ArrayList<>();
-//	    	List<Guest>getAllData=repository.findAll();
-//	    	getAllData.forEach(e->{
-//	    		double preDue=e.getDueAmount();
-//	    		RatesConfig rc=rconfig.findByOccupancyTypeAndBuildingIdAndSharing(e.getOccupancyType(),e.getBuildingId(),e.getSharing());
-//	    List<RatesConfig> rc=rconfig.findAll();
-//	    rc.forEach(r->{
-//	    	
-//	    	e.setDueAmount(preDue+r.getPrice());
-//	    	list.add(e);
-//	    });
-//	    		RatesConfig rc=rconfig.getById(e.getPackageId());
-//	    		e.setDueAmount(preDue+rc.getPrice());	
-//    	repository.save(e);
-//    	list.add(e);
-//
-//	    	});
-//	    	System.out.println(list);
-//			return list;
-//	    }
-//	    
+ 
 	    
 	    public ResponseEntity getAllRents(String occupancyType, int buildingId, int sharing)
 	    {
@@ -814,12 +790,13 @@ public ResponseEntity paymentRemainder(int buildingId)
 	public ResponseEntity GuestCheckoutBody(InitiateCheckoutByGuestId gcb ,String id) {
 		Guest guest = repository.findById(id);
 		{
-//			guest.setId(id);
-//			guest.setNoticeDate(gcb.getNoticeDate());
-//			guest.setPlannedCheckOutDate(gcb.get);
-//			guest.setOccupancyType(gcb.getOccupancyType());
-//			guest.setGuestStatus("InNotice");
-//			
+			guest.setId(id);
+			guest.setNoticeDate(gcb.getNoticeDate());
+			guest.setPlannedCheckOutDate(gcb.getPlannedCheckOutDate());
+			guest.setOccupancyType(gcb.getOccupancyType());
+			guest.setGuestStatus("InNotice");
+			guest.setCheckOutDate(gcb.getPlannedCheckOutDate());
+			
 			
 			
 		}

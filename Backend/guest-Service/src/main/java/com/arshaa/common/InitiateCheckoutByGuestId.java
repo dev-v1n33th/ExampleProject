@@ -1,6 +1,6 @@
 package com.arshaa.common;
 
-import java.util.Date;
+import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -18,6 +18,10 @@ public class InitiateCheckoutByGuestId {
     private Date noticeDate;
 	  @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
 	    private Date plannedCheckOutDate;
+	  
+	  @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
+	    private Date checkOutDate;
+	  
 	public String getOccupancyType() {
 		return occupancyType;
 	}
@@ -30,16 +34,23 @@ public class InitiateCheckoutByGuestId {
 	public void setGuestStatus(String guestStatus) {
 		this.guestStatus = guestStatus;
 	}
+	
+	public Date getCheckOutDate() {
+		return checkOutDate;
+	}
+	public void setCheckOutDate(Date checkOutDate) {
+		this.checkOutDate = checkOutDate;
+	}
 	public Date getNoticeDate() {
 		return noticeDate;
 	}
-	public void setNoticeDate(Date noticeDate) {
+	public void setNoticeDate(java.sql.Date noticeDate) {
 		this.noticeDate = noticeDate;
 	}
-	public java.util.Date getPlannedCheckOutDate() {
+	public Date getPlannedCheckOutDate() {
 		return plannedCheckOutDate;
 	}
-	public void setPlannedCheckOutDate(java.util.Date plannedCheckOutDate) {
+	public void setPlannedCheckOutDate(Date plannedCheckOutDate) {
 		this.plannedCheckOutDate = plannedCheckOutDate;
 	}
 	
