@@ -111,6 +111,7 @@ export default function CustomizedButtons(props) {
   const [securityDeposit, setSecurityDeposit] = useState();
   const[sharing,setSharing]=useState();
   const[roomType,setRoomType] = useState();
+  const[ratesConfigId, setRatesConfigId] = useState(null);
   const[data,setData]=useState();
   const classes = useStyles();
 
@@ -207,6 +208,8 @@ export default function CustomizedButtons(props) {
   };
 
   const getRow = (data) => {
+    console.log(data.id);
+    setRatesConfigId(data.id);
     setSelectedRow(data.price);
     setSharing(data.sharing)
     setRoomType(data.roomType);
@@ -222,6 +225,7 @@ export default function CustomizedButtons(props) {
 
   //sending this object as prop to parent component guest onboarding form
   const occupancyObject = {
+    ratesConfigId: ratesConfigId, 
     occupancyType: occupancyType,
     defaultRent: selectedRow,
     securityDeposit: securityDeposit,
@@ -229,6 +233,7 @@ export default function CustomizedButtons(props) {
     roomType:roomType,
     sharing:sharing
   };
+  console.log(occupancyObject);
   props.func(occupancyObject);
  
 

@@ -37,38 +37,7 @@ const OneMonth = "OneMonth";
 const daily = "Daily";
 
 let bid = null;
-const INITIAL_FORM_STATE = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  dateOfBirth: "",
-  personalNumber: "",
-  secondaryPhoneNumber: "",
-  fatherName: "",
-  fatherNumber: "",
-  bloodGroup: "",
-  occupation: "",
-  gender: "",
-  aadharNumber: "",
-  buildingId: "",
-  bedId: "",
-  occupancyType: "",
-  duration: "",
-  amountPaid: "",
-  transactionId: "",
-  addressLine1: "",
-  addressLine2: "",
-  pincode: "",
-  city: "",
-  state: "",
-  guestPicture: "",
-  // createdBy:
-  amountToBePaid: "",
-  defaultRent: "",
-  securityDeposit: "",
-  checkinNotes: "",
-  checkInDate: "",
-};
+
 
 const FORM_VALIDATION = Yup.object().shape({
   firstName: Yup.string()
@@ -181,12 +150,16 @@ const GuestLoginForm = (props) => {
   const [occupancyType, setOccupancyType] = React.useState({});
   const [sharing,setSharing]=React.useState(null);
   const [totalRent, setTotalRent] = useState("");
+  const [ratesId , setRatesId] = useState(null);
   const[roomType,setRoomType] = React.useState();
   let monthDuration;
   const getAmount = (data) => {
+    console.log(data);
     console.log("amount" + data.securityDeposit);
     // setRentAmount(data);
     //  setOccupancyObject(data)
+    setRatesId(data.ratesConfigId);
+    console.log(data.ratesConfigId);
     setSecureDepo(data.securityDeposit);
     setRentAmount(data.defaultRent);
     setOccupancyType(data.occupancyType);
@@ -202,6 +175,40 @@ const GuestLoginForm = (props) => {
     {
       setRoomType(false)
     }
+  };
+  const INITIAL_FORM_STATE = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    dateOfBirth: "",
+    personalNumber: "",
+    secondaryPhoneNumber: "",
+    fatherName: "",
+    fatherNumber: "",
+    bloodGroup: "",
+    occupation: "",
+    gender: "",
+    aadharNumber: "",
+    buildingId: "",
+    bedId: "",
+    occupancyType: "",
+    duration: "",
+    amountPaid: "",
+    transactionId: "",
+    addressLine1: "",
+    addressLine2: "",
+    pincode: "",
+    city: "",
+    state: "",
+    guestPicture: "",
+    // createdBy:
+    amountToBePaid: "",
+    defaultRent: "",
+    securityDeposit: "",
+    checkinNotes: "",
+    checkInDate: "",
+    packageId:ratesId,
+    
   };
   console.log(roomType);
   console.log(duration);
@@ -405,7 +412,8 @@ const GuestLoginForm = (props) => {
   const obj5 = { buildingId: buildId };
   const obj6 = { occupancyType: occupancyType };
   const obj7={sharing:sharing};
-  const obj8={duration: duration};
+  const obj8={duration: duration,
+    packageId:ratesId};
   const amountNeedToPay = (n) => {};
 
   function handleChooseGuestPicture(event) {
@@ -450,6 +458,7 @@ const GuestLoginForm = (props) => {
                   const guestdata5 = Object.assign(guestdata4, obj6);
                   const guestdata6 =Object.assign(guestdata5,obj7);
                   const guestdata=Object.assign(guestdata6, obj8);
+                  // const byManohar=Object.assign(guestdata , )
 
                   console.log(guestdata);
                   try {
