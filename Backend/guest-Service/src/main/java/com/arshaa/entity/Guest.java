@@ -88,6 +88,7 @@ public class Guest implements Serializable {
     private double securityDeposit;
     private String guestStatus;
     private String createdBy;
+    private double overAllDue ;
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date createdOn = new java.util.Date(System.currentTimeMillis());
@@ -111,9 +112,26 @@ public class Guest implements Serializable {
    // @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date checkOutDate;
     private double defaultRent;
+    private Date billGeneratedTill;
+    private double inNoticeDue ;
+    
+    
+    
 
     
-    public String getCreatedBy() {
+    public double getInNoticeDue() {
+		return inNoticeDue;
+	}
+	public void setInNoticeDue(double inNoticeDue) {
+		this.inNoticeDue = inNoticeDue;
+	}
+	public double getOverAllDue() {
+		return overAllDue;
+	}
+	public void setOverAllDue(double overAllDue) {
+		this.overAllDue = overAllDue;
+	}
+	public String getCreatedBy() {
 		return createdBy;
 	}
 	public void setCreatedBy(String createdBy) {
@@ -158,6 +176,14 @@ public class Guest implements Serializable {
 	}
 	public void setNoticeDate(Date noticeDate) {
 		this.noticeDate = noticeDate;
+		
+		
+	}
+	public Date getBillGeneratedTill() {
+		return billGeneratedTill;
+	}
+	public void setBillGeneratedTill(Date billGeneratedTill) {
+		this.billGeneratedTill = billGeneratedTill;
 	}
 	public double getDefaultRent() {
 		return defaultRent;
@@ -408,7 +434,7 @@ public class Guest implements Serializable {
 			String transactionId, String paymentPurpose, double amountToBePaid, double securityDeposit,
 			String guestStatus, String createdBy, java.util.Date createdOn, Date noticeDate, double amountPaid,
 			String checkinNotes, java.util.Date transactionDate, Date checkInDate, Date plannedCheckOutDate,
-		Date checkOutDate, double defaultRent) {
+		Date checkOutDate,double inNoticeDue , double defaultRent,Date billGeneratedTill, double overAllDue) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -420,9 +446,12 @@ public class Guest implements Serializable {
 		this.fatherName = fatherName;
 		this.fatherNumber = fatherNumber;
 		this.bloodGroup = bloodGroup;
+		this.inNoticeDue=inNoticeDue ;
 		this.occupation = occupation;
 		this.occupancyType = occupancyType;
 		this.gender = gender;
+		this.billGeneratedTill=billGeneratedTill;
+		this.overAllDue= overAllDue ;
 		this.sharing = sharing;
 		this.aadharNumber = aadharNumber;
 		this.buildingId = buildingId;

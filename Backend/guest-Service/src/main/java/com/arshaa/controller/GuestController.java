@@ -23,6 +23,7 @@ import com.arshaa.model.ResponseMessage;
 import com.arshaa.model.VacatedGuests;
 import com.arshaa.repository.GuestRepository;
 import com.arshaa.repository.RatesConfigRepository;
+import com.arshaa.service.DueCalculateService;
 import com.arshaa.service.GuestInterface;
 import com.arshaa.service.GuestProfileService;
 import com.arshaa.service.NotesService;
@@ -79,6 +80,19 @@ public class GuestController {
 	
 	@Autowired
 	 private RatesConfigRepository rcr ;
+	
+	@Autowired
+	private    DueCalculateService dueService;
+	
+	@GetMapping("/getDuesCalc")
+	public ResponseEntity checkDueOfGuest() {
+	try {
+		return new ResponseEntity(dueService.clearDueAmount(), HttpStatus.OK);
+	}
+	catch(Exception e) {
+		return new ResponseEntity("Sorry can't calculate now", HttpStatus.OK);
+	}
+	}
 	
 	
 	@PostMapping("/initiatecheckoutbyguestid/{guestId}")
@@ -569,6 +583,33 @@ public ResponseEntity getAllRents(@PathVariable String occupancyType,@PathVariab
 		System.out.println("ABCD");
 	}
 	return null;
+}
+
+
+
+// Due related Api
+
+@GetMapping("/calculateGuestDueByGuestId/{guestId}")
+public double calculateDueGuest(@PathVariable String guestId) {
+ return dueService.calculateDueGuest(guestId);
+}
+
+
+@GetMapping("/updateDueAmount/{amountPaid}/{refundAmount}/{guestId}")
+public ResponseEntity updateDueAmount(@PathVariable double amountPaid,@PathVariable double refundAmount,@PathVariable String guestId)
+{
+    return dueService.updateDueAmount(amountPaid, refundAmount, guestId);
+}
+
+@GetMapping("/calculationForInnotice/{id}")
+    public ResponseEntity calculateDueOnlyForInNoticeguy(@PathVariable String id) {
+        return dueService.calculateDueForInNotice(id);
+    }
+
+@GetMapping("/finishCheckoutClick/{}")
+public ResponseEntity finishCheckOutClick(@PathVariable String guestId)
+{
+    return dueService.finishCheckOutClick(guestId);
 }
 }
 //	@GetMapping("/getGuestAboutToCheckOut/RegulatInNotice/Daily-Monthly-Active/{id}")

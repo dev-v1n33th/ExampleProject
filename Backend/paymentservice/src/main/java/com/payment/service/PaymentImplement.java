@@ -1,5 +1,4 @@
 
-
 package com.payment.service;
 
 import com.payment.common.Guest;
@@ -24,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.payment.entity.Payments;
+import com.payment.model.DueResponse;
 import com.payment.model.EmailResponse;
 import com.payment.model.EmailTempModel;
 import com.payment.model.MonthlySummary;
@@ -111,7 +111,8 @@ public class PaymentImplement implements PaymentService {
 	@Override
 	public String addPaymentAfterOnBoard(PostPayments payment) {
 		// String uri = "http://guestService/guest/updateDueAmount";
-		String eUri="http://emailService/mail/sendPaymentConfirmation/";
+		String eUri = "http://emailService/mail/sendPaymentConfirmation/";
+		  String dueUrl="http://guestService/guest/updateDueAmount/";
 
 		Guest guest = new Guest();
 		Payments secondpay = new Payments();
@@ -128,48 +129,53 @@ public class PaymentImplement implements PaymentService {
 //			payment.setTransactionDate(tSqlDate);
 			java.sql.Date c = new java.sql.Date(payment.getCreatedOn().getTime());
 			payment.setCreatedOn(c);
-			
+
 			secondpay.setTransactionDate(secondpay.getTransactionDate());
-			secondpay.setRefundAmount(payment.getRefundAmount());		
-		Payments p=repo.save(secondpay);
-		PaymentConfirmation pc=new PaymentConfirmation();
-		
-		String name = template.getForObject("http://guestService/guest/getNameByGuestId/" + secondpay.getGuestId(),
-				String.class);
-		String email = template.getForObject("http://guestService/guest/getEmailByGuestId/" + secondpay.getGuestId(),
-				String.class);
-		String bedId=template.getForObject("http://guestService/guest/getBedIdByGuestId/"+secondpay.getGuestId(),String.class);
-		String buildingname = template.getForObject(
-				"http://bedService/bed/getBuildingNameByBuildingId/" + secondpay.getBuildingId(),
-				String.class);
-		EmailTempModel checkInDate = template.getForObject(
-				"http://guestService/guest/getcheckInByGuestId/" + secondpay.getGuestId(),
-				EmailTempModel.class);
-		pc.setAmountPaid(payment.getAmountPaid());
-		// pc.setDate(tSqlDate);
-		pc.setEmail(email);
-		
-		pc.setName(name);
-		pc.setBedId(bedId);
-		pc.setBuildingName(buildingname);
-		pc.setTransactionId(payment.getTransactionId());
-		pc.setPaymentId(p.getId());
-		pc.setAmountPaid(p.getAmountPaid());
-		pc.setRefundAmount(p.getRefundAmount());
-		pc.setDate(secondpay.getTransactionDate());
-		pc.setCheckInDate(checkInDate.getCheckInDate());
-		pc.setPurpose(secondpay.getPaymentPurpose());
-		EmailResponse pcEmail=template.postForObject(eUri, pc, EmailResponse.class);
+			secondpay.setRefundAmount(payment.getRefundAmount());
+			Payments p = repo.save(secondpay);
+			PaymentConfirmation pc = new PaymentConfirmation();
+
+			DueResponse dRes = template.getForObject(
+					dueUrl + p.getAmountPaid() + "/" + p.getRefundAmount() + "/" + p.getGuestId(), DueResponse.class);
+
+			String name = template.getForObject("http://guestService/guest/getNameByGuestId/" + secondpay.getGuestId(),
+					String.class);
+			String email = template.getForObject(
+					"http://guestService/guest/getEmailByGuestId/" + secondpay.getGuestId(), String.class);
+			String bedId = template.getForObject(
+					"http://guestService/guest/getBedIdByGuestId/" + secondpay.getGuestId(), String.class);
+			String buildingname = template.getForObject(
+					"http://bedService/bed/getBuildingNameByBuildingId/" + secondpay.getBuildingId(), String.class);
+			EmailTempModel checkInDate = template.getForObject(
+					"http://guestService/guest/getcheckInByGuestId/" + secondpay.getGuestId(), EmailTempModel.class);
+			pc.setAmountPaid(payment.getAmountPaid());
+			// pc.setDate(tSqlDate);
+			pc.setEmail(email);
+
+			pc.setName(name);
+			pc.setBedId(bedId);
+			pc.setBuildingName(buildingname);
+			pc.setTransactionId(payment.getTransactionId());
+			pc.setPaymentId(p.getId());
+			pc.setAmountPaid(p.getAmountPaid());
+			pc.setRefundAmount(p.getRefundAmount());
+			pc.setDate(secondpay.getTransactionDate());
+			pc.setCheckInDate(checkInDate.getCheckInDate());
+			pc.setPurpose(secondpay.getPaymentPurpose());
+			EmailResponse pcEmail = template.postForObject(eUri, pc, EmailResponse.class);
 //			guest.setId(secondpay.getGuestId());
 //			// guest.setDueAmount(secondpay.getDueAmount());
 //			// template.put(uri, guest, Guest.class);
-		if(pcEmail.isStatus()==true)
-		{
-			return "Payment done successfully, email also sent successfully";
-		}
-		else {
-			return "successfull"+pcEmail.getMessage();
-		}
+			if (pcEmail.isStatus() == true && dRes.isStatus() == true) {
+				return "Payment done, Due updated and email also sent successfully";
+			} else if (dRes.isStatus() == true) {
+				return "Payment done, Due updated";
+			} else if (pcEmail.isStatus() == true) {
+				return "Payment done, email  sent successfully";
+			} else {
+				return "Payment done";
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return e.getMessage();
@@ -238,22 +244,20 @@ public class PaymentImplement implements PaymentService {
 
 	@Override
 	public ResponseEntity getCountOfPaymentAmount(String guestId) {
-		Response response=new Response();	
+		Response response = new Response();
 		try {
 			long amountPaidCount = repo.getCountOfAmount(guestId);
 			long refundAmonutCount = repo.getCountOfRefundAmount(guestId);
 			PaymentRemainderData count = new PaymentRemainderData();
 			count.setTotalAmountPaid(amountPaidCount);
-			
+
 			count.setTotalRefundAmount(refundAmonutCount);
 
-			
 			return new ResponseEntity(count, HttpStatus.OK);
 		} catch (Exception e) {
-response.setStatus(false);
-response.setMessage("something went wrong");
+			response.setStatus(false);
+			response.setMessage("something went wrong");
 
-			
 			return new ResponseEntity(response, HttpStatus.OK);
 
 		}
@@ -261,27 +265,25 @@ response.setMessage("something went wrong");
 	}
 
 	@Override
-	public ResponseEntity getMonthlySummary(int month, int year,int buildingId) {
+	public ResponseEntity getMonthlySummary(int month, int year, int buildingId) {
 
-		Response response=new Response();
-		MonthlySummary ms=new MonthlySummary();
+		Response response = new Response();
+		MonthlySummary ms = new MonthlySummary();
 		try {
-			 double incomeAmount=repo.getCountOfAmountPaidByBuildingId(month, year, buildingId);
-			  double refundAmount=repo.getCountOfRefundByBuildingId(month, year, buildingId);
-			  ms.setIncomeAmount(incomeAmount);
+			double incomeAmount = repo.getCountOfAmountPaidByBuildingId(month, year, buildingId);
+			double refundAmount = repo.getCountOfRefundByBuildingId(month, year, buildingId);
+			ms.setIncomeAmount(incomeAmount);
 			ms.setRefundAmount(refundAmount);
 			response.setStatus(true);
 			response.setData(ms);
-				return new ResponseEntity<>(response,HttpStatus.OK);
-		}
-		catch(Exception e)
-		{
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (Exception e) {
 			response.setStatus(true);
-            response.setData(null);
-			return new ResponseEntity<>(response,HttpStatus.OK);
+			response.setData(null);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 
 		}
-		   
+
 	}
 
 }

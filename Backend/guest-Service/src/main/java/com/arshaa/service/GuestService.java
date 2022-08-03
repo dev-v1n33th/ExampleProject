@@ -77,6 +77,9 @@ public class GuestService implements GuestInterface {
 	@PersistenceContext
 	private EntityManager em;
 	
+	@Autowired
+	private    DueCalculateService dueService;
+	
 	
 
  
@@ -140,6 +143,17 @@ public class GuestService implements GuestInterface {
         java.sql.Date tSqlDate = new java.sql.Date(guest.getTransactionDate().getTime());
         
         guest.setTransactionDate(tSqlDate);
+        guest.setLastBillGenerationDate(guest.getCheckInDate());
+
+
+        java.util.Date billGeneratedTill = guest.getCheckInDate();
+     Calendar cal2 = Calendar.getInstance();
+     cal2.setTime(billGeneratedTill);
+     cal2.add(Calendar.MONTH, 1);
+     billGeneratedTill = cal2.getTime();
+     java.sql.Date convertedbillGeneratedTill =new java.sql.Date(billGeneratedTill.getTime())    ;
+     System.out.println(billGeneratedTill);
+    guest.setBillGeneratedTill(convertedbillGeneratedTill);
         
        
        java.sql.Date createDate =new java.sql.Date(guest.getCreatedOn().getTime());
@@ -194,9 +208,11 @@ public class GuestService implements GuestInterface {
 
 
 //           System.out.println(initialDefaultrent); 
-           guest.setGuestStatus("active");            
+           guest.setGuestStatus("active"); 
+           
 
            repository.save(guest);
+           dueService.updateGuestDue();
                    System.out.println(guest.getDueAmount());
            Bed bedReq = new Bed();
            Payment payReq = new Payment();
@@ -798,17 +814,26 @@ public ResponseEntity paymentRemainder(int buildingId)
 	
 	@Override
 	public ResponseEntity GuestCheckoutBody(InitiateCheckoutByGuestId gcb ,String id) {
-		Guest guest = repository.findById(id);
 		
+		try {
+			Guest guest = repository.findById(id);	
 			guest.setId(id);
 			guest.setNoticeDate(gcb.getNoticeDate());
 			guest.setPlannedCheckOutDate(gcb.getPlannedCheckOutDate());
 			guest.setOccupancyType(gcb.getOccupancyType());
 			guest.setGuestStatus("InNotice");
 		//	guest.setCheckOutDate(gcb.getPlannedCheckOutDate());
+			repository.save(guest);
+			dueService.calculateDueForInNotice(id);
+	
+		return new ResponseEntity ("Checkout intiated successfully" , HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity (e.getMessage() , HttpStatus.OK);
+
+		}
 		
-		
-		return new ResponseEntity (repository.save(guest) , HttpStatus.OK);
 		
 //		UpdateGuestStatusAfterInitiateCheckout upGstStatus = new UpdateGuestStatusAfterInitiateCheckout();
 //		
