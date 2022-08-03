@@ -13,6 +13,7 @@ import com.arshaa.entity.RatesConfig;
 import com.arshaa.entity.SecurityDeposit;
 import com.arshaa.entity.Defaults;
 import com.arshaa.model.DueGuestsList;
+import com.arshaa.model.EmailTempModel;
 import com.arshaa.model.GuestImageDisplay;
 import com.arshaa.model.GuestsInNotice;
 import com.arshaa.model.PreviousGuests;
@@ -276,6 +277,22 @@ public class GuestController {
 	public ResponseEntity getGuestNumberById(@PathVariable String id) {
 		Guest guest = repository.getNameById(id);
 		return new ResponseEntity(guest.getFirstName().concat(" ").concat(guest.getLastName()), HttpStatus.OK);
+	}
+	
+//	@GetMapping("/getBedIdByGuestId/{id}")
+//	public ResponseEntity getBedIdByGuestId(@PathVariable String id)
+//	{
+//		Guest g=repository.getBedIdById(id);
+//		return new ResponseEntity(g.getBedId(),HttpStatus.OK);
+//	}
+
+	@GetMapping("/getcheckInByGuestId/{id}")
+	public ResponseEntity getcheckInByGuestId(@PathVariable String id)
+	{
+		Guest g=repository.findById(id);
+		EmailTempModel em=new EmailTempModel();
+		em.setCheckInDate(g.getCheckInDate());
+		return new ResponseEntity(em,HttpStatus.OK);
 	}
 
 //   	@GetMapping("/guestReport")

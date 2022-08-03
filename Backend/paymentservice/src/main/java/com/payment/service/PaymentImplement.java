@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import com.payment.entity.Payments;
 import com.payment.model.EmailResponse;
+import com.payment.model.EmailTempModel;
 import com.payment.model.MonthlySummary;
 import com.payment.repos.PayRepos;
 import org.springframework.web.client.RestTemplate;
@@ -137,16 +138,27 @@ public class PaymentImplement implements PaymentService {
 				String.class);
 		String email = template.getForObject("http://guestService/guest/getEmailByGuestId/" + secondpay.getGuestId(),
 				String.class);
-		
+		String bedId=template.getForObject("http://guestService/guest/getBedIdByGuestId/"+secondpay.getGuestId(),String.class);
+		String buildingname = template.getForObject(
+				"http://bedService/bed/getBuildingNameByBuildingId/" + secondpay.getBuildingId(),
+				String.class);
+		EmailTempModel checkInDate = template.getForObject(
+				"http://guestService/guest/getcheckInByGuestId/" + secondpay.getGuestId(),
+				EmailTempModel.class);
 		pc.setAmountPaid(payment.getAmountPaid());
 		// pc.setDate(tSqlDate);
 		pc.setEmail(email);
+		
 		pc.setName(name);
+		pc.setBedId(bedId);
+		pc.setBuildingName(buildingname);
 		pc.setTransactionId(payment.getTransactionId());
 		pc.setPaymentId(p.getId());
 		pc.setAmountPaid(p.getAmountPaid());
 		pc.setRefundAmount(p.getRefundAmount());
 		pc.setDate(secondpay.getTransactionDate());
+		pc.setCheckInDate(checkInDate.getCheckInDate());
+		pc.setPurpose(secondpay.getPaymentPurpose());
 		EmailResponse pcEmail=template.postForObject(eUri, pc, EmailResponse.class);
 //			guest.setId(secondpay.getGuestId());
 //			// guest.setDueAmount(secondpay.getDueAmount());
@@ -156,7 +168,7 @@ public class PaymentImplement implements PaymentService {
 			return "Payment done successfully, email also sent successfully";
 		}
 		else {
-			return "successfull";
+			return "successfull"+pcEmail.getMessage();
 		}
 		} catch (Exception e) {
 			e.printStackTrace();
