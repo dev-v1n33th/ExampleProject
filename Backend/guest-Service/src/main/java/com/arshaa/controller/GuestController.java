@@ -90,7 +90,7 @@ public class GuestController {
 		return new ResponseEntity(dueService.clearDueAmount(), HttpStatus.OK);
 	}
 	catch(Exception e) {
-		return new ResponseEntity("Sorry can't calculate now", HttpStatus.OK);
+		return new ResponseEntity(e.getMessage(), HttpStatus.OK);
 	}
 	}
 	
@@ -606,10 +606,20 @@ public ResponseEntity updateDueAmount(@PathVariable double amountPaid,@PathVaria
         return dueService.calculateDueForInNotice(id);
     }
 
-@GetMapping("/finishCheckoutClick/{}")
+@GetMapping("/finishCheckoutClick/{guestId}")
 public ResponseEntity finishCheckOutClick(@PathVariable String guestId)
 {
     return dueService.finishCheckOutClick(guestId);
+}
+
+@GetMapping("/updatePackageIdInGuest")
+public ResponseEntity updatePackageIdInGuest()
+{
+	return dueService.updatePackageIdInGuest();
+}
+@GetMapping("/getRate/{buildingId}/{occupancyType}/{price}/{roomType}")
+public ResponseEntity getpackageIdByAllTypes(@PathVariable int buildingId,@PathVariable String occupancyType,@PathVariable double price,@PathVariable String roomType ) {
+ return new ResponseEntity( rcr.findByBuildingIdAndOccupancyTypeAndPriceAndRoomType(buildingId,occupancyType,price,roomType), HttpStatus.OK);
 }
 }
 //	@GetMapping("/getGuestAboutToCheckOut/RegulatInNotice/Daily-Monthly-Active/{id}")

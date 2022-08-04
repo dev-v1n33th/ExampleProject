@@ -1116,5 +1116,27 @@ Rooms room = roomRepo.save(newRoom);
 		}
 	}
 	
+    @GetMapping("/getStatusByGuestId/{guestId}")
+    public ResponseEntity getStatusByGuestId(@PathVariable String guestId) {
+    	Bed b=bedrepo.findByGuestId(guestId);
+    	if(!b.equals(null))
+    	{
+    		String bedStatus="";
+        	if(b.isAc()==true)
+        	{
+        		bedStatus="AC";
+        	}
+        	else {
+        		bedStatus="NonAC";
+        	}
+        	return new ResponseEntity(bedStatus,HttpStatus.OK);
+    	}
+    	else {
+        	return new ResponseEntity(null,HttpStatus.OK);
+
+    	}
+    	
+    }
+    
 
 }

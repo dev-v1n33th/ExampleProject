@@ -22,6 +22,7 @@ public interface BedRepository extends JpaRepository<Bed, Integer>{
     Optional<List<Bed>> findBybuildingIdAndBedStatus(int building_id, boolean b);
     //List<Bed> findByBedStatusAndbuildingId(boolean b, int building_id);
     Bed findByBedId(String bedId);
+    Bed findByGuestId(String guestId);
      boolean findBedStatusByRoomId(int roomId);
     //Bed getBedByBuildingId(int buildingId);
 
