@@ -760,15 +760,23 @@ public ResponseEntity paymentRemainder(int buildingId)
 		return rconfig.findByBuildingId(buildingId);
 	}
 
-	@Override
-	public RatesConfig updateRoomRent(RatedDto Rdto, int id) {
-		// TODO Auto-generated method stub
-	RatesConfig r = rconfig.getById(id);
-	r.setPrice(Rdto.getPrice());
+//	@Override
+//	public double updateRoomRent(RatedDto Rdto, int id) {
+//		// TODO Auto-generated method stub
+//		try {
+//			RatesConfig r = rconfig.getById(id);
+//			r.setPrice(Rdto.getPrice());
+//			RatesConfig rc=rconfig.save(r);
+//			Guest guest=repository.findByPackageId(id);
+//			guest.setDefaultRent(r.getPrice());
+//			return rconfig.save(guest.getDefaultRent());
+//		}catch(Exception e)
+//		{
+//			return null;
+//		}
 	
-	return rconfig.save(r);
 
-	}
+//	}
 
 	@Override
 	public List<RatesConfig> findByBuildingIdAndOccupancyType(int buildingId, String occupancyType) {
@@ -844,6 +852,12 @@ public ResponseEntity paymentRemainder(int buildingId)
 		
 		
 		
+	}
+
+	@Override
+	public RatesConfig updateRoomRent(RatedDto Rdto, int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

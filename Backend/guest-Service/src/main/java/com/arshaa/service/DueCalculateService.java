@@ -28,6 +28,8 @@ import com.arshaa.model.DueResponse;
 import com.arshaa.model.EmailResponse;
 import com.arshaa.model.PaymentRemainder;
 import com.arshaa.repository.GuestRepository;
+import com.arshaa.repository.RatesConfigRepository;
+import com.arshaa.repository.SecurityDepositRepo;
 
 @Service
 public class DueCalculateService {
@@ -39,6 +41,11 @@ public class DueCalculateService {
 	@Autowired(required = true)
 	private GuestRepository repository;
 	
+	@Autowired
+	private SecurityDepositRepo sceurityR ;
+	
+	@Autowired
+	private RatesConfigRepository rcr;
 	public double calculateDueGuest(String guestId)
 	{
 		//getGuest detailes by guestid
@@ -314,12 +321,14 @@ public class DueCalculateService {
 	/*
 	 cron=(" *                  *            *           *            *                 *  ")
 	           seconds   minutes  hours    days    months       years
+	           
+	          -------- while running this cron job please be patience----------
 	 */	
-	  @Scheduled(cron = "* 1 * * * *")  
-	     public void addDue() {	    	
-		  updateGuestDue();
-	    	System.out.println("updating due....");
-	  }
+//	  @Scheduled(cron = "30 * * * * *")  
+//	     public void addDue() {	    	
+//		  updateGuestDue();
+//	    	System.out.println("updating due....");
+//	  }
 	
 	
 	public ResponseEntity updateDueAmount(double amountPaid, double refundAmount,String guestId)
@@ -363,7 +372,7 @@ public class DueCalculateService {
 //		double refundAmountCount=data.getTotalRefundAmount();
 		Guest guest  = repository.findById(id);	
 		
-		Defaults def= new Defaults ();
+		Defaults def=  sceurityR.findByOccupancyType(guest.getOccupancyType());
 		if(guest.getGuestStatus().equalsIgnoreCase("InNotice")  &&  guest.getOccupancyType().equalsIgnoreCase("Regular")) {
 		
 			java.util.Date plannedCheckedDate = guest.getPlannedCheckOutDate();
@@ -397,7 +406,7 @@ public class DueCalculateService {
 				//Guest should pay or Refund will see later
 				double  perDayCharge = (guest.getDefaultRent()/30);
 				double thenDues = ((differeneceDays*perDayCharge));
-				double dueCalculation=(thenDues+guest.getDueAmount())-guest.getSecurityDeposit()-def.getMaintainanceCharge();
+				double dueCalculation=(thenDues+guest.getDueAmount())-guest.getSecurityDeposit()+def.getMaintainanceCharge();
 				if(dueCalculation<0)
 				{
 					refundAmount=-1*dueCalculation;
@@ -418,7 +427,8 @@ public class DueCalculateService {
 				//Definitely Refund 
 				double thoDues =  ((differeneceDays*perDayCharge));
 				System.out.println(thoDues);
-				double refundCalculation=(thoDues+def.getMaintainanceCharge()+guest.getSecurityDeposit())-guest.getDueAmount();
+				double refundCalculation=(thoDues-def.getMaintainanceCharge()+guest.getSecurityDeposit())-guest.getDueAmount();
+				System.out.println( "Maintenance charge"+def.getMaintainanceCharge());
 				System.out.println(refundCalculation);
 				if(refundCalculation<0)
 				{
@@ -517,14 +527,14 @@ public class DueCalculateService {
 				String ss = g.getOccupancyType() ;
 			boolean s=	"Regular".contentEquals(ss);
 			System.out.println("s"  + s);
-				if(s==true)
+				if(g.getGuestStatus().equalsIgnoreCase("Regular") && g.getOccupancyType().equalsIgnoreCase("active"))
 				{
 
 					PaymentRemainderData data=template.getForObject(url+g.getId(),PaymentRemainderData.class);
 					double amountPaidCount=data.getTotalAmountPaid();
 					double refundAmountCount=data.getTotalRefundAmount();
 					double dueAmount=g.getDueAmount();
-					double calculateDue=dueAmount+g.getAmountPaid();
+					double calculateDue=dueAmount+g.getAmountPaid()-amountPaidCount+refundAmountCount;
 					Guest guest=repository.findById(g.getId());
 					guest.setDueAmount(calculateDue);
 					repository.save(guest);
@@ -538,5 +548,36 @@ public class DueCalculateService {
 			return new ResponseEntity("No due",HttpStatus.OK);
 		}
 		}
+	
+	
+	public ResponseEntity updatePackageIdInGuest()
+	{
+		String bURL="http://bedService/bed/getStatusByGuestId/";
+		try {
+			List<Guest>getAll=repository.findAll();
+			if(!getAll.isEmpty())
+			{
+				getAll.forEach(g->{
+					if(g.getGuestStatus().equalsIgnoreCase("Regular") && g.getOccupancyType().equalsIgnoreCase("active"))
+					{
+						Guest guest=repository.findById(g.getId());
+						String bedStatus=template.getForObject(bURL+g.getId(),String.class);
+						int packageId=rcr.findByBuildingIdAndOccupancyTypeAndPriceAndRoomType(g.getBuildingId(),g.getOccupancyType(),g.getDefaultRent(),bedStatus).getId();
+						guest.setPackageId(packageId);
+						repository.save(guest);
+					}
+					
+				});
+				return new ResponseEntity("Success",HttpStatus.OK);
+			}
+			else {
+				return new ResponseEntity("DATA NOT FOUND",HttpStatus.OK);
+			}
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity(e.getMessage(),HttpStatus.OK);
+		}
+	}
 	
 }

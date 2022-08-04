@@ -44,6 +44,8 @@ public interface GuestRepository extends JpaRepository<Guest, Integer> {
 	
 	Guest getEmailById(String id);
 
+	Guest findByPackageId(int id);
+
 //	@Query(value = "CALL PAYMENTS_REMAINDER(:building_id);", nativeQuery = true)
 //	List<Guest> findGuestsByBuildingId(@Param("building_id") int buildingId);
 }
