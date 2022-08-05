@@ -113,5 +113,4 @@ function VacatedRegGuestDetails(props) {
 </Grid>
   )
 }
-
 export default VacatedRegGuestDetails

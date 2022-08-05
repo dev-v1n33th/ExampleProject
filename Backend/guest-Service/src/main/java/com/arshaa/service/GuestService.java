@@ -4,6 +4,7 @@ package com.arshaa.service;
 import com.arshaa.common.CheckOutIntiated;
 import com.arshaa.common.FinalCheckOutConfimation;
 import com.arshaa.common.InitiateCheckoutByGuestId;
+import com.arshaa.common.InitiatingCheckOut;
 import com.arshaa.common.OnboardingConfirmation;
 import com.arshaa.model.EmailResponse;
 
@@ -822,7 +823,7 @@ public ResponseEntity paymentRemainder(int buildingId)
 	
 	@Override
 	public ResponseEntity GuestCheckoutBody(InitiateCheckoutByGuestId gcb ,String id) {
-		
+		 String mailUri="http://emailService/mail/sentInitiatingCheckOutRemainder";
 		try {
 			Guest guest = repository.findById(id);	
 			guest.setId(id);
@@ -832,9 +833,21 @@ public ResponseEntity paymentRemainder(int buildingId)
 			guest.setGuestStatus("InNotice");
 		//	guest.setCheckOutDate(gcb.getPlannedCheckOutDate());
 			repository.save(guest);
+			
 			dueService.calculateDueForInNotice(id);
+			
+			InitiatingCheckOut mail= new InitiatingCheckOut();
+	           mail.setName(guest.getFirstName()+guest.getLastName());
+	           mail.setNoticeDate(guest.getNoticeDate());
+	           mail.setPlannedCheckOutDate(guest.getPlannedCheckOutDate());
+	           String name=template.getForObject("http://bedService/bed/getBuildingNameByBuildingId/"+ guest.getBuildingId(), String.class);
+	           mail.setBuildingName(name);
+	           mail.setBedId(guest.getBedId());
+	           mail.setEmail(guest.getEmail());
+	           InitiatingCheckOut res = template.postForObject(mailUri, mail, InitiatingCheckOut.class);
+
 	
-		return new ResponseEntity ("Checkout intiated successfully" , HttpStatus.OK);
+		return new ResponseEntity ("Checkout intiated successfully and home mail would have also sent" , HttpStatus.OK);
 		}
 		catch(Exception e)
 		{

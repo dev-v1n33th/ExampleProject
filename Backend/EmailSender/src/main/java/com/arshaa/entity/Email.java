@@ -8,12 +8,10 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-@Entity
-@Table(name="Email")
 public class Email
 {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)	
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)	
 	private int id;
 	private String name;
 	

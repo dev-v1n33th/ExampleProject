@@ -145,6 +145,33 @@ public class EmailSender {
 	
 	}
 	
+	public ResponseEntity sendInitiateCheckOutNotification(String email, String name,Date noticeDate,Date plannedCheckOutDate,
+			String buildingName, String bedId) {
+		EmailResponse response = new EmailResponse();
+		try {
+			
+			
+			SimpleMailMessage msg = new SimpleMailMessage();
+			msg.setTo(email);
+			msg.setSubject(eCons.INITIATEDCHECKOUT_CONFIRMATION);
+		       
+
+			msg.setText("Hi " + name + "," + "\n" + "\n"
+					+ "Welcome to Sree Lakshmi Heavens, you are checked in to the PG successfully with the below details :"
+					+ " buildingName : " + buildingName + ", bedId : " + bedId + ",notice Given Date :" + noticeDate+ " , Planned CheckOutDate : " + plannedCheckOutDate + "." + "\n"
+					+ "\n" + "Please let me know if you have any questions" + "\n" + "\n" + "Regards," + "\n"
+					+ "Manager" + "\n" + "Sree Lakshmi Heavens");
+			mailSender.send(msg);
+			response.setMessage("email sent successfully");
+			response.setStatus(true);
+			return new ResponseEntity(response, HttpStatus.OK);
+		} catch (Exception e) {
+			response.setMessage("something went wrong");
+			response.setStatus(false);
+			return new ResponseEntity(response, HttpStatus.OK);
+		}
+	}
+
 	
 	
 	

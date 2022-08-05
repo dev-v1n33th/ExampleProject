@@ -96,7 +96,7 @@ public class Guest implements Serializable {
     
 //	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
   
-    private Date noticeDate;
+   
      private double amountPaid;
     private String checkinNotes;
     @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
@@ -107,6 +107,7 @@ public class Guest implements Serializable {
     private Date checkInDate ;
     
    // @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date noticeDate;
     @JsonFormat(pattern="yyyy-MM-dd")
     private java.util.Date plannedCheckOutDate;
    // @DateTimeFormat(pattern = "dd-MM-yyyy")

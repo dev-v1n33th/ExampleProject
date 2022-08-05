@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.arshaa.common.InitiatingCheckOut;
 import com.arshaa.common.OnboardingConfirmation;
 import com.arshaa.common.PaymentConfirmation;
 import com.arshaa.entity.PaymentRemainder;
@@ -60,6 +61,12 @@ public class EmailSenderController {
 			throws AddressException, MessagingException, IOException {
 		return emailSender.sendPaymentConfirmation(pconfirm.getEmail(), pconfirm.getName(), pconfirm.getAmountPaid(),
 				pconfirm.getTransactionId(), pconfirm.getDate(), pconfirm.getPaymentId(),pconfirm.getRefundAmount());
+	}
+	
+	@PostMapping("/sentInitiatingCheckOutRemainder")
+	public ResponseEntity sendInitiatingCheckOutConfirmation(@RequestBody InitiatingCheckOut notice) 
+		throws AddressException, MessagingException , IOException {
+		return  emailSender.sendInitiateCheckOutNotification(notice.getEmail(),notice.getName(),notice.getNoticeDate() ,notice.getPlannedCheckOutDate(),notice.getBuildingName(), notice.getBedId());
 	}
 
 }

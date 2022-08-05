@@ -29,8 +29,6 @@ public interface GuestInterface {
     public Guest addGuest(Guest guest) ;
     
     public Guest addPostGuest(PreviousGuests guest) ;
-
-
     public double updateGuest(Guest guest);
     
     
